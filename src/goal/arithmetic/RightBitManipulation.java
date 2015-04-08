@@ -10,7 +10,7 @@ public class RightBitManipulation {
 	 * 
 	 * btoi = Integer.parseInt(word, 2)
 	 * 
-	 * @param bString word string
+	 * @param bString A word string
 	 */
 	public static void turnOffRightOneBit(String bString){
 		int btoi = Integer.parseInt(bString, 2);
