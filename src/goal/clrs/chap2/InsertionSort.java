@@ -14,9 +14,11 @@ public class InsertionSort {
 				k--;
 				if(k<0) 
 					break;
-			}	
+			}
+			
 			arr[k+1] = current;
 		}
+		
 		print(arr);
 	}
 
