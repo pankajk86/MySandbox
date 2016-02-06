@@ -1,4 +1,4 @@
-package com.algorithms.sorting;
+package goal.algorithms.dnc;
 
 public class MergeSort {
 
