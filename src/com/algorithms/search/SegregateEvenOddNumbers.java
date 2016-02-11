@@ -11,6 +11,13 @@ public class SegregateEvenOddNumbers {
 		}
 	}
 
+	/**
+	 * This is a variant of "Dutch National Flag problem".
+	 * 
+	 * @param arr
+	 * @param left
+	 * @param right
+	 */
 	private static void segrateNumbers(int[] arr, int left, int right) {
 		
 		while(left < right) {
