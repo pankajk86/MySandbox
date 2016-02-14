@@ -1,4 +1,4 @@
-package com.algorithms.search;
+package goal.algorithms.search;
 
 public class CountOccurances {
 
