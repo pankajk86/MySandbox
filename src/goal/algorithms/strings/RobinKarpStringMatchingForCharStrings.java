@@ -10,6 +10,9 @@ public class RobinKarpStringMatchingForCharStrings {
 		System.out.println("Starting Location of the pattern in text: " + startLoc);
 	}
 
+	/*
+	 * The logic is wrong in here.
+	 */
 	private static int searchPattern(String text, String pattern) {
 		
 		int patternHash = 1;
