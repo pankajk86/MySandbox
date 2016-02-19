@@ -45,7 +45,9 @@ public class RobinKarpStringMatchingForCharStrings {
 
 enum Characters {
 
-	a(2), b(3), c(5), d(7), e(9), f(11), g(13), h(17); 
+	a(2), b(3), c(5), d(7), e(9), f(11), g(13), h(17), i(19), 
+	j(23), k(29), l(31), m(37), n(41), o(43), p(47), q(53), 
+	r(61), s(67), t(71), u(73), v(79), w(83), x(87), y(93), z(97); 
 
 	private final int primeCode;
 

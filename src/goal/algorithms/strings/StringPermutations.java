@@ -24,6 +24,7 @@ public class StringPermutations {
 		}
 				
 		for(int i=0; i<n ; i++) {
+			// we are keeping one character fix (char at index i) and then calculating permutations of others
 			stringPermutations(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
 		}
 	}
