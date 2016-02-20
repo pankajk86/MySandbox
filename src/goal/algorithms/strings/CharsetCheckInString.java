@@ -10,6 +10,13 @@ public class CharsetCheckInString {
 		System.out.println("Mininum window for " + CHARS + " in " + INPUT + " : " + minWindow);
 	}
 
+	/**
+	 * This approach works only if the chars elements exist next to each other.
+	 * 
+	 * @param input
+	 * @param chars
+	 * @return
+	 */
 	private static String getCharsetMinWindow(String input, String chars) {
 		
 		int charsHashCode = 1;
