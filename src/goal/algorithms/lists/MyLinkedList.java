@@ -3,11 +3,11 @@ package goal.algorithms.lists;
 public class MyLinkedList {
 
 	private Node head;
-	private static int count;
+	private int count;
 	
 	public MyLinkedList() {
 		this.head = null;
-		MyLinkedList.count = 0;
+		this.count = 0;
 	}
 	
 	/**
