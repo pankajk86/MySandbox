@@ -16,7 +16,7 @@ public class MyLinkedListTest {
 			System.out.println(list.get(i));
 		}
 		
-		System.out.println(list.get(7));
+		System.out.println(list.get(5));
 		
 		list.remove(1);
 		list.remove(2);

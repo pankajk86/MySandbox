@@ -95,7 +95,7 @@ public class MyLinkedList {
 	public Object get(int index) {
 		Node current = head;
 		
-		if(index > count || index < 0) {
+		if(index >= count || index < 0) {
 			return null;
 		}
 		
