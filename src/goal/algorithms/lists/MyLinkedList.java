@@ -1,5 +1,8 @@
 package goal.algorithms.lists;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyLinkedList {
 
 	private Node head;
@@ -8,6 +11,10 @@ public class MyLinkedList {
 	public MyLinkedList() {
 		this.head = null;
 		this.count = 0;
+	}
+	
+	public Node getHead() {
+		return head;
 	}
 	
 	/**
@@ -85,6 +92,28 @@ public class MyLinkedList {
 		
 		count--;
 	}
+	
+	/**
+	 * @param list
+	 * @return
+	 */
+	public void removeDuplicates() {
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Node previous = null;
+		Node current = head;
+		
+		while (current != null) {
+			if(map.containsKey(current.getData())) {
+				previous.setNext(current.getNext());
+				count--;
+			} else {
+				map.put((Integer) current.getData(), 1);
+				previous = current;
+			}
+			current = current.getNext();
+		}
+	}
+	
 	
 	/**
 	 * Returns the data stored at the provided index in the list.
