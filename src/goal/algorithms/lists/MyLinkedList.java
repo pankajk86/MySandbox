@@ -98,7 +98,7 @@ public class MyLinkedList {
 	 * @return
 	 */
 	public void removeDuplicates() {
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Map<Object, Integer> map = new HashMap<Object, Integer>();
 		Node previous = null;
 		Node current = head;
 		
@@ -107,7 +107,7 @@ public class MyLinkedList {
 				previous.setNext(current.getNext());
 				count--;
 			} else {
-				map.put((Integer) current.getData(), 1);
+				map.put(current.getData(), 1);
 				previous = current;
 			}
 			current = current.getNext();
