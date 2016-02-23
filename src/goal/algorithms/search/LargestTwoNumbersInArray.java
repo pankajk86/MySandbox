@@ -25,7 +25,7 @@ public class LargestTwoNumbersInArray {
 			}
 		}
 		
-		int newArr[] = {l1, l2};
+		int newArr[] = {l1, l2}; 
 		
 		return newArr;
 	}
