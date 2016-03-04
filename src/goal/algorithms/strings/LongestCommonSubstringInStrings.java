@@ -1,5 +1,8 @@
 package goal.algorithms.strings;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LongestCommonSubstringInStrings {
 
 	public static void main(String[] args) {

@@ -9,6 +9,7 @@ public class PangramCheck {
 		String str = "We promptly judgEd antique ivory buckles for the next prize";
 		boolean result = checkPangram(str);
 		System.out.println(str + " is pangram?: " + result);
+		
 	}
 
 	private static boolean checkPangram(String str) {
