@@ -19,7 +19,7 @@ public class ReverseList {
 		
 	}
 
-	private static Node reverseList(MyLinkedList list) {
+	public static Node reverseList(MyLinkedList list) {
 		
 		Node head = list.getHead();
 		Node currentNode = head, previousNode = null;
