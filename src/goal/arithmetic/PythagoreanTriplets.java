@@ -17,20 +17,16 @@ public class PythagoreanTriplets {
 		Set<Integer> squareIntegers = new TreeSet<Integer>();
 		
 		for(int i=0; i<arr.length; i++) {
-			int square = (int) Math.pow(arr[i], 2);
-			arr[i] = square;
-			squareIntegers.add(square);
+			int squared = (int)(Math.pow(arr[i], 2));
+			squareIntegers.add(squared);
 		}
 		
 		for(int i=0; i<arr.length; i++) {
 			for(int j= (i+1); j<arr.length; j++) {
-				int biggest = arr[i] + arr[j];
+				int biggest = (int) (Math.pow(arr[i], 2) + Math.pow(arr[j], 2));
 				
 				if(squareIntegers.contains(biggest)) {
-					System.out.println(
-							"(" + (int) Math.sqrt(arr[i]) + 
-							", " + (int) Math.sqrt(arr[j]) + 
-							", " + (int) Math.sqrt(biggest) + ")");
+					System.out.println("(" + arr[i] + ", " + arr[j] + ", " + (int) Math.sqrt(biggest) + ")");
 				}
 			}
 		}
