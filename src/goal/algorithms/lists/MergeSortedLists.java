@@ -14,6 +14,15 @@ public class MergeSortedLists {
 		for(int i=0; i<mergedList.size(); i++) {
 			System.out.print(mergedList.get(i) + " "); 
 		}
+		
+		System.out.println("\nUsing list heads as pointers");
+		
+		Node mergedHead = mergeSortedLists(l1.getHead(), l2.getHead());
+		
+		while(mergedHead != null) {
+			System.out.print(mergedHead.getData() + " ");
+			mergedHead = mergedHead.getNext();
+		}
 	}
 
 	private static MyLinkedList mergeSortedLists(MyLinkedList l1, MyLinkedList l2) {
@@ -46,6 +55,35 @@ public class MergeSortedLists {
 		}
 		
 		return mergedList;
+	}
+	
+	public static Node mergeSortedLists(Node head1, Node head2) {
+		
+		Node p1 = head1, p2 = head2;
+		Node mergeList = new Node(null);
+
+		Node p = mergeList;
+		
+		while(p1 != null && p2 != null) {
+			if((int) p1.getData() < (int) p2.getData()) {
+				p.setNext(p1);
+				p1 = p1.getNext();
+			} else {
+				p.setNext(p2);
+				p2 = p2.getNext();
+			}
+			p = p.getNext();
+		}
+		
+		if(p1 == null) {
+			p.setNext(p2);
+		}
+		
+		if(p2 == null) {
+			p.setNext(p1);
+		}
+		
+		return mergeList.getNext();
 	}
 
 }

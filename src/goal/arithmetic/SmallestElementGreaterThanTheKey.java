@@ -26,6 +26,7 @@ public class SmallestElementGreaterThanTheKey {
 				begin = mid+1;
 			}
 		}
+		
 		return 0;
 	}
 
