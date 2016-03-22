@@ -6,16 +6,16 @@ import java.util.List;
 public class Vertex<T> {
 	
 	private int id;
-	private List<Edge<T>> adjEdges;
+	private List<Vertex<T>> adjVertices;
 	private boolean explored = false;
 	
 	public Vertex(int id) {
-		adjEdges = new LinkedList<Edge<T>>();
+		adjVertices = new LinkedList<Vertex<T>>();
 		this.id = id;
 	}
 	
-	public List<Edge<T>> getAdjEdges() {
-		return adjEdges;
+	public List<Vertex<T>> getAdjVertices() {
+		return adjVertices;
 	}
 	
 	public boolean isExplored() {

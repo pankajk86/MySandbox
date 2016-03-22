@@ -18,20 +18,25 @@ public class GraphTest {
 		graph.addEdge(B, C);
 		graph.addEdge(C, A);
 
-		testAddEdge(graph);
+		System.out.println("After adding edges: ");
+		printGraph(graph);
 
+		graph.deleteEdge(A, B);
+		
+		System.out.println("After deleting edge " +A.getId() + "->" + B.getId() + ": ");
+		printGraph(graph);
 	}
 
-	private static void testAddEdge(Graph<Integer> graph) {
-		Map<Vertex<Integer>, List<Edge<Integer>>> adjMap = graph.getAdjMap();
+	private static void printGraph(Graph<Integer> graph) {
+		Map<Vertex<Integer>, List<Vertex<Integer>>> adjMap = graph.getAdjMap();
 
-		for (Entry<Vertex<Integer>, List<Edge<Integer>>> entry : adjMap.entrySet()) {
+		for (Entry<Vertex<Integer>, List<Vertex<Integer>>> entry : adjMap.entrySet()) {
+			System.out.print(entry.getKey().getId() + ": ");
 
-			System.out.println("Vertex: " + entry.getKey().getId());
-
-			for (Edge<Integer> edge : entry.getValue()) {
-				System.out.println(edge.getStart().getId() + "==" + edge.getEnd().getId());
+			for (Vertex<Integer> vertex : entry.getValue()) {
+				System.out.print(vertex.getId() + " ");
 			}
+			System.out.println();
 		}
 	}
 
