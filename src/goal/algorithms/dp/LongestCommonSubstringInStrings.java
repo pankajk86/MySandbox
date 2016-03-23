@@ -1,11 +1,11 @@
-package goal.algorithms.strings;
+package goal.algorithms.dp;
 
 
 public class LongestCommonSubstringInStrings {
 
 	public static void main(String[] args) {
-		String s1 = "a";
-		String s2 = "world";
+		String s1 = "lo w";
+		String s2 = "hello world";
 
 		String result = commonSubstringPresent(s1, s2);
 		System.out.println("Common substring: " + result);
