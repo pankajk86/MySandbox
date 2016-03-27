@@ -1,4 +1,4 @@
-package goal.arithmetic;
+package goal.algorithms.dp;
 
 public class MaxSubArray {
 
