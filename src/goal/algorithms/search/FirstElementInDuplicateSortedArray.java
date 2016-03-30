@@ -3,10 +3,13 @@ package goal.algorithms.search;
 public class FirstElementInDuplicateSortedArray {
 
 	public static void main(String[] args) {
-		int arr[] = {1,1,2,2,2,3,3,3,3};
-		int searchItem = 3;
+		int arr[] = {5, 7, 7, 8, 8, 10};
+		int searchItem = 8;
 		int index = searchFirst(arr, 0, arr.length-1, searchItem);
 		System.out.println("Index of first " + searchItem + " is: " + index);
+		
+		int end = searchEnd(arr, 0, arr.length-1, searchItem);
+		System.out.println(end);
 	}
 
 	private static int searchFirst(int[] arr, int left, int right, int data) {
@@ -35,6 +38,25 @@ public class FirstElementInDuplicateSortedArray {
 				return searchFirst(arr, left, mid-1, data);
 			}else {
 				return searchFirst(arr, mid+1, right, data);
+			}
+		}
+	}
+	
+	private static int searchEnd(int[] arr, int left, int right, int data) {
+		if(left > right) {
+			return -1;
+		}
+		
+		int mid = left + (right-left)/2;
+		
+		if(arr[mid] == data && mid == right || arr[mid] == data && arr[mid+1] > data) {
+			return mid;
+		} else {
+			// here, we are giving the right half preference
+			if (data < arr[mid]) {
+				return searchEnd(arr, left, mid-1, data);
+			}else {
+				return searchEnd(arr, mid+1, right, data);
 			}
 		}
 	}
