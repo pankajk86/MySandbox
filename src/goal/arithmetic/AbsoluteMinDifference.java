@@ -5,7 +5,7 @@ import goal.algorithms.dnc.MergeSort;
 public class AbsoluteMinDifference {
 
     public static void main(String[] args) {
-        int arr[] = { -4, 3, 9, -200, 0, 7, 17, 91, };
+        int arr[] = { -4, 3, 9, -200, 0, 7, 17, 91 };
 
         MergeSort.mergeSort(arr, 0, arr.length - 1);
         int minDiff = getMinAbsDifference(arr);
