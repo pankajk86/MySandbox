@@ -5,7 +5,7 @@ public class CoinDenomination {
     public static void main(String[] args) {
 
         int coins[] = { 1, 3, 5 };
-        int target = 11;
+        int target = 8;
 
         // int minCoinDenomination = getMinCoinDenomination(coins, target);
 

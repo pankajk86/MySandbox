@@ -4,15 +4,47 @@ public class BinarySearchInTwoDArray {
 
     public static void main(String[] args) {
 
-        int[][] arr = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 50 } };
+        int[][] arr = { 
+                {  1,  3,  5,  7 }, 
+                { 10, 11, 16, 20 }, 
+                { 23, 30, 34, 50 } 
+                };
 
         // int [][] arr = {{1}};
-        int target = 4;
+        int target = 11;
 
         int rowIndex = getRow(arr, 0, arr.length - 1, target);
         int columnIndex = getColumn(arr[rowIndex], 0, arr[0].length - 1, target);
 
         System.out.println("Row: " + rowIndex + ", Column:" + columnIndex);
+
+        boolean doesTargetExist = searchInTwoDArray(arr, target);
+        System.out.println(target + " exists? : " + doesTargetExist);
+
+    }
+
+    private static boolean searchInTwoDArray(int[][] a, int target) {
+
+        int m = a.length;
+        int n = a[0].length;
+
+        int start = 0, end = (m * n - 1);
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int midX = mid / n;
+            int midY = mid % n;
+
+            if (a[midX][midY] == target) {
+                return true;
+            } else if (a[midX][midY] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return false;
     }
 
     private static int getRow(int[][] arr, int low, int high, int target) {

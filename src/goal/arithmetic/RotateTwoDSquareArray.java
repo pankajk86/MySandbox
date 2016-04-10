@@ -5,9 +5,11 @@ public class RotateTwoDSquareArray {
     public static void main(String[] args) {
 
         int[][] arr = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
+                {1, 2, 3, 11, 21},
+                {4, 5, 6, 12, 22},
+                {7, 8, 9, 13, 23},
+                {17, 18, 19, 20, 24},
+                {27, 28, 29, 30, 25},
         };
 
         int n = arr.length;
