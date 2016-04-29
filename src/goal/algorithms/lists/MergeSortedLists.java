@@ -64,6 +64,13 @@ public class MergeSortedLists {
         return mergedList;
     }
 
+    /**
+     * Preferred, at least in my opinion
+     * 
+     * @param head1
+     * @param head2
+     * @return
+     */
     public static Node mergeSortedLists(Node head1, Node head2) {
 
         Node p1 = head1, p2 = head2;
