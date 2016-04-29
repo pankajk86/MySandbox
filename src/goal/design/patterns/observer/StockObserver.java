@@ -24,4 +24,24 @@ public class StockObserver implements Observer {
         System.out.println("IBM: " + ibmPrice + ", APPL: " + applPrice + ", GOOG: " + googPrice);
     }
 
+    public double getIbmPrice() {
+        return ibmPrice;
+    }
+
+    public double getApplPrice() {
+        return applPrice;
+    }
+
+    public double getGoogPrice() {
+        return googPrice;
+    }
+
+    public Subject getStockGrabber() {
+        return stockGrabber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }
