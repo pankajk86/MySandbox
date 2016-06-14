@@ -1,0 +1,5 @@
+[12/Jun/2016 09:53:44 -0700] INFO     127.0.0.1 -anon- - "GET / HTTP/1.1" -- login redirection
+[12/Jun/2016 09:54:46 -0700] WARNING  127.0.0.1 pankajk - "POST /accounts/login/ HTTP/1.1" -- Successful login for user: pankajk
+[12/Jun/2016 09:54:46 -0700] INFO     127.0.0.1 pankajk - "GET / HTTP/1.1"
+[12/Jun/2016 09:54:47 -0700] INFO     127.0.0.1 pankajk - "GET /jobbrowser/ HTTP/1.1"
+[12/Jun/2016 09:54:47 -0700] INFO     127.0.0.1 pankajk - "GET /desktop/debug/check_config HTTP/1.1"
