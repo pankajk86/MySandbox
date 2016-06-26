@@ -11,6 +11,7 @@ public class BSTTest {
         bst.add(3);
         bst.add(5);
         bst.add(7);
+        bst.add(8);
 
         bst.print(bst.getRoot());
     }
