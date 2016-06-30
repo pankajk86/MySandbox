@@ -11,6 +11,30 @@ public class KMaxElementsInArray {
         int a[] = { 4, 3, 1, 7, 5, 2, 18, 9, 10 };
         int k = 5;
 
+        // getMaxByCreatingAndDeletingInHeap(a, k);
+
+        getMaxByMaintainingSizeOfHeap(a, k);
+    }
+
+    private static void getMaxByMaintainingSizeOfHeap(int[] a, int k) {
+
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(k);
+
+        for (int i : a) {
+            if (pq.size() == k) {
+                pq.poll();
+            }
+            pq.add(i);
+        }
+
+        Integer val = null;
+
+        while ((val = pq.poll()) != null) {
+            System.out.print(val + " ");
+        }
+    }
+
+    private static void getMaxByCreatingAndDeletingInHeap(int a[], int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
 
         for (int i : a) {
