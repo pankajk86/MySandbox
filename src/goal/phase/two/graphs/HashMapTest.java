@@ -16,7 +16,7 @@ public class HashMapTest {
         empSalary.put(e2, 20000);
         empSalary.put(e3, 15000);
 
-        System.out.println("Salary of e2: " + empSalary.get(e2));
+        System.out.println("Salary of e2: " + empSalary.get(new Employee("e2", "Sushil")));
         System.out.println("Salary of e1: " + empSalary.get(e1));
         System.out.println("Salary of e3: " + empSalary.get(e3));
     }
@@ -30,14 +30,30 @@ public class HashMapTest {
             this.name = name;
         }
 
-        public boolean equals(Employee e) {
-            return (this.id == e.id);
-        }
-
+        @Override
         public int hashCode() {
             final int prime = 31;
-            return prime * id.hashCode();
+            int result = 1;
+            result = prime * result + ((id == null) ? 0 : id.hashCode());
+            return result;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+
+            Employee other = (Employee) obj;
+            if (id == null) {
+                if (other.id != null)
+                    return false;
+            } else if (!id.equals(other.id))
+                return false;
+            return true;
+        }
+
     }
 
 }
