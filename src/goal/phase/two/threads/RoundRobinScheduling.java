@@ -59,9 +59,4 @@ class RRThread implements Runnable {
             }
         }
     }
-
-    public void start() {
-
-    }
-
 }
