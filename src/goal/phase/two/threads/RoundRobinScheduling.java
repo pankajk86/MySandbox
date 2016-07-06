@@ -12,9 +12,9 @@ public class RoundRobinScheduling {
         final Lock lock = new ReentrantLock();
         final Condition condition = lock.newCondition();
 
-        Thread t1 = new Thread(new RRThread(lock, condition, 1, 2, count));
-        Thread t2 = new Thread(new RRThread(lock, condition, 2, 3, count));
-        Thread t3 = new Thread(new RRThread(lock, condition, 3, 1, count));
+        Thread t1 = new Thread(new RRThread(lock, condition, 1, 2));
+        Thread t2 = new Thread(new RRThread(lock, condition, 2, 3));
+        Thread t3 = new Thread(new RRThread(lock, condition, 3, 1));
 
         t1.start();
         t2.start();
@@ -30,7 +30,7 @@ class RRThread implements Runnable {
     int actual;
     int next;
 
-    public RRThread(Lock lock, Condition condition, int actual, int next, int count) {
+    public RRThread(Lock lock, Condition condition, int actual, int next) {
         this.lock = lock;
         this.condition = condition;
         this.actual = actual;
