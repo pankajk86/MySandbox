@@ -20,13 +20,30 @@ public class ParkingSpot {
     }
 
     public boolean canFitVehicle(Vehicle v) {
-        // TODO
-        return false;
+        if (v.getSize() == VehicleSize.SMALL) {
+            return true;
+        } else if (v.getSize() == VehicleSize.COMPACT) {
+            return this.spotSize == VehicleSize.COMPACT || this.spotSize == VehicleSize.LARGE;
+        } else {
+            return this.spotSize == VehicleSize.LARGE;
+        }
     }
 
     public boolean park(Vehicle v) {
-        // TODO
+
+        if (v.getSize() == VehicleSize.SMALL) {
+            this.vehicle = v;
+        }
+
         return false;
+    }
+
+    public ParkingLevel getLevel() {
+        return this.level;
+    }
+
+    public int getRow() {
+        return this.row;
     }
 
     public int getSpotNumber() {
@@ -34,6 +51,6 @@ public class ParkingSpot {
     }
 
     public void removeVehicle() {
-        // TODO
+        vehicle = null;
     }
 }

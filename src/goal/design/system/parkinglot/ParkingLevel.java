@@ -7,30 +7,33 @@ public class ParkingLevel {
 
     private int floor;
     private List<ParkingSpot> spots;
-    private int availableSpots;
+    private List<ParkingSpot> availableSpots;
 
     public ParkingLevel(int floor, int numberOfSpots) {
         this.floor = floor;
         this.spots = new ArrayList<>(numberOfSpots);
-        this.availableSpots = numberOfSpots;
+        this.availableSpots = new ArrayList<>(numberOfSpots);
     }
 
     public void addSpots(ParkingSpot spot) {
         this.spots.add(spot);
+        this.availableSpots.add(spot);
     }
 
-    public int getAvailableSpots() {
+    public List<ParkingSpot> getAvailableSpots() {
         return this.availableSpots;
     }
 
     public boolean parkVehicle(Vehicle v) {
-        // TODO
+        for (ParkingSpot spot : getAvailableSpots()) {
+            if (spot.canFitVehicle(v)) {
+                spot.park(v);
+                v.setParkedSpot(spot);
+                availableSpots.remove(spot);
+                return true;
+            }
+        }
         return false;
-    }
-
-    public int findAvailableSpots(Vehicle v) {
-        // TODO
-        return 0;
     }
 
     public List<ParkingSpot> getSpots() {
@@ -41,7 +44,8 @@ public class ParkingLevel {
         return this.floor;
     }
 
-    public void spotFreed() {
-        availableSpots++;
+    public void spotFreed(ParkingSpot spot) {
+        spot.removeVehicle();
+        availableSpots.add(spot);
     }
 }

@@ -1,21 +1,23 @@
 package goal.design.system.parkinglot;
 
-public abstract class Vehicle {
-    protected ParkingSpot parkingSpot;
+public class Vehicle {
+    protected ParkingSpot parkedSpot;
     protected String licencePlate;
     protected VehicleSize size;
+
+    public Vehicle(String licencePlate) {
+        this.licencePlate = licencePlate;
+    }
 
     public VehicleSize getSize() {
         return size;
     }
 
-    public void park(ParkingSpot s) {
-        parkingSpot = s;
+    public void setParkedSpot(ParkingSpot s) {
+        parkedSpot = s;
     }
 
     public void clear() {
-        // TODO
+        parkedSpot = null;
     }
-
-    public abstract boolean canFitInSpot(ParkingSpot s);
 }
