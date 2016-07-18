@@ -5,8 +5,15 @@ import java.util.Set;
 
 public class WordSegment {
 
-    public static void main(String[] args) {
+    static String sentence = "";
 
+    public static void main(String[] args) {
+        test1();
+        sentence = "";
+        test2();
+    }
+
+    private static void test1() {
         Set<String> dict = new HashSet<String>();
         dict.add("man");
         dict.add("power");
@@ -18,12 +25,32 @@ public class WordSegment {
         String str = "mandentalpower";
 
         boolean success = segmentWords(dict, str);
-        System.out.println("Words can be segmented? " + success);
+        System.out.println("(test1): Words can be segmented? " + success);
+        System.out.println(sentence);
+    }
+
+    private static void test2() {
+        Set<String> dict = new HashSet<String>();
+        dict.add("from");
+        dict.add("waterloo");
+        dict.add("hi");
+        dict.add("am");
+        dict.add("yes");
+        dict.add("i");
+        dict.add("am");
+        dict.add("a");
+        dict.add("student");
+        String str = "iamastudentfromwaterloo";
+
+        boolean success = segmentWords(dict, str);
+        System.out.println("(test2): Words can be segmented? " + success);
+        System.out.println(sentence);
     }
 
     private static boolean segmentWords(Set<String> dict, String str) {
 
         if (dict.contains(str)) {
+            sentence = str + " " + sentence;
             return true;
         }
 
@@ -39,6 +66,7 @@ public class WordSegment {
                 }
 
                 if (success) {
+                    sentence = part + " " + sentence;
                     return true;
                 }
             }
