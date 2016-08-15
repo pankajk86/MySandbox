@@ -3,11 +3,14 @@ package goal.phase.two.strings;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Has Bug. Current test case shows that.
+ */
 public class IsomorphicStrings {
 
     public static void main(String[] args) {
 
-        String a = "foo", b = "bar";
+        String a = "fooo", b = "baar";
         boolean result = isIsomorphic(a, b);
 
         System.out.println("Result: " + result);
