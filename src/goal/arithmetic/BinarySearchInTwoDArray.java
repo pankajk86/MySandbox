@@ -3,7 +3,12 @@ package goal.arithmetic;
 public class BinarySearchInTwoDArray {
 
     public static void main(String[] args) {
+        test1();
+        test2();
 
+    }
+
+    private static void test1() {
         int[][] arr = { 
                 {  1,  3,  5,  7 }, 
                 { 10, 11, 16, 20 }, 
@@ -13,6 +18,7 @@ public class BinarySearchInTwoDArray {
         // int [][] arr = {{1}};
         int target = 11;
 
+        System.out.println("Test1: ");
         int rowIndex = getRow(arr, 0, arr.length - 1, target);
         int columnIndex = getColumn(arr[rowIndex], 0, arr[0].length - 1, target);
 
@@ -20,7 +26,37 @@ public class BinarySearchInTwoDArray {
 
         boolean doesTargetExist = searchInTwoDArray(arr, target);
         System.out.println(target + " exists? : " + doesTargetExist);
+    }
+    
+    private static void test2() {
+        int[][] arr = { 
+                { 15, 20, 40, 85 }, 
+                { 20, 35, 80, 95 }, 
+                { 30, 55, 95, 105 },
+                { 40, 80, 100, 120 }
+            };
 
+        int target = 55;
+
+        System.out.println("Test2: " + search(arr, target));
+    }
+
+    /*
+     * Time Complexity : O(M log N), where M = # of rows, N = # of columns
+     */
+    private static boolean search(int[][] a, int target) {
+        int row = 0, col = a[0].length - 1;
+
+        while (row < a.length && col >= 0) {
+            if (a[row][col] == target) {
+                return true;
+            } else if (a[row][col] > target) {
+                col--;
+            } else {
+                row++;
+            }
+        }
+        return false;
     }
 
     private static boolean searchInTwoDArray(int[][] a, int target) {
