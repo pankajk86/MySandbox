@@ -14,6 +14,15 @@ public class MedianOfInfiniteIntegers {
 
     private static float getMedian(int[] a) {
 
+        /*
+         * min heap will store the larger half of the integers, whereas max heap
+         * will store the smaller half.
+         * 
+         * For example: If the input is 2,4,3,1,6,5; then min heap will contain
+         * 4,5,6; whereas max heap will contain 3,2,1.
+         * 
+         * For finding the median, we will peek() both heaps in O(1).
+         */
         PriorityQueue<Integer> min = new PriorityQueue<Integer>();
         PriorityQueue<Integer> max = new PriorityQueue<Integer>(10, Collections.reverseOrder());
 
