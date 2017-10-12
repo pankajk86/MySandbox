@@ -20,7 +20,7 @@ public class NumberOfIslands {
         int count = 0;
 
         for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length; j++) {
+            for (int j = 0; j < arr[i].length; j++) {  // updated arr[0] to arr[i]
                 if (arr[i][j] == 1) {
                     count++;
                     merge(arr, i, j);
