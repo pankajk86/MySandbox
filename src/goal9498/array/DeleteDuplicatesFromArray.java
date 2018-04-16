@@ -4,11 +4,19 @@ public class DeleteDuplicatesFromArray {
 
 	public static void main(String[] args) {
 		int a[] = { 2, 3, 5, 5, 7, 11, 11, 11, 13 };
-		 int[] result = moveZero(deleteDuplicates(a));
+		int[] result = moveZero(deleteDuplicates(a));
+
+		for (int i = 0; i < result.length; i++) {
+			System.out.print(result[i] + ", ");
+		}
+		System.out.println("\n--------");
 		
-		 for(int i=0; i<result.length; i++) {
-			 System.out.print(result[i] + ", ");
-		 }
+		int[] b = {0, 1, 0, 3, 12, 0, 0, 0, 4, 5, 0};
+		result = moveZeroInOrder(b);
+		
+		for (int i = 0; i < result.length; i++) {
+			System.out.print(result[i] + ", ");
+		}
 	}
 
 	private static int[] deleteDuplicates(int[] a) {
@@ -27,7 +35,8 @@ public class DeleteDuplicatesFromArray {
 				for (k = i + 1; k < j; k++) {
 					a[k] = 0;
 				}
-				i = k+1; j += 1;
+				i = k + 1;
+				j += 1;
 			}
 		}
 
@@ -56,4 +65,25 @@ public class DeleteDuplicatesFromArray {
 			}
 		}
 		return t;
-	}}
+	}
+	
+	private static int[] moveZeroInOrder(int[] a) {
+		
+		int index = 0;
+		
+		for(int i=0; i < a.length; i++) {
+			if(a[i] != 0) {
+				a[index] = a[i];
+				index++;
+			}
+		}
+		
+		if(index < a.length) {
+			for(int i=index; i< a.length; i++) {
+				a[i] = 0;
+			}
+		}
+		
+		return a;
+	}
+}
