@@ -1,4 +1,4 @@
-package goal9498.dp;
+package dp;
 
 public class IntegerBreak {
 

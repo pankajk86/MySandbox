@@ -1,4 +1,4 @@
-package goal9498.array;
+package arrays;
 
 import java.util.HashMap;
 import java.util.Map;

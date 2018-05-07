@@ -1,4 +1,4 @@
-package goal9498.strings;
+package strings;
 
 import java.util.ArrayList;
 import java.util.Collections;
