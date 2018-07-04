@@ -1,3 +1,5 @@
+package system.tinyurl;
+
 public class Base62 {
 
 	private static final String ALBHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
