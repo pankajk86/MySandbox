@@ -24,6 +24,7 @@ public class TopKFrequentElements {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static List<Integer> topKFrequent(int[] a, int k) {
 
 		List<Integer> result = new ArrayList<>();

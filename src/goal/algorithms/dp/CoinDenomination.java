@@ -4,7 +4,7 @@ public class CoinDenomination {
 
     public static void main(String[] args) {
 
-        int coins[] = { 1, 3, 5 };
+        int coins[] = {1, 3, 5};
         int target = 8;
 
         // int minCoinDenomination = getMinCoinDenomination(coins, target);
@@ -14,26 +14,51 @@ public class CoinDenomination {
         long end = System.currentTimeMillis();
         System.out.println("Minimum # of coins: " + minCoinDenomination);
         System.out.println("Time taken (in ms): " + (end - start));
+        
+        int result = getMinCoinDenominationWithDP(coins, target);
+        System.out.println(result);
+    }
+    
+    private static int getMinCoinDenominationWithDP(int[] coins, int target) {
+    	
+    	if(target < 1)
+    		return 0;
+    	
+    	int[] dp = new int[target + 1];
+    	int sum = 0;
+    	
+    	while(++sum <= target) {
+    		int min = -1;
+    		for(int coin: coins) {
+    			if(sum >= coin && dp[sum - coin] != -1) {
+    				int temp = dp[sum - coin] + 1;
+    				min = min < 0 ? temp : (temp <min ? temp : min);
+    			}
+    		}
+    		dp[sum] = min;
+    	}
+    	
+    	return dp[target];
     }
 
     private static int getMinCoinDenominationWithoutRecursion(int[] coins, int target) {
-        int coinsCache[] = new int[target + 1];
+        int dp[] = new int[target + 1];
 
         for (int i = 0; i <= target; i++) {
-            coinsCache[i] = Integer.MAX_VALUE;
+            dp[i] = Integer.MAX_VALUE;
         }
 
-        coinsCache[0] = 0;
+        dp[0] = 0;
 
         for (int i = 1; i <= target; i++) {
             for (int coin : coins) {
-                if ((i - coin) >= 0 && coinsCache[i - coin] + 1 < coinsCache[i]) {
-                    coinsCache[i] = coinsCache[i - coin] + 1;
+                if ((i - coin) >= 0 && dp[i - coin] + 1 < dp[i]) {
+                    dp[i] = dp[i - coin] + 1;
                 }
             }
         }
 
-        return coinsCache[target];
+        return dp[target];
     }
 
     /**

@@ -8,7 +8,7 @@ public class StringPermutations {
     static List<String> permutedStringsList = new ArrayList<String>();
 
     public static void main(String[] args) {
-        String str = "abcd";
+        String str = "1230";
         stringPermutations("", str);
 
         for (String s : permutedStringsList) {

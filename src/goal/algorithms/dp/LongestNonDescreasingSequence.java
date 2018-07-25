@@ -14,6 +14,7 @@ public class LongestNonDescreasingSequence {
 
         int size = arr.length;
         int[] result = new int[size];
+        int max = 0;
 
         for (int i = 0; i < size; i++) {
             result[i] = 1;
@@ -23,11 +24,12 @@ public class LongestNonDescreasingSequence {
             for (int j = 0; j < i; j++) {
                 if (arr[j] <= arr[i] && result[j] + 1 > result[i]) {
                     result[i] = result[j] + 1;
+                    max = Math.max(max, result[i]);
                 }
             }
         }
 
-        return result[size - 1];
+        return max;
     }
 
 }

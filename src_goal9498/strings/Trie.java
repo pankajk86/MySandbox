@@ -1,4 +1,4 @@
-package goal.phase.two.trees;
+package strings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,14 +52,32 @@ public class Trie {
                 current = current.children.get(c);
             }
 
-            if (current == null) {
+            if (current == null || (current.isEndOfWord && i < s.length() - 1)) {
                 return false;
             }
         }
 
         return current.isEndOfWord;
     }
+    
+    public boolean startsWith(String prefix) {
+    	
+    	TrieNode current = root;
+    	
+    	for(char c: prefix.toCharArray()) {
+    		if(current.children.containsKey(c)) {
+    			current = current.children.get(c);
+    		} else {
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
 
+    public TrieNode getRoot() {
+		return this.root;
+	}
 }
 
 class TrieNode {

@@ -1,4 +1,4 @@
-package goal.phase.two.trees;
+package strings;
 
 public class TrieTest {
 

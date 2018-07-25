@@ -1,4 +1,4 @@
-package goal.phase.two.strings;
+package strings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import java.util.Map;
 public class StringPatternMatching {
 
     public static void main(String[] args) {
-        String pattern = "abb";
-        String[] dictionary = { "cdf", "too", "hfgdt", "paa" };
+        String pattern = "abbca";
+        String[] dictionary = { "cdfd", "tooft", "hfgdt", "paa" };
         System.out.println(findMatch(dictionary, pattern));
     }
 
