@@ -10,7 +10,7 @@ public class IsomorphicStrings {
 
     public static void main(String[] args) {
 
-        String a = "fooo", b = "baar";
+        String a = "paper", b = "title";
         boolean result = isIsomorphic(a, b);
 
         System.out.println("Result: " + result);
@@ -29,15 +29,14 @@ public class IsomorphicStrings {
 
         for (int i = 0; i < a.length; i++) {
             if (!map.containsKey(a[i])) {
-                map.put(a[i], b[i]);
+            	if(!map.containsValue(b[i])) map.put(a[i], b[i]);
+            	else return false;
             } else {
-                if (b[i] == map.get(a[i])) {
-                    return true;
-                } else {
+                if (b[i] != map.get(a[i])) {
                     return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 }

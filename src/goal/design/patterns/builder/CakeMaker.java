@@ -1,6 +1,6 @@
 package goal.design.patterns.builder;
 
-public class ClassMaker {
+public class CakeMaker {
 
     public static void main(String[] args) {
         Cake emptyCake = new Cake.Builder().build();

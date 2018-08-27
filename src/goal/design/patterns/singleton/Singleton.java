@@ -1,7 +1,7 @@
 package goal.design.patterns.singleton;
 
 public class Singleton {
-    private static Singleton instance = null;
+    private static volatile Singleton instance = null;
 
     private Singleton() {
     }
@@ -11,7 +11,7 @@ public class Singleton {
      * 
      * @return Singleton instance
      */
-    public Singleton getInstance() {
+    public static Singleton getInstance() {
 
         if (instance == null) {
             synchronized (Singleton.class) {

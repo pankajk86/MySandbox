@@ -1,8 +1,5 @@
 package strings;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Trie {
 
     private TrieNode root;
@@ -79,14 +76,3 @@ public class Trie {
 		return this.root;
 	}
 }
-
-class TrieNode {
-    Map<Character, TrieNode> children;
-    boolean isEndOfWord;
-
-    public TrieNode() {
-        children = new HashMap<>();
-        isEndOfWord = false;
-    }
-}
-

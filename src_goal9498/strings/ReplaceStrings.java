@@ -1,15 +1,13 @@
 package strings;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ReplaceStrings {
 
 	public static void main(String[] args) {
-		String[] dict = {"cat", "cate", "rat", "sna", "pat", "bat", "obn", "sil", "te", "res"};
+		String[] dict = {"cat", "cate", "rat", "sna", "pat", "bat", "obn", "sil", "te", "res"}; // {"a", "aa", "aaa", "aaaa"}; // 
 		String sentence = "The categories of cattles were rattled by the batteries";
 		
 		sentence = "The obnoxious categories of silly cattles were rattled by the batteries and terribly rescued snakes";
+		//sentence = "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa";
 		long start = System.currentTimeMillis();
 		String result = replaceWords(dict, sentence);
 		System.out.println("Time Taken: " + (System.currentTimeMillis() - start));
@@ -72,14 +70,4 @@ public class ReplaceStrings {
 		return root;
 	}
 
-}
-
-class TrieNode {
-	Map<Character, TrieNode> children;
-	boolean isEndOfWord;
-	
-	TrieNode() {
-		children = new HashMap<>();
-		isEndOfWord = false;
-	}
 }

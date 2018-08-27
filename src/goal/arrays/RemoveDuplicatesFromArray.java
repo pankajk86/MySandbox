@@ -16,8 +16,10 @@ public class RemoveDuplicatesFromArray {
         }
 
         System.out.println();
+        
+        int barr[] = { 1, 2, 3, 3, 4, 5, 6, 5, 3 };
 
-        arr = removeDuplicatesWithoutHashMap(arr);
+        arr = removeDuplicatesWithoutHashMap(barr);
 
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
