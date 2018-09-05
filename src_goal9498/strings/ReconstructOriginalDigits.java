@@ -1,6 +1,6 @@
 package strings;
 
-public class ReconstructOriginalDigts {
+public class ReconstructOriginalDigits {
 
 	public static void main(String[] args) {
 		String s = "xsi";
