@@ -21,7 +21,12 @@ public class Graph {
 		this.adj[v].add(w);
 	}
 	
-	public int countNodes() {
+	public void addUndirectedEdge(int v, int w) {
+		this.adj[v].add(w);
+		this.adj[w].add(v);
+	}
+	
+	public int size() {
 		return this.n;
 	}
 	
