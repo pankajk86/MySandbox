@@ -17,7 +17,9 @@ public class WordSearchII {
 				  {'i','f','l','v'}
 				};
 
+		long start = System.currentTimeMillis();
 		List<String> result = findWords(board, words);
+		System.out.println(System.currentTimeMillis() - start);
 		
 		for(String word: result)
 			System.out.println(word);

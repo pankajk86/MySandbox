@@ -12,7 +12,7 @@ public class LRUCacheTest {
         System.out.println(cache.get(3));
         System.out.println(cache.get(1));
 
-        cache.set(5, "Maa"); // issue
+        cache.set(5, "Maa");
         System.out.println("LRU Cache working!!");
     }
 

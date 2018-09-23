@@ -87,6 +87,7 @@ public class AddTwoNumbers {
 	 * @param n
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private static ListNode getList(int[] a) {
 
 		ListNode head = new ListNode(a[0]);

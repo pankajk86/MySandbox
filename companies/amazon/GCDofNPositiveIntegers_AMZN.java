@@ -1,4 +1,4 @@
-package airbnb;
+package amazon;
 
 public class GCDofNPositiveIntegers_AMZN {
 

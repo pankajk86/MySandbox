@@ -12,6 +12,7 @@ public class CheckIntegerPowerOfTwo {
         } else {
             System.out.println("Not power of 2");
         }
+        
     }
 
 }

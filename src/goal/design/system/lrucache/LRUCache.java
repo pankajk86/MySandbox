@@ -42,13 +42,17 @@ public class LRUCache {
 
     public void remove(Node n) {
         if (n.next != null) {
-            n.prev.next = n.next;
+            if(n.prev != null) 
+            	n.prev.next = n.next;
             n.next.prev = n.prev;
 
             n.next = null;
             n.prev = null;
         } else {
-            n.prev = null; // have doubt here, for the tail of the node
+        	if(n.prev != null) 
+        		n.prev.next = null;
+        	end = n.prev;
+        	n.prev = null;
         }
     }
 
