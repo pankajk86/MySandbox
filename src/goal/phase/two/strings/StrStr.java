@@ -7,11 +7,12 @@ package goal.phase.two.strings;
 public class StrStr {
 
     public static void main(String[] args) {
-        String haystack = "bacbababaabcbab";
-        String needle = "ab abaab";
+//        String haystack = "bacbababaabcbab";
+//        String needle = "ab abaab";
     }
 
-    private int[] getPartialTable(String needle) {
+    @SuppressWarnings("unused")
+	private int[] getPartialTable(String needle) {
 
         int[] partialTable = new int[needle.length()];
         partialTable[0] = 0;

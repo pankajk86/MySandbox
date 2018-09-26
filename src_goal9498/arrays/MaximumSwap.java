@@ -49,6 +49,7 @@ public class MaximumSwap {
 	}
 
 
+	@SuppressWarnings("unused")
 	private static int maxSwap2(int n) {
 
 		String s = String.valueOf(n);

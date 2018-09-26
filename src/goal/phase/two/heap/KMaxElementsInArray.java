@@ -34,7 +34,8 @@ public class KMaxElementsInArray {
         }
     }
 
-    private static void getMaxByCreatingAndDeletingInHeap(int a[], int k) {
+    @SuppressWarnings("unused")
+	private static void getMaxByCreatingAndDeletingInHeap(int a[], int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
 
         for (int i : a) {

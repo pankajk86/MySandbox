@@ -34,6 +34,7 @@ public class TaskScheduler {
 		return interval;
 	}
 
+	@SuppressWarnings("unused")
 	private static int leastInterval(char[] tasks, int n) {
 
 		List<Character> result = new ArrayList<>();

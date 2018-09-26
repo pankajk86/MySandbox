@@ -28,7 +28,7 @@ public class RemoveMinimum {
             node = node.getNext();
         }
 
-        System.out.println(node.getData().toString());
+        System.out.println(node != null ? node.getData().toString() : "");
 
     }
 

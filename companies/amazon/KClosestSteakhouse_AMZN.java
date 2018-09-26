@@ -21,7 +21,7 @@ public class KClosestSteakhouse_AMZN {
 			locList.add(new Location(location.get(0), location.get(1)));
 		}
 		
-		PriorityQueue<Location> pq = new PriorityQueue<>(k, new Comparator<>() {
+		PriorityQueue<Location> pq = new PriorityQueue<>(k, new Comparator<Location>() {
 
 			@Override
 			public int compare(Location p1, Location p2) {

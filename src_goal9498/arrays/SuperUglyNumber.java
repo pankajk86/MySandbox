@@ -12,6 +12,7 @@ public class SuperUglyNumber {
 		int n = 7;
 		
 		int result = getNthSuperUglyNumber(n, primes);
+		System.out.println(result);
 	}
 
 	private static int getNthSuperUglyNumber(int n, int[] primes) {

@@ -30,7 +30,7 @@ public class MergeIntervals {
 
 		List<Interval> result = new ArrayList<>();
 		
-		Comparator<Interval> comparator = new Comparator<>() {
+		Comparator<Interval> comparator = new Comparator<Interval>() {
 
 			@Override
 			public int compare(Interval i1, Interval i2) {
