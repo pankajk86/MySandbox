@@ -21,25 +21,21 @@ public class DeleteDuplicatesFromArray {
 
 	private static int[] deleteDuplicates(int[] a) {
 
-		int i = 0, j = 1, k = -1;
-
-		while (j < a.length) {
-			if (a[i] != a[j]) {
+		int i = 1, j = 0;
+		
+		while(i < a.length) {
+			if(a[i] == a[j])
 				i++;
+			else {
 				j++;
-			} else {
-				while (a[i] == a[j]) {
-					j++;
-				}
-
-				for (k = i + 1; k < j; k++) {
-					a[k] = 0;
-				}
-				i = k + 1;
-				j += 1;
+				a[j] = a[i];
+				i++;
 			}
 		}
-
+		
+		for(int k = j + 1; k < a.length; k++)
+			a[k] = 0;
+		
 		return a;
 	}
 

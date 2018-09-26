@@ -1,4 +1,4 @@
-package arrays;
+package dp;
 
 public class StockSellMultipleWithFee {
 
