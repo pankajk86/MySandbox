@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class MergeIntervals {
@@ -23,6 +24,9 @@ public class MergeIntervals {
 			));
 		
 		List<Interval> result = merge(intervals);
+		System.out.println(result.size());
+		
+		result = merge2(intervals);
 		System.out.println(result.size());
 	}
 
@@ -65,5 +69,40 @@ public class MergeIntervals {
 	    int end;
 	    Interval() { start = 0; end = 0; }
 	    Interval(int s, int e) { start = s; end = e; }
-	} 
+	}
+	
+	
+	// TRYING AGAIN
+	private static List<Interval> merge2(List<Interval> intervals) {
+		List<Interval> result = new ArrayList<>();
+		
+		Collections.sort(intervals, new Comparator<Interval>() {
+			@Override
+			public int compare(Interval i1, Interval i2) {
+
+				if(i1.start < i2.start) return -1;
+				else if(i1.start > i2.start) return 1;
+				else {
+					if(i1.end < i2.end) return -1;
+					else if(i1.end > i2.end) return 1;
+					else return 0;
+				}
+			}
+		});
+		
+		int start = intervals.get(0).start, end = intervals.get(0).end;
+		
+		for(Interval interval: intervals) {
+			if(interval.start <= end)
+				end = Math.max(interval.end, end);
+			else {
+				result.add(mi.new Interval(start, end));
+				start = interval.start;
+				end = interval.end;
+			}
+		}
+		
+		result.add(mi.new Interval(start, end));
+		return result;
+	}
 }

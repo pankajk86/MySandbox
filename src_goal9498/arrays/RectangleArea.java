@@ -12,10 +12,7 @@ public class RectangleArea {
 		
 		int independentTotalArea = ((A - C) * (B - D)) + ((E - G) * (F - H)); 
 
-		if(A > G || E > C) 
-			return independentTotalArea;
-		
-		if(B > H || F > D)
+		if(A > G || E > C || B > H || F > D) 
 			return independentTotalArea;
 		
 		int left = Math.max(A, E);

@@ -1,4 +1,4 @@
-package goal.java.threading;
+package multithread;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
