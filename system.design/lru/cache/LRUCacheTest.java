@@ -1,4 +1,4 @@
-package goal.design.system.lrucache;
+package lru.cache;
 
 public class LRUCacheTest {
 

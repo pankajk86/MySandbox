@@ -1,4 +1,4 @@
-package goal.design.system.lrucache;
+package lru.cache;
 
 import java.util.HashMap;
 import java.util.Map;
