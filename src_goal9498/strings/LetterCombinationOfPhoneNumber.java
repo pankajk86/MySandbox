@@ -23,10 +23,7 @@ public class LetterCombinationOfPhoneNumber {
 		map.put("9", "wxyz");
 		
 		getCombinations(digits, new StringBuilder());
-		
-		for(String s: result) {
-			System.out.print(s + ", ");
-		}
+		System.out.println(result);
 	}
 	
 	private static void getCombinations(String digits, StringBuilder temp) {

@@ -11,9 +11,7 @@ public class CombinationSumIII {
 		List<List<Integer>> result = new ArrayList<>();
 		helper(result, new ArrayList<Integer>(), n, k, num, 0);
 
-		for (List<Integer> list : result) {
-			System.out.println(list.toString());
-		}
+		System.out.println(result);
 	}
 
 	private static void helper(List<List<Integer>> result, List<Integer> list, int n, int k, int[] num, int start) {
