@@ -1,4 +1,4 @@
-package goal.design.system.friendship;
+package friendship;
 
 import java.util.LinkedList;
 import java.util.List;

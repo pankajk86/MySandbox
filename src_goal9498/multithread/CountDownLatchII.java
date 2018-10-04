@@ -7,9 +7,9 @@ public class CountDownLatchII {
 	public static void main(String[] args) {
 		CountDownLatch latch = new CountDownLatch(1);
 		
-		new Thread(new Process1(latch, 0)).start();
-		
 		System.out.println("Started the main thread.");
+//		new Thread(new Process1(latch, 0)).start();
+		new Thread(new ProcessorII(latch, 0)).start();
 		
 		try {
 			latch.await();

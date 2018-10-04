@@ -1,4 +1,4 @@
-package system.tinyurl;
+package tiny.url;
 
 public class Base62 {
 

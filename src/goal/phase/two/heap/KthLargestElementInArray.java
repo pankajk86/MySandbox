@@ -2,7 +2,7 @@ package goal.phase.two.heap;
 
 import java.util.PriorityQueue;
 
-public class KthLargetElementInArray {
+public class KthLargestElementInArray {
 
     public static void main(String[] args) {
 

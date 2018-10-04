@@ -11,12 +11,7 @@ public class CombinationSum {
 		int target = 7;
 		
 		List<List<Integer>> result = getCombinations(a, target);
-		for(List<Integer> list: result) {
-			for(int i: list) {
-				System.out.print(i + " ");
-			}
-			System.out.println();
-		}
+		System.out.println(result);
 	}
 
 	private static List<List<Integer>> getCombinations(int[] a, int target) {
@@ -26,7 +21,6 @@ public class CombinationSum {
 		Arrays.sort(a);
 		
 		helper(a, target, result, temp, 0);
-		
 		return result;
 	}
 

@@ -2,16 +2,14 @@ package dp;
 
 public class MinimumPathSum {
 
-	static int min = Integer.MAX_VALUE;
-
 	public static void main(String[] args) {
 		int[][] a = { { 1, 3, 1 }, { 1, 5, 1 }, { 4, 2, 1 } };
 
-		int result = minPathRecur(a);
+		int result = minPath(a);
 		System.out.println(result);
 	}
 
-	private static int minPathRecur(int[][] a) {
+	private static int minPath(int[][] a) {
 
 		int row = a.length, col = a[0].length;
 		int[][] dp = new int[row][col];

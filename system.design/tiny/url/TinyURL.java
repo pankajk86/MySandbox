@@ -1,4 +1,4 @@
-package system.tinyurl;
+package tiny.url;
 
 import java.util.ArrayList;
 import java.util.Arrays;

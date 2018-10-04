@@ -1,4 +1,4 @@
-package goal.design.system.parkinglot;
+package parking.lot;
 
 
 public class MotorCycle extends Vehicle {

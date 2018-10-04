@@ -1,4 +1,4 @@
-package goal.design.system.parkinglot;
+package parking.lot;
 
 import java.util.ArrayList;
 import java.util.List;
