@@ -17,10 +17,10 @@ public class MaxSubArray {
     }
 
     private static int[] getMaxSubArraySum(int[] arr) {
-        int maxEndingHere = 0, maxSoFar = 0, maxEndIndex = 0;
+        int maxEndingHere = arr[0], maxSoFar = arr[0], maxEndIndex = 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            maxEndingHere = Math.max(0, maxEndingHere + arr[i]);
+        for (int i = 1; i < arr.length; i++) {
+            maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
             if (maxEndingHere > maxSoFar) {
                 maxEndIndex = i;
                 maxSoFar = maxEndingHere;

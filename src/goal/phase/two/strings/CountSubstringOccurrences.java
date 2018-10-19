@@ -12,16 +12,15 @@ public class CountSubstringOccurrences {
 
     private static int getOccurrences(String s, String t) {
 
-        int i = 0, j = 0, occurrence = 0;
+        int j = 0, occurrence = 0;
 
-        while (i < s.length()) {
+        for (int i = 0; i < s.length(); i++) {
             if (j == t.length()) {
                 occurrence++;
                 j = 0;
             } else if (s.charAt(i) == t.charAt(j)) {
                 j++;
             }
-            i++;
         }
 
         return j == t.length() ? occurrence + 1 : occurrence;

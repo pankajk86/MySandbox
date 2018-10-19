@@ -46,19 +46,6 @@ public class LongestCommonSubstringInStrings {
             }
         }
 
-        // for (int i = 0; i < l1 + 1; i++) {
-        // for (int j = 0; j < l2 + 1; j++) {
-        // System.out.print(T[i][j] + " ");
-        // }
-        // System.out.println();
-        // }
-        //
-        // System.out.println(maxLength + ", " + maxI + ", " + maxJ);
-
-        // for (int i = maxI; i > 0; i--) {
-        // System.out.print(c1[i]);
-        // }
-
         char[] result = new char[maxLength];
 
         for (int i = (maxI - maxLength), j = 0; i < maxI; i++, j++) {
