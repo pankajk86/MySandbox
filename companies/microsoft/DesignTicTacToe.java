@@ -11,7 +11,6 @@ public class DesignTicTacToe {
 		System.out.println(toe.move(2, 0, 1));
 		System.out.println(toe.move(1, 0, 2));
 		System.out.println(toe.move(2, 1, 1));
-		
 	}
 
 }
@@ -39,7 +38,7 @@ class TicTacToe {
 				|| Math.abs(cols[col]) == size
 				|| Math.abs(diagonal) == size
 				|| Math.abs(antiDiagonal) == size)
-			return 1;
+			return player;
 		
 		return 0;
 	}
