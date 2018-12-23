@@ -8,7 +8,7 @@ import java.util.Map;
 public class BullsAndCows {
 
 	public static void main(String[] args) {
-		String secret = "1110", guess = "0121";
+		String secret = "1807", guess = "7810";
 		String hint = getHint(secret, guess);
 		System.out.println(hint);
 		
@@ -28,7 +28,8 @@ public class BullsAndCows {
 			
 			if(s == g) bulls++;
 			else {
-				if(numbers[s] < 0 || numbers[g] > 0) cows++;
+				if(numbers[s] < 0) cows++;
+				if(numbers[g] > 0) cows++;
 				numbers[s]++;
 				numbers[g]--;
 			}

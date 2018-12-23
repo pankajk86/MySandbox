@@ -3,8 +3,18 @@ package strings;
 public class TrieTest {
 
     public static void main(String[] args) {
-        Trie trie = new Trie();
-        trie.insert("abc");
+//        test1(new Trie());
+    	test2(new Trie());
+    }
+    
+    private static void test2(Trie trie) {
+    	trie.insert("hello");
+    	
+    	System.out.println(trie.search("helloa"));
+	}
+
+	private static void test1(Trie trie) {
+    	trie.insert("abc");
         trie.insert("abgl");
         trie.insert("cdf");
         trie.insert("abcd");
