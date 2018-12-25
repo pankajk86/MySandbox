@@ -26,9 +26,9 @@ public class CountUnivalTrees {
 		boolean right = betterHelper(root.right);
 		
 		if(left && right) {
-			if(root.left != null && root.val == root.left.val)
+			if(root.left != null && root.val != root.left.val)
 				return false;
-			if(root.right != null && root.val == root.right.val)
+			if(root.right != null && root.val != root.right.val)
 				return false;
 			count++;
 			return true;

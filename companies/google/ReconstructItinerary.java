@@ -46,14 +46,16 @@ public class ReconstructItinerary {
 		
 		while(!map.isEmpty()) {
 			List<String> des = map.get(current);
-			String next = des.get(0);
-			result.add(next);
-			des.remove(0);
-
-			if(des.size() == 0)
-				map.remove(current);
-			
-			current = next;
+			if(des.size() > 0) {
+				String next = des.get(0);
+				result.add(next);
+				des.remove(0);
+				
+				if(des.size() == 0)
+					map.remove(current);
+				
+				current = next;				
+			}
 		}
 		
 		return result;
