@@ -31,19 +31,21 @@ class WordDistance {
 		}
 	}
 	
-	// NOT CORRECT for all test cases
 	public int shortest(String word1, String word2) {
-		int result = 0;
+		int result = Integer.MAX_VALUE;
 		
 		List<Integer> l1 = map.get(word1), l2 = map.get(word2);
 		
-		for(int i = 0; i < l1.size(); i++) {
-			for(int j = 0; j < l2.size(); j++) {
-				int val = Math.abs(l1.get(i) - l2.get(j));
-				result = result == 0 ? val : Math.min(result, val);
+		for(int i = 0, j = 0; i < l1.size() && j < l2.size(); ) {
+			int index1 = l1.get(i), index2 = l2.get(j);
+			if(index1 < index2) {
+				result = Math.min(result, index2 - index1);
+				i++;
+			} else {
+				result = Math.min(result, index1 - index2);
+				j++;
 			}
-		}
-		
+		}		
 		return result;
 	}
 }

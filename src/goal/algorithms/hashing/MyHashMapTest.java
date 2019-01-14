@@ -4,7 +4,7 @@ public class MyHashMapTest {
 
     public static void main(String[] args) {
 
-        MyHashMap<String, String> map = new MyHashMap<String, String>();
+        MyHashMap<String, String> map = new MyHashMap<>();
         map.put("1a2b", "Pankaj Kumar");
         map.put("2b1a", "Sushil Kumar");
         map.put("1a2b", "Neelam Kumari");

@@ -1,10 +1,8 @@
 package microsoft;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 public class KPairsWithSmallestSums {
@@ -20,36 +18,26 @@ public class KPairsWithSmallestSums {
 	}
 
 	private static List<int[]> kSmallestPairs(int[] a, int[] b, int k) {
-
 		List<int[]> result = new ArrayList<>();
-		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-		Map<Integer, List<int[]>> map = new HashMap<>();
+		if(a.length == 0 || b.length == 0 || k == 0)
+			return result;
 		
-		for(int i = 0; i < a.length; i++) {
-			for(int j = 0; j < b.length; j++) {
-				int[] pair = {a[i], b[j]};
-				int sum = a[i] + b[j];
-				
-				if(pq.size() < k) {
-					pq.add(sum);
-					List<int[]> list = map.getOrDefault(sum, new ArrayList<>());
-					list.add(pair);
-					map.put(sum, list);
-				} else {
-					if(sum < pq.peek()) {
-						int val = pq.poll();
-						pq.add(sum);
-						map.remove(val);
-						List<int[]> list = map.getOrDefault(sum, new ArrayList<>());
-						list.add(pair);
-						map.put(sum, list);
-					}
-				}
+		PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+			@Override
+			public int compare(int[] a, int[] b) {
+				return (a[0] + a[1]) - (b[0] + b[1]);
 			}
-		}
-
-		for(List<int[]> pair: map.values()) {
-			result.addAll(pair);
+		});
+		
+		for(int i = 0; i < a.length; i++)
+			pq.add(new int[] {a[i], b[0], 0});
+		
+		while(k-- > 0 && !pq.isEmpty()) {
+			int[] curr = pq.poll();
+			result.add(new int[] {curr[0], curr[1]});
+			if(curr[2] == b.length - 1)
+				continue;
+			pq.add(new int[] {curr[0], b[curr[2] + 1], curr[2] + 1});
 		}
 		
 		return result;

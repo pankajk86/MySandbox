@@ -1,6 +1,6 @@
 package linkedin;
 
-import java.util.Arrays;
+import java.util.Stack;
 
 import trees.TreeNode;
 
@@ -8,45 +8,37 @@ public class SecondMinimumInBinaryTree {
 
 	public static void main(String[] args) {
 		TreeNode root = createTree();
-		int result = findSecondMinimum(root);
+		
+		int result = secondMinimum(root);
 		System.out.println(result);
 	}
 
-	private static int findSecondMinimum(TreeNode root) {
-		int result = -1;
+	private static int secondMinimum(TreeNode root) {
+		if(root == null) return -1;
 		
-		if(root == null || (root.left == null && root.right == null))
-			return result;
+		int min = Integer.MAX_VALUE, secMin = min;
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode curr = root;
 		
-//		TreeNode curr = root;
-//		
-//		while(curr.left != null && curr.right != null) {
-//			result = curr.val;
-//			if(curr.val == curr.left.val)
-//				curr = curr.right;
-//			else curr = curr.left;
-//		}
-		
-		int left = getMax(root.left);
-		int right = getMax(root.right);
-		
-		int[] temp = new int[] {left, root.val, right};
-		Arrays.sort(temp);
-		
-		for(int i = temp.length - 1; i > 0; i--) {
-			if(temp[i] != temp[i - 1])
-				return temp[i - 1];
+		while(!stack.isEmpty() || curr != null) {
+			if(curr != null) {
+				stack.push(curr);
+				curr = curr.left;
+			} else {
+				TreeNode node = stack.pop();
+				
+				if(node.val < min) {
+					secMin = min;
+					min = node.val;
+				} else if(node.val > min && node.val < secMin) {
+					secMin = node.val;
+				}
+				
+				curr = node.right;
+			}
 		}
 		
-		return result;
-	}
-
-	private static int getMax(TreeNode node) {
-		
-		if(node.left == null && node.right == null)
-			return node.val;
-		
-		return Math.max(getMax(node.left), getMax(node.right));
+		return secMin == Integer.MAX_VALUE ? -1 : secMin;
 	}
 
 	private static TreeNode createTree() {
@@ -68,9 +60,11 @@ public class SecondMinimumInBinaryTree {
 		
 //		n1.left = n2; n1.right = n6;
 		
-		n7.left = n8; n7.right = n9;
-		n2.left = n10; n2.right = n6;
-		n1.left = n7; n1.right = n2;
+//		n7.left = n8; n7.right = n9;
+//		n2.left = n10; n2.right = n6;
+//		n1.left = n7; n1.right = n2;
+		
+		n1.left = n2; n1.right = n6;
 		
 		return n1;
 	}
