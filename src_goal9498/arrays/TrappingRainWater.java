@@ -20,7 +20,12 @@ public class TrappingRainWater {
 				stack.push(i++);
 			} else {
 				int bot = stack.pop();
-				botWater = stack.isEmpty() ? 0 : (Math.min(a[stack.peek()], a[i]) - a[bot]) * (i - 1 - stack.peek());
+				if(!stack.isEmpty()) {
+					int height = Math.min(a[stack.peek()], a[i]) - a[bot];
+					int width = i - 1 - stack.peek();
+					botWater = height * width;
+				} else botWater = 0;
+//				botWater = stack.isEmpty() ? 0 : (Math.min(a[stack.peek()], a[i]) - a[bot]) * (i - 1 - stack.peek());
 				maxWater += botWater;
 			}
 		}

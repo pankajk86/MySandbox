@@ -45,13 +45,9 @@ public class Trie {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (current.children.containsKey(c)) {
+            if (current != null && current.children.containsKey(c)) {
                 current = current.children.get(c);
-            }
-
-            if (current == null || (current.isEndOfWord && i < s.length() - 1)) {
-                return false;
-            }
+            } else return false;
         }
 
         return current.isEndOfWord;

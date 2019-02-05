@@ -8,7 +8,7 @@ import java.util.Stack;
 
 import trees.TreeNode;
 
-public class LCA {
+public class LCAInBinaryTree {
 
 	public static void main(String[] args) {
 		TreeNode[] tree = createTree();

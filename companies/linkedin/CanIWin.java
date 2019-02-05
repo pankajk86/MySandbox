@@ -19,7 +19,7 @@ public class CanIWin {
 		if(desiredTotal <= maxChoosableInteger)
 			return true;
 		int sum = maxChoosableInteger * (maxChoosableInteger + 1) / 2;
-		if(sum <= desiredTotal) return false;
+		if(sum < desiredTotal) return false;
 		
 		return helper(maxChoosableInteger, desiredTotal, new boolean[maxChoosableInteger + 1]);
 	}
