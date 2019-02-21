@@ -12,16 +12,40 @@ public class DuplicateFiles {
 	public static void main(String[] args) {
 		String[] paths = {
 					"root/a 1.txt(abcd) 2.txt(efsfgh)", 
+					"root/c 3.txt(abcd)",
 					"root/c 3.txt(abdfcd)",
 					"root/c/d 4.txt(efggdfh)"
 				};
 		
 		List<List<String>> duplicatePathGroups = getDuplicateFilesPath(paths);
+		System.out.println(duplicatePathGroups);
 		
-		for(List<String> pathGroups: duplicatePathGroups) {
-			System.out.println(pathGroups.toString());
-		}
+		duplicatePathGroups = findDuplicate(paths);
+		System.out.println(duplicatePathGroups);
+		
 	}
+	
+	// better 
+	public static List<List<String>> findDuplicate(String[] paths) {
+        List<List<String>> result = new ArrayList<>();
+        Map<String, List<String>> map = new HashMap<>();
+        
+        for(String path: paths) {
+            String[] parts = path.split(" ");
+            for(int i = 1; i < parts.length; i++) {
+                String[] fileContent = parts[i].split("\\(");
+                List<String> list = map.getOrDefault(fileContent[1], new ArrayList<>());
+                list.add(parts[0] + "/" + fileContent[0]);
+                map.put(fileContent[1], list);
+            }
+        }
+        
+        for(List<String> list: map.values()) {
+            if(list.size() > 1)
+                result.add(list);
+        }
+        return result;
+    }
 
 	private static List<List<String>> getDuplicateFilesPath(String[] paths) {
 

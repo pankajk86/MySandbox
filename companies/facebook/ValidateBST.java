@@ -12,6 +12,21 @@ public class ValidateBST {
 		TreeNode root = createTree();
 		boolean result = isValidBST(root);
 		System.out.println(result);
+		
+		result = isValidBSTRecur(root);
+		System.out.println(result);
+	}
+
+	private static boolean isValidBSTRecur(TreeNode root) {
+		if(root == null) return true;
+		return validate(root, null, null);
+	}
+	
+	private static boolean validate(TreeNode root, Integer min, Integer max) {
+		if(root == null) return true;
+		if(min != null && root.val <= min) return false;
+		if(max != null && root.val >= max) return false;
+		return validate(root.left, min, root.val) && validate(root.right, root.val, max);
 	}
 
 	/*
