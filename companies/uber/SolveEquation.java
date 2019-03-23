@@ -5,10 +5,70 @@ import java.util.Stack;
 public class SolveEquation {
 
 	public static void main(String[] args) {
-		String s = "-x=-1"; //"2x=x";//
+		String s = "2x+3x-6x=x+2"; //"2x=x";//
 		String result = solveEquation(s);
 		System.out.println(result);
+		
+		int result2 = solveEquation2(s);
+		System.out.println(result2);
 	}
+	
+	
+	
+	
+
+	private static int solveEquation2(String s) {
+		String[] parts = s.split("=");
+		int[] left = solve(parts[0]);
+		int[] right = solve(parts[1]);
+		int x = left[0] - right[0], val = right[1] - left[1];
+		return val/x;
+	}
+
+	//2x+3x-6x
+	private static int[] solve(String s) {
+		int x = 0, val = 0;
+		
+		for(int i = 0; i < s.length(); i++) {
+			StringBuilder sb = new StringBuilder();
+			if(s.charAt(i) == '-') {
+				sb.append("-");
+				if(i < s.length() - 1 && s.charAt(i + 1) - '0' >= 0 && s.charAt(i + 1) - '0' <= 9) {
+					while(s.charAt(i) != '-' || s.charAt(i) != '+' || s.charAt(i) != 'x') {
+						sb.append(s.charAt(i));
+						i++;
+					}
+					if(s.charAt(i) == '-' || s.charAt(i) == '+') {
+						val += Integer.parseInt(sb.toString());
+					} else {
+						x += Integer.parseInt(sb.toString());
+					}
+				} else if(i < s.length() - 1 && s.charAt(i + 1) == 'x') {
+					x += -1;
+				}
+			} else {
+				if(i < s.length() - 1 && s.charAt(i + 1) - '0' >= 0 && s.charAt(i + 1) - '0' <= 9) {
+					while(s.charAt(i) != '-' || s.charAt(i) != '+' || s.charAt(i) != 'x') {
+						sb.append(s.charAt(i));
+						i++;
+					}
+					if(s.charAt(i) == '-' || s.charAt(i) == '+') {
+						val += Integer.parseInt(sb.toString());
+					} else {
+						x += Integer.parseInt(sb.toString());
+					}
+				} else if(i < s.length() - 1 && s.charAt(i + 1) == 'x') {
+					x += 1;
+				}
+			}
+		}
+		
+		return new int[] {x, val};
+	}
+
+
+
+
 
 	private static String solveEquation(String s) {
 
