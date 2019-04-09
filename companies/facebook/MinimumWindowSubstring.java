@@ -1,5 +1,7 @@
 package facebook;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class MinimumWindowSubstring {
 
@@ -10,48 +12,40 @@ public class MinimumWindowSubstring {
 
         String result = getMinWindowSubstring(s, t);
         System.out.println(result);
-        
     }
 
     private static String getMinWindowSubstring(String s, String t) {
-
-    	String result = "";
+    	if(s == null || s.isEmpty() || t == null || t.isEmpty()) return "";
     	
-    	if(s == null || s.isEmpty() || t == null || t.isEmpty())
-    		return result;
+    	Map<Character, Integer> map = new HashMap<>();
+    	for(char c: t.toCharArray())
+    		map.put(c, map.getOrDefault(c, 0) + 1);
     	
-    	int[] smap = new int[256], tmap = new int[256];
-    	int i = 0, j = 0, found = 0, length = Integer.MAX_VALUE;
+    	int left = 0, minLeft = 0, minLen = s.length() + 1, count = 0;
     	
-    	for(int k = 0; k < t.length(); k++)
-    		tmap[t.charAt(k)]++;
-    	
-    	while(j < s.length()) {
-    		if(found < t.length()) {
-    			if(tmap[s.charAt(j)] > 0) {
-    				smap[s.charAt(j)]++;
-    				if(smap[s.charAt(j)] == tmap[s.charAt(j)])
-    					found++;
-    			}
-    			j++;
-    		}
-    		while(found == t.length()) {
-    			if(j - i < length) {
-    				length = j - i;
-    				result = s.substring(i, j);
-    			}
+    	for(int right = 0; right < s.length(); right++) {
+    		char r = s.charAt(right);
+    		if(map.containsKey(r)) {
+    			map.put(r, map.get(r) - 1);
+    			if(map.get(r) >= 0)
+    				count++;
     			
-    			if(tmap[s.charAt(i)] > 0) {
-    				smap[s.charAt(i)]--;
-    				if(smap[s.charAt(i)] < tmap[s.charAt(i)])
-    					found--;
+    			while(count == t.length()) {
+    				if(right - left + 1 < minLen) {
+    					minLeft = left;
+    					minLen = right - left + 1;
+    				}
+    				
+    				char l = s.charAt(left);
+    				if(map.containsKey(l)) {
+    					map.put(l, map.get(l) + 1);
+    					if(map.get(l) > 0)
+    						count--;
+    				}
+    				left++;
     			}
-    			i++;
     		}
     	}
-    	
-        return result;
-    }
-
-
+    	return minLeft > s.length() ? "" : s.substring(minLeft, minLeft + minLen);
+	}
 }

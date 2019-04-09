@@ -3,7 +3,7 @@ package uber;
 public class SolveEquation {
 
 	public static void main(String[] args) {
-		String s = "2x+3x-6x=x+2";
+		String s = "x+5-3+x=6+x-2"; //"2x+3x-6x=x+2";
 		String result = solveEquation(s);
 		System.out.println(result);
 	}

@@ -6,7 +6,7 @@ import java.util.List;
 public class RestoreIpAddresses {
 
 	public static void main(String[] args) {
-		String s = "25525511135"; // "0279245587303"; //
+		String s = "010010";//"25525511135"; // "0279245587303"; //
 		List<String> result = restoreIpAddresses(s);
 		System.out.println(result);
 	}
@@ -28,8 +28,8 @@ public class RestoreIpAddresses {
 						String C = s.substring(a + b, a + b + c);
 						String D = s.substring(a + b + c);
 						
-						//if(!A.isEmpty() && !B.isEmpty() && !C.isEmpty() && !D.isEmpty()) {
-							if (Long.parseLong(A) <= 255 
+						if(!checkStartWithZero(A, B, C, D)) {
+							if (Long.parseLong(A) <= 255  
 									&& Long.parseLong(B) <= 255 
 									&& Long.parseLong(C) <= 255
 									&& Long.parseLong(D) <= 255) {
@@ -38,13 +38,19 @@ public class RestoreIpAddresses {
 								if (temp.length() == s.length() + 3)
 									result.add(temp);
 							}
-						//}
+						}
 					}
 				}
 			}
 		}
-
 		return result;
+	}
+	
+	private static boolean checkStartWithZero(String a, String b, String c, String d) {
+		return (a.startsWith("0") && a.length() > 1)
+				|| (b.startsWith("0") && b.length() > 1)
+				|| (c.startsWith("0") && c.length() > 1)
+				|| (d.startsWith("0") && d.length() > 1);
 	}
 
 }
