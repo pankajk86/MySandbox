@@ -68,14 +68,11 @@ public class SegmentTree {
 	 * @return
 	 */
 	public static int getPowerOfTwo(int n) {
-		if(ceilLog2(n) == floorLog2(n)) return n;
-		else {
-			int x = n;
-			while(ceilLog2(x) != floorLog2(x)) {
-				x++;
-			}
-			return x;
+		int x = n;
+		while(ceilLog2(x) != floorLog2(x)) {
+			x++;
 		}
+		return x;
 	}
 	
 	private static int ceilLog2(int n) {

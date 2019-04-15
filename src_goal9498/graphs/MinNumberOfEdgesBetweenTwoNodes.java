@@ -1,6 +1,7 @@
 package graphs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MinNumberOfEdgesBetweenTwoNodes {
@@ -40,17 +41,20 @@ public class MinNumberOfEdgesBetweenTwoNodes {
 	}
 
 	private static Graph createGraph() {
-		Graph graph = new Graph(7);
-		graph.addUndirectedEdge(1, 0);
-		graph.addUndirectedEdge(1, 2);
-		graph.addUndirectedEdge(0, 2);
-		graph.addUndirectedEdge(0, 4);
-		graph.addUndirectedEdge(2, 5);
-		graph.addUndirectedEdge(4, 5);
-		graph.addUndirectedEdge(4, 6);
-		graph.addUndirectedEdge(4, 3);
-		
-		return graph;
+		Graph g = new Graph(7);
+        List<int[]> edges = new ArrayList<>();
+        edges.addAll(Arrays.asList(
+                new int[] {0, 1},
+                new int[] {0, 2},
+                new int[] {0, 4},
+                new int[] {1, 2},
+                new int[] {2, 5},
+                new int[] {3, 4},
+                new int[] {4, 5},
+                new int[] {4, 6}
+            ));
+        g.addUndirectedEdges(edges);
+        return g;
 	}
 
 }

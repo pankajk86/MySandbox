@@ -17,13 +17,17 @@ public class Graph {
 		}
 	}
 	
-	public void addEdge(int v, int w) {
-		this.adj[v].add(w);
+	public void addEdges(List<int[]> edges) {
+		for(int[] edge: edges) {
+            this.adj[edge[0]].add(edge[1]);
+        }
 	}
 	
-	public void addUndirectedEdge(int v, int w) {
-		this.adj[v].add(w);
-		this.adj[w].add(v);
+	public void addUndirectedEdges(List<int[]> edges) {
+		for(int[] edge: edges) {
+            this.adj[edge[0]].add(edge[1]);
+            this.adj[edge[1]].add(edge[0]);
+        }
 	}
 	
 	public int size() {
