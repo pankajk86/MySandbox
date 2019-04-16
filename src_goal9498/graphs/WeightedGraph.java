@@ -7,6 +7,7 @@ public class WeightedGraph implements IGraph {
 
 	private int n;
 	private List<int[]> adj[];
+	private List<int[]> edges;
 	
 	@SuppressWarnings("unchecked")
 	public WeightedGraph(int n) {
@@ -20,14 +21,15 @@ public class WeightedGraph implements IGraph {
 	
 	@Override
 	public void addUndirectedEdges(List<int[]> edges) {
+		this.edges = edges;
 		for(int[] edge: edges) {
 			this.adj[edge[0]].add(new int[] {edge[1], edge[2]});
 			this.adj[edge[1]].add(new int[] {edge[0], edge[2]});
 		}
 	}
 	
-	public List<int[]>[] getAdjacencyList() {
-		return this.adj;
+	public List<int[]> getEdges() {
+		return this.edges;
 	}
 	
 	public List<int[]> getNeighbors(int u) {
