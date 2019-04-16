@@ -36,7 +36,6 @@ public class CycleInUndirectedGraph {
 				}
 			}
 		}
-		
 		return false;
 	}
 
@@ -54,5 +53,4 @@ public class CycleInUndirectedGraph {
         g.addUndirectedEdges(edges);
         return g;
 	}
-
 }
