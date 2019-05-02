@@ -1,12 +1,13 @@
 package facebook;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class ContinousSubarraySum {
 
 	public static void main(String[] args) {
-		int[] a = {0, 0};//{23, 2, 4, 6, 8};
-		int k = 0;
+		int[] a = {23, 2, 4, 6, 8};
+		int k = 6;
 		
 		long start = System.currentTimeMillis();
 		boolean result = checkSubarraySum(a, k);
@@ -20,9 +21,10 @@ public class ContinousSubarraySum {
 	}
 
 	private static boolean checkSubarraySumII(int[] a, int k) {
-		HashSet<Integer> set = new HashSet<>();
+		Set<Integer> set = new HashSet<>();
         k = k == 0 ? Integer.MAX_VALUE : (k < 0 ? -k : k); 
         int last = 0; // the prefix sum one element earlier
+        
         for (int num : a) {
             int cur = (last + num) % k; // get newest prefix sum mod k
             if (set.contains(cur)) return true;
