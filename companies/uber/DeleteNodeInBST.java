@@ -8,11 +8,39 @@ public class DeleteNodeInBST {
 		TreeNode root = createTree1();
 		
 		root = createTree2();
-		root = delete(root, 5);
+		root = deleteNode(root, 5);
+		System.out.println(root.val);
 	}
 
+	private static TreeNode deleteNode(TreeNode root, int key) {
+		if(root == null) return null;
+		
+		if(key < root.val)
+			root.left = deleteNode(root.left, key);
+		else if(key > root.val)
+			root.right = deleteNode(root.right, key);
+		else {
+			if(root.left == null)
+				return root.right;
+			else if(root.right == null)
+				return root.left;
+			else {
+				TreeNode minNode = findMin(root.right);
+				root.val = minNode.val;
+				root.right = deleteNode(root.right, minNode.val);
+			}
+		}
+		
+		return root;
+	}
 
+	private static TreeNode findMin(TreeNode node) {
+		while(node.left != null)
+			node = node.left;
+		return node;
+	}
 
+	@SuppressWarnings("unused")
 	private static TreeNode delete(TreeNode root, int key) {
 
 		TreeNode parent = null;

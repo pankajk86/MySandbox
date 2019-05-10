@@ -6,7 +6,7 @@ import java.util.List;
 public class PalindromeSubstrings {
 
 	public static void main(String[] args) {
-		String s = "abcbadef";
+		String s = "aaa";
 		
 		int count = countPalindromeSubstrings(s);
 		System.out.println("\nTotal # of palindromes: " + count);

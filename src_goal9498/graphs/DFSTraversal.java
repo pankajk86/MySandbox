@@ -1,6 +1,7 @@
 package graphs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -41,7 +42,6 @@ public class DFSTraversal {
 	}
 
 	private static List<Integer> dfsRecursive(Graph graph, int start) {
-		
 		boolean visited[] = new boolean[graph.size()];
 		List<Integer> result = new ArrayList<>();
 		helper(graph, start, result, visited);
@@ -61,12 +61,16 @@ public class DFSTraversal {
 	private static Graph createGraph() {
 
 		Graph graph = new Graph(4);
-		graph.addEdge(0, 2);
-		graph.addEdge(0, 1);
-		graph.addEdge(1, 2);
-		graph.addEdge(2, 0);
-		graph.addEdge(2, 3);
+		List<int[]> edges = new ArrayList<>();
+		edges.addAll(Arrays.asList(
+				new int[] {0, 2},
+				new int[] {0, 1},
+				new int[] {1, 2},
+				new int[] {2, 0},
+				new int[] {2, 3}
+			));
 		
+		graph.addEdges(edges);
 		return graph;
 	}
 

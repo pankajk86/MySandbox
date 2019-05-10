@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class DisjointSet {
 
-	private Map<Long, Node> map = new HashMap<>();
+	protected Map<Long, Node> map = new HashMap<>();
 	
 	/**
 	 * Create a node for the given data point.

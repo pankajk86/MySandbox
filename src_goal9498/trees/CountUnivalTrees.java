@@ -1,19 +1,43 @@
 package trees;
 
 public class CountUnivalTrees {
+	
+	private static int count = 0;
 
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		int result = countUnivalTrees(root);
 		System.out.println(result);
+		
+		System.out.println(count);
 	}
 	
 	private static int countUnivalTrees(TreeNode root) {
-		Count result = helper(root);
-		return result.count;
+//		Count result = helper(root);
+//		return result.count;
+		betterHelper(root);
+		return count;
 	}
 	
-
+	private static boolean betterHelper(TreeNode root) {
+		if(root == null) return true;
+		
+		boolean left = betterHelper(root.left);
+		boolean right = betterHelper(root.right);
+		
+		if(left && right) {
+			if(root.left != null && root.val != root.left.val)
+				return false;
+			if(root.right != null && root.val != root.right.val)
+				return false;
+			count++;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@SuppressWarnings("unused")
 	private static Count helper(TreeNode root) {
 
 		if(root == null) return new Count(0, true);

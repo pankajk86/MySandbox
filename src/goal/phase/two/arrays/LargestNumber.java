@@ -40,7 +40,7 @@ public class LargestNumber {
             sb.append(ss);
         }
 
-        if (sb.charAt(0) == '0' && sb.length() > 1) {
+        while (sb.charAt(0) == '0' && sb.length() > 1) {
             sb.deleteCharAt(0);
         }
 

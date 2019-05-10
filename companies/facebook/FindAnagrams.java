@@ -8,39 +8,45 @@ import java.util.Map;
 public class FindAnagrams {
 
 	public static void main(String[] args) {
-		String s = "eklpyqrbgjdwtcaxzsnifvhmoueklpyqrbgjdwtcaxzsnifvhmoueklpyqrbgjdwtcaxzsnifvhmoueklpyqrbgjdwtcaxzsnifvhmou", p = "yqrbg";
+		//String s = "eklpyqrbgjdwtcaxzsnifvhmoueklpyqrbgjdwtcaxzsnifvhmoueklpyqrbgjdwtcaxzsnifvhmoueklpyqrbgjdwtcaxzsnifvhmou", p = "yqrbg";
+		String s = "acbaebabacd", p = "aabc";
 		List<Integer> result = findAnagrams(s, p);
 		System.out.println(result);
 	}
 
 	private static List<Integer> findAnagrams(String s, String p) {
-
+		if(s == null || s.isEmpty() || p == null || p.isEmpty())
+			return null;
+		
+		Map<Character, Integer> map = new HashMap<>();
+		for(char c: p.toCharArray())
+			map.put(c, map.getOrDefault(c, 0) + 1);
+		
+		int left = 0, count = map.size();
 		List<Integer> result = new ArrayList<>();
-		Map<Integer, Long> map = new HashMap<>();
-		int[] prime = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
-		char[] sarr = s.toCharArray();
-		int n = p.length(); 
-		long product = 1, targetProduct = 1;
 		
-		for(int i = 0; i < n; i++) {
-			product *= prime[sarr[i] - 'a'];
-			targetProduct *= prime[p.charAt(i) - 'a'];
+		for(int right = 0; right < s.length(); right++) {
+			char r = s.charAt(right);
+			
+			if(map.containsKey(r)) {
+				map.put(r, map.get(r) - 1);
+				if(map.get(r) == 0) count--;
+			}
+			
+			while(count == 0) {
+				char l = s.charAt(left);
+				
+				if(map.containsKey(l)) {
+					map.put(l, map.getOrDefault(l, 0) + 1);
+					if(map.get(l) > 0) count++;
+				}
+				
+				if(right - left + 1 == p.length())
+					result.add(left);
+				
+				left++;
+			}
 		}
-		
-		map.put(0, product);
-		
-		for(int i = 1; i <= sarr.length - n; i++) {
-			product /= prime[sarr[i - 1] - 'a'];
-			product *= prime[sarr[i + n - 1] - 'a'];
-			map.put(i, product);
-		}
-		
-		for(Map.Entry<Integer, Long> entry: map.entrySet()) {
-			if(entry.getValue() == targetProduct)
-				result.add(entry.getKey());
-		}
-		
 		return result;
 	}
-
 }

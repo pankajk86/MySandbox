@@ -24,7 +24,7 @@ public class ThreeSum {
 	}
 	
 	private static List<List<Integer>> getThreeSum3(int[] a) {
-		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		List<List<Integer>> result = new ArrayList<>();
 		Arrays.sort(a);
 		
 		for(int i = 0; i < a.length - 2; i++) {

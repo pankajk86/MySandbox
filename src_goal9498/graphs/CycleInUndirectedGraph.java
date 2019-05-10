@@ -1,6 +1,8 @@
 package graphs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class CycleInUndirectedGraph {
@@ -34,21 +36,21 @@ public class CycleInUndirectedGraph {
 				}
 			}
 		}
-		
 		return false;
 	}
 
 	private static Graph createGraph() {
 		
 		Graph g = new Graph(5);
-		
-		g.addUndirectedEdge(0, 1);
-		g.addUndirectedEdge(1, 2);
-		g.addUndirectedEdge(0, 2);
-		g.addUndirectedEdge(0, 3);
-		g.addUndirectedEdge(3, 4);
-		
-		return g;
+		List<int[]> edges = new ArrayList<>();
+        edges.addAll(Arrays.asList(
+                new int[] {0, 1},
+                new int[] {0, 2},
+                new int[] {0, 3},
+                new int[] {1, 2},
+                new int[] {3, 4}
+            ));
+        g.addUndirectedEdges(edges);
+        return g;
 	}
-
 }
