@@ -10,7 +10,7 @@ public class RangeSumBST {
 		System.out.println(result);
 		
 		root = createTree2();
-		result = rangeSum(root, 7, 10);
+		result = rangeSum(root, 6, 10);
 		System.out.println(result);
 	}
 

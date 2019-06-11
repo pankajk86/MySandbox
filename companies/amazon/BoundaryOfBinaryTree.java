@@ -18,7 +18,6 @@ public class BoundaryOfBinaryTree {
 	private static List<Integer> findBoundary(TreeNode root) {
 
 		if(root == null) return nodes;
-		
 		nodes.add(root.val);
 		
 		findLeftBoundary(root.left);
@@ -29,6 +28,20 @@ public class BoundaryOfBinaryTree {
 		return nodes;
 	}
 
+	private static void findLeftBoundary(TreeNode root) {
+		if(root == null || (root.left == null && root.right == null)) return;
+		
+		nodes.add(root.val);
+		findLeftBoundary(root.left != null ? root.left : root.right);
+	}
+	
+	private static void findRightBoundary(TreeNode root) {
+		if(root == null || (root.left == null && root.right == null)) return;
+		
+		findRightBoundary(root.right != null ? root.right : root.left);
+		nodes.add(root.val); // add after child visit to reverse the order
+	}
+	
 	private static void findBottomBoundary(TreeNode root) {
 		if(root == null) return;
 		
@@ -39,64 +52,6 @@ public class BoundaryOfBinaryTree {
 		
 		findBottomBoundary(root.left);
 		findBottomBoundary(root.right);
-	}
-	
-	private static void findRightBoundary(TreeNode root) {
-		
-		if(root == null || (root.left == null && root.right == null)) return;
-		
-		if(root.right == null) findRightBoundary(root.left);
-		else findRightBoundary(root.right);
-		nodes.add(root.val); // add after child visit to reverse the order
-	}
-
-	private static void findLeftBoundary(TreeNode root) {
-		
-		if(root == null || (root.left == null && root.right == null)) return;
-		
-		nodes.add(root.val);
-		if(root.left == null) findLeftBoundary(root.right);
-		else findLeftBoundary(root.left);
-	}
-	
-	@SuppressWarnings("unused")
-	private static List<Integer> findBottomBoundaryIter(TreeNode root) {
-
-		List<TreeNode> l1 = new ArrayList<>();
-		List<TreeNode> l2 = new ArrayList<>();
-		List<Integer> result = null;
-		
-		l1.add(root);
-		
-		while(l1.size() > 0 || l2.size() > 0) {
-			if(l1.size() > 0) {
-				result = new ArrayList<>();
-				for(TreeNode n: l1) 
-					result.add(n.val);
-				
-				while(l1.size() > 0) {
-					TreeNode curr = l1.remove(0);
-					if(curr.left != null)
-						l2.add(curr.left);
-					if(curr.right != null)
-						l2.add(curr.right);
-				}
-			} else if(l2.size() > 0) {
-				result = new ArrayList<>();
-				for(TreeNode n: l2) 
-					result.add(n.val);
-				
-				while(l2.size() > 0) {
-					TreeNode curr = l2.remove(0);
-					if(curr.left != null)
-						l1.add(curr.left);
-					if(curr.right != null)
-						l1.add(curr.right);
-				}
-			}
-		}
-		
-		return result;
 	}
 
 	private static TreeNode createTree() {

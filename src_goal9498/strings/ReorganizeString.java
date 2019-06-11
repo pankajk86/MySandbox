@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+// Similar to 1054. Distant Barcodes
 public class ReorganizeString {
 
 	public static void main(String[] args) {
-		String s = "aab";
+		String s = "aaabc";
 		String result = reorganizeString(s);
 		System.out.println(result);
 	}

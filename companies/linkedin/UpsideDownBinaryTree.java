@@ -7,7 +7,7 @@ public class UpsideDownBinaryTree {
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		TreeNode result = upsideDown(root);
-		System.out.println(result.levelOrder());
+		System.out.println(result);
 	}
 
 	private static TreeNode upsideDown(TreeNode root) {

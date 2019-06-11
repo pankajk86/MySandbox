@@ -14,13 +14,13 @@ public class MinimumDistanceInMatrix_AMZN {
 		System.out.println(result);
 	}
 
-	private static int minDistance(int rows, int cols, List<List<Integer>> area) {
+	private static int minDistance(int numRows, int numCols, List<List<Integer>> area) {
 
 		Item source = new Item(0, 0, 0);
-		boolean[][] visited = new boolean[rows][cols];
+		boolean[][] visited = new boolean[numRows][numCols];
 		
-		for(int i = 0; i < rows; i++) {
-			for(int j = 0; j < cols; j++) {
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
 				if(area.get(i).get(j) == 0)
 					visited[i][j] = true;
 				else visited[i][j] = false;
@@ -45,7 +45,7 @@ public class MinimumDistanceInMatrix_AMZN {
 			}
 			
 			// moving down
-			if(item.row + 1 < rows && !visited[item.row + 1][item.col]) {
+			if(item.row + 1 < numRows && !visited[item.row + 1][item.col]) {
 				q.add(new Item(item.row + 1, item.col, item.dist + 1));
 				visited[item.row + 1][item.col] = true;
 			}
@@ -57,7 +57,7 @@ public class MinimumDistanceInMatrix_AMZN {
 			}
 			
 			// moving right
-			if(item.col + 1 < cols && !visited[item.row][item.col + 1]) {
+			if(item.col + 1 < numCols && !visited[item.row][item.col + 1]) {
 				q.add(new Item(item.row, item.col + 1, item.dist + 1));
 				visited[item.row][item.col + 1] = true;
 			}

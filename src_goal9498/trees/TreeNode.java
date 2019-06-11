@@ -13,7 +13,8 @@ public class TreeNode {
 		this.val = val;
 	}
 	
-	public String levelOrder() {
+	@Override
+	public String toString() {
 		List<TreeNode> list = new ArrayList<>();
 		list.addAll(Arrays.asList(this, null));
 		
