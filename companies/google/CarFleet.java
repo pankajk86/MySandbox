@@ -1,6 +1,7 @@
 package google;
 
-import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CarFleet {
 
@@ -15,24 +16,25 @@ public class CarFleet {
 
 	private static int countFleet(int target, int[] position, int[] speed) {
 
-		int fleet = 0;
-		double max = -1D;
-		double[] distribution = new double[target + 1];
-		
-		Arrays.fill(distribution, -1D);
+		TreeMap<Integer, Integer> map = new TreeMap<>();
+		int result = 0;
 		
 		for(int i = 0; i < position.length; i++) {
-			distribution[position[i]] = (target - position[i]) / speed[i];
+			map.put(target - position[i], speed[i]);
 		}
 		
-		for(int i = distribution.length - 1; i >= 0; i--) {
-			if(distribution[i] > max) {
-				max = distribution[i];
-				fleet++;
+		double temp = -1.0D;
+		
+		for(Map.Entry<Integer, Integer> entry: map.entrySet()) {
+			int d = entry.getKey(), s = entry.getValue();
+			double time = 1.0 * d/s;
+			if(time > temp) {
+				result++;
+				temp = time;
 			}
 		}
 		
-		return fleet;
+		return result;
 	}
 
 }

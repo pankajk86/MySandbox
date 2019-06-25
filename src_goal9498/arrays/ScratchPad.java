@@ -6,6 +6,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ScratchPad {
 
@@ -16,7 +19,38 @@ public class ScratchPad {
 		testSHA256();
 
 		testDataTypeSize();
+		testLinkedHashMap();
+	}
 
+	private static void testLinkedHashMap() {
+		
+		System.out.println("LinkedHashMap:");
+		Map<Integer, String> map = new LinkedHashMap<>();
+		map.put(1, "test1");
+		map.put(3, "test3");
+		map.put(2, "test2");
+		
+		for(Map.Entry<Integer, String> entry: map.entrySet())
+			System.out.println(entry.getKey() + " -> " + entry.getValue());
+		
+		System.out.println("TreeMap:");
+		TreeMap<Integer, String> map2 = new TreeMap<>();
+		map2.put(1, "test1");
+		map2.put(3, "test3");
+		map2.put(2, "test2");
+		
+		for(Map.Entry<Integer, String> entry: map2.entrySet())
+			System.out.println(entry.getKey() + " -> " + entry.getValue());
+		
+		System.out.println("HashMap:");
+		TreeMap<Integer, String> map3 = new TreeMap<>();
+		map3.put(1, "test1");
+		map3.put(3, "test3");
+		map3.put(2, "test2");
+		
+		for(Map.Entry<Integer, String> entry: map3.entrySet())
+			System.out.println(entry.getKey() + " -> " + entry.getValue());
+		
 	}
 
 	private static void testDataTypeSize() {
