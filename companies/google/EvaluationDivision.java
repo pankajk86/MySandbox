@@ -14,7 +14,7 @@ public class EvaluationDivision {
 		
 		double[] result = calcEquation(equations, values, queries);
 		for(double d: result) {
-			System.out.print(d + ", ");
+			System.out.print(d + " ");
 		}
 	}
 	

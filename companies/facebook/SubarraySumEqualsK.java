@@ -6,14 +6,11 @@ import java.util.Map;
 public class SubarraySumEqualsK {
 
 	public static void main(String[] args) {
-		int[] a = { 1, 3, 5, 2, 1, 1 };
-		int target = 4;
+		int[] a = { 1, 2, 3, 2, 1, 2 }; // { 1, 3, 5, 2, 1, 1 };
+		int target = 5;
 
 		int result = subArraySum(a, target);
 		System.out.println(result);
-		
-		boolean check = checkSubarraySum(a, target);
-		System.out.println(check);
 	}
 
 	private static int subArraySum(int[] a, int target) {
@@ -32,17 +29,6 @@ public class SubarraySumEqualsK {
 		}
 		
 		return result;
-	}
-	
-	
-	private static boolean checkSubarraySum(int[] a, int target) {
-		
-		int[] b = {23, 2, 4, 6, 7};
-		target = 6;
-		
-		a = b;
-		
-		return false;
 	}
 
 	@SuppressWarnings("unused")

@@ -8,11 +8,37 @@ import trees.TreeNode;
 public class BSTToSortedDoubleyLinkedList {
 	
 	private static List<TreeNode> inorderList = new ArrayList<>();
+	private static TreeNode head, prev;
 
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		TreeNode result = treeToDoublyList(root);
 		System.out.println(result.val);
+		
+		result = treeToDoublyListBetter(root);
+		System.out.println(result.val);
+	}
+
+	private static TreeNode treeToDoublyListBetter(TreeNode root) {
+		inorderII(root);
+		
+		if(head != null) {
+			prev.right = head;
+			head.left = prev;
+		}
+		return head;
+	}
+	
+	private static void inorderII(TreeNode root) {
+		if(root == null) return;
+		
+		inorderII(root.left);
+		if(head == null) head = root;
+		if(prev != null) prev.right = root;
+		
+		root.left = prev;
+		prev = root;
+		inorderII(root.right);
 	}
 
 	private static TreeNode treeToDoublyList(TreeNode root) {

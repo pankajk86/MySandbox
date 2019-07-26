@@ -5,9 +5,14 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 public class ScratchPad {
@@ -20,6 +25,46 @@ public class ScratchPad {
 
 		testDataTypeSize();
 		testLinkedHashMap();
+		
+		reviseMergeKSortedList();
+	}
+
+	private static void reviseMergeKSortedList() {
+		List<List<Integer>> list = new ArrayList<>();
+		list.addAll(Arrays.asList(
+				Arrays.asList(5, 10, 12), // 2, 4, 
+				Arrays.asList(1, 3, 8),
+				Arrays.asList(6, 9)
+		));
+		
+		List<Integer> result = merge(list);
+		System.out.println(result);
+	}
+
+	private static List<Integer> merge(List<List<Integer>> list) {
+		
+		List<Integer> result = new ArrayList<>();
+		
+		PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+			@Override
+			public int compare(int[] a, int[] b) {
+				return list.get(a[0]).get(a[1]) - list.get(b[0]).get(b[1]);
+			}
+		});
+		
+		for(int i = 0; i < list.size(); i++) {
+			pq.add(new int[] {i, 0});
+		}
+		
+		while(!pq.isEmpty()) {
+			int[] curr = pq.poll();
+			result.add(list.get(curr[0]).get(curr[1]));
+			if(curr[1] < list.get(curr[0]).size() - 1) {
+				pq.add(new int[] {curr[0], curr[1] + 1});
+			}
+		}
+		
+		return result;
 	}
 
 	private static void testLinkedHashMap() {

@@ -3,7 +3,7 @@ package dp;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WordSegment {
+public class WordBreak {
 
     static String sentence = "";
 
@@ -13,6 +13,33 @@ public class WordSegment {
         test2();
         
         testDP();
+    }
+    
+    private static void testDP() {
+        Set<String> dict = new HashSet<String>();
+        dict.add("leet");
+        dict.add("code");
+        String str = "leetcode";
+
+        boolean success = segmentWordsDP(dict, str);
+        System.out.println(success);
+    }
+    
+    public static boolean segmentWordsDP(Set<String> dict, String str) {
+    	
+    	boolean[] dp = new boolean[str.length() + 1];
+    	dp[0] = true;
+    	
+    	for(int i = 1; i <= str.length(); i++) {
+    		for(int j = 0; j < i; j++) {
+    			if(dp[j] && dict.contains(str.substring(j, i))) {
+    				dp[i] = true;
+    				break;
+    			}
+    		}
+    	}
+    	
+    	return dp[str.length()];
     }
 
     private static void test1() {
@@ -47,33 +74,6 @@ public class WordSegment {
         boolean success = segmentWords(dict, str);
         System.out.println("(test2): Words can be segmented? " + success);
         System.out.println(sentence);
-    }
-    
-    private static void testDP() {
-        Set<String> dict = new HashSet<String>();
-        dict.add("leet");
-        dict.add("code");
-        String str = "leetcode";
-
-        boolean success = segmentWordsDP(dict, str);
-        System.out.println(success);
-    }
-    
-    public static boolean segmentWordsDP(Set<String> dict, String str) {
-    	
-    	boolean[] dp = new boolean[str.length() + 1];
-    	dp[0] = true;
-    	
-    	for(int i = 1; i <= str.length(); i++) {
-    		for(int j = 0; j < i; j++) {
-    			if(dp[j] && dict.contains(str.substring(j, i))) {
-    				dp[i] = true;
-    				break;
-    			}
-    		}
-    	}
-    	
-    	return dp[str.length()];
     }
 
     private static boolean segmentWords(Set<String> dict, String str) {
