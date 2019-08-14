@@ -9,11 +9,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.TreeMap;
+
+import trees.TreeNode;
 
 public class ScratchPad {
 
@@ -22,11 +28,193 @@ public class ScratchPad {
 		initializeTwoDimArray();
 		mathCeiling();
 		testSHA256();
+		singleOccurrance();
 
 		testDataTypeSize();
 		testLinkedHashMap();
 		
 		reviseMergeKSortedList();
+		reviseIntervalListIntersections();
+		reviseDailyTemperaturs();
+		reviseFindBottomLeftTreeValue();
+		reviseValidateStackSequences();
+		reviseSortCharactersByFrequency();
+	}
+
+	private static void singleOccurrance() {
+		int[] a = { 1, 4, 1, 1, 2, 3, 4, 4, 5 };
+		List<Integer> result = findSingleOccurrance(a);
+		System.out.println("Unique Integers: " + result);
+	}
+
+	private static List<Integer> findSingleOccurrance(int[] a) {
+		List<Integer> result = new ArrayList<>();
+		Arrays.sort(a);
+		
+		for(int i = 0; i < a.length; i++) {
+			if(i == 0 && a[i] != a[i + 1]) result.add(a[i]);
+			else if(i == a.length - 1 && a[i] != a[i - 1]) result.add(a[i]);
+			else if(i > 0 && i < a.length - 1 && a[i] != a[i - 1] && a[i] != a[i + 1]) result.add(a[i]);
+		}
+		return result;
+	}
+
+	private static void reviseSortCharactersByFrequency() {
+		String s = "Aabb";
+		String result = sortCharacters(s);
+		System.out.println(result);
+	}
+
+	private static String sortCharacters(String s) {
+		if(s == null || s.isEmpty()) return s;
+        
+        char[] carr = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        for(char c: carr) map.put(c, map.getOrDefault(c, 0) + 1);
+        
+        Character[] temp = new Character[carr.length];
+        for(int i = 0; i < carr.length; i++) temp[i] = carr[i];
+        
+        Arrays.sort(temp, new Comparator<Character>() {
+			@Override
+			public int compare(Character c1, Character c2) {
+				if(map.get(c1) > map.get(c2)) return -1;
+				return 1;
+			}
+        });
+        
+        StringBuilder sb = new StringBuilder();
+        for(char c: temp) sb.append(c);
+        
+        return sb.toString();
+ 
+	}
+
+	private static void reviseValidateStackSequences() {
+		int[] push = { 1, 2, 3, 4, 5 };
+		int[] pop = { 4, 5, 3, 2, 1 };
+		
+		boolean result = validateStackSequences(push, pop);
+		System.out.println(result);
+	}
+
+	private static boolean validateStackSequences(int[] push, int[] pop) {
+		Stack<Integer> stack = new Stack<>();
+		int j = 0;
+		
+		for(int i = 0; i < push.length; i++) {
+			stack.push(push[i]);
+			if(push[i] == pop[j]) {
+				while(!stack.isEmpty() && stack.peek() == pop[j]) {
+					stack.pop();
+					j++;
+				}
+			}
+		}
+		
+		while(j < pop.length) {
+			if(!stack.isEmpty() && stack.peek() == pop[j]) {
+				stack.pop();
+				j++;
+			} else return false;
+		}
+
+		return stack.isEmpty();
+	}
+
+	private static void reviseFindBottomLeftTreeValue() {
+		TreeNode root = createTree1();
+		int result = findBottomLeftValue(root);
+		System.out.println(result);
+	}
+
+	private static int findBottomLeftValue(TreeNode root) {
+		int result = root.val;
+		
+		Queue<TreeNode> q = new LinkedList<>();
+		q.addAll(Arrays.asList(root, null));
+		
+		while(!q.isEmpty()) {
+			TreeNode curr = q.poll();
+			if(curr != null) {
+				if(curr.left != null) q.add(curr.left);
+				if(curr.right != null) q.add(curr.right);
+			} else {
+				if(q.size() > 0) {
+					result = q.peek().val;
+					q.add(null);
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	private static TreeNode createTree1() {
+		TreeNode n1 = new TreeNode(1);
+		TreeNode n2 = new TreeNode(2);
+		TreeNode n3 = new TreeNode(3);
+		TreeNode n4 = new TreeNode(4);
+		TreeNode n5 = new TreeNode(5);
+		TreeNode n6 = new TreeNode(6);
+		TreeNode n7 = new TreeNode(7);
+		
+		n2.left = n4; n5.left = n7;
+		n3.left = n5; n3.right = n6;
+		n1.left = n2; n1.right = n3;
+		return n1;
+	}
+
+	private static void reviseDailyTemperaturs() {
+		int[] temp = { 89, 62, 70, 58, 47, 47, 46, 76, 100, 70 };
+		int[] result = dailyTemperatures(temp);
+		for(int r: result) System.out.print(r + " ");
+		System.out.println();
+	}
+
+	private static int[] dailyTemperatures(int[] a) {
+		if(a == null || a.length == 0) return null;
+		
+		int[] result = new int[a.length];
+		Stack<Integer> stack = new Stack<>();
+		result[a.length - 1] = 0;
+		stack.push(a.length - 1);
+		
+		for(int i = a.length - 2; i >= 0; i--) {
+			while(!stack.isEmpty() && a[stack.peek()] <= a[i])
+				stack.pop();
+			result[i] = stack.isEmpty() ? 0 : stack.peek() - i;
+			stack.push(i);
+		}
+		
+		return result;
+	}
+
+	private static void reviseIntervalListIntersections() {
+		int[][] a = { { 0, 2 }, { 5, 10 }, { 13, 23 }, { 24, 25 } };
+		int[][] b = { { 1, 5 }, { 8, 12 }, { 15, 24 }, { 25, 26 } };
+		int[][] result = intervalIntersections(a, b);
+		for(int[] interval : result) System.out.println(interval[0] + ", " + interval[1]);
+	}
+
+	private static int[][] intervalIntersections(int[][] a, int[][] b) {
+		List<int[]> list = new ArrayList<>();
+        if(a == null || b == null) return null;
+        
+        for(int i = 0, j = 0; i < a.length && j < b.length; ) {
+            int start = Math.max(a[i][0], b[j][0]);
+            int end = Math.min(a[i][1], b[j][1]);
+            
+            if(end >= start) list.add(new int[] {start, end});
+            if(end == a[i][1]) i++;
+            if(end == b[j][1]) j++;
+        }
+        
+        int[][] result = new int[list.size()][2];
+        for(int i = 0; i < list.size(); i++)
+            result[i] = list.get(i);
+        
+        return result;
 	}
 
 	private static void reviseMergeKSortedList() {

@@ -36,14 +36,13 @@ public class WallsAndGates {
 	}
 
 	private static void dfs(int[][] a, int i, int j, int rows, int cols, int step) {
-		if(i < 0 || i >= rows || j < 0 || j >= cols) return;
-		if(a[i][j] < 0 || a[i][j] < step) return;
+		if(i < 0 || i >= rows || j < 0 || j >= cols || a[i][j] < 0 || a[i][j] < step) return;
 
 		a[i][j] = step;
 		
 		for(int[] dir: dirs) {
 			int x = i + dir[0], y = j + dir[1];
-			dfs(a, x, y, rows, cols, a[i][j] + 1);
+			dfs(a, x, y, rows, cols, step + 1);
 		}
 	}
 

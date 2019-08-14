@@ -2,7 +2,7 @@ package uber;
 
 public class WordSearch {
 
-	private static boolean[][] isVisited;
+	private static int[][] dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 	
 	public static void main(String[] args) {
 		char[][] board = {
@@ -21,34 +21,35 @@ public class WordSearch {
 
 	private static boolean exist(char[][] board, String word) {
 
-		isVisited = new boolean[board.length][board[0].length];
+		boolean[][] visited = new boolean[board.length][board[0].length];
 		
 		for(int i = 0; i < board.length; i++) {
 			for(int j = 0; j < board[0].length; j++) {
-				if(word.charAt(0) == board[i][j] && search(board, word, i, j, 0))
+				if(word.charAt(0) == board[i][j] && search(board, word, i, j, 0, visited))
 					return true;
 			}
 		}
 		return false;
 	}
 
-	private static boolean search(char[][] board, String word, int i, int j, int index) {
+	private static boolean search(char[][] board, String word, int i, int j, int index, boolean[][] visited) {
 
 		if(index == word.length()) return true;
 		
 		if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || 
-				word.charAt(index) != board[i][j] || isVisited[i][j])
+				word.charAt(index) != board[i][j] || visited[i][j])
 			return false;
 		
-		isVisited[i][j] = true;
+		visited[i][j] = true;
+		boolean result = false;
 		
-		if(search(board, word, i + 1, j, index + 1) 
-			|| search(board, word, i - 1, j, index + 1)
-			|| search(board, word, i, j + 1, index + 1)
-			|| search(board, word, i, j - 1, index + 1))
-			return true;
+		for(int[] dir: dirs) {
+            int x = i + dir[0], y = j + dir[1];
+            result |= search(board, word, x, y, index + 1, visited);
+        }
 		
-		isVisited[i][j] = false;
+		if(result) return true;
+		visited[i][j] = false;
 		return false;
 	}
 

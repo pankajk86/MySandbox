@@ -6,10 +6,33 @@ import trees.TreeNode;
 
 public class KthSmallestInBST {
 
+	private static int result = -1, temp = 0;
+	private static boolean found = false;
+	
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		int result = kthSmallest(root, 3);
 		System.out.println(result);
+		
+		result = kthSmallestRecursion(root, 3);
+		System.out.println(result);
+	}
+	
+	private static int kthSmallestRecursion(TreeNode root, int k) {
+		inorder(root, k);
+		return result;
+	}
+
+	private static void inorder(TreeNode root, int k) {
+		if(root == null || found) return;
+		
+		if(!found) inorder(root.left, k);
+		temp++;
+		if(temp == k) {
+			result = root.val;
+			found = true; return;
+		}
+		if(!found) inorder(root.right, k);
 	}
 
 	private static int kthSmallest(TreeNode root, int k) {

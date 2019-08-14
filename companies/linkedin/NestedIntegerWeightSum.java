@@ -1,9 +1,8 @@
 package linkedin;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class NestedIntegerDepthSum {
+public class NestedIntegerWeightSum {
 
 	public static void main(String[] args) {
 		List<NestedInteger> nestedList = createNestedList();
@@ -12,24 +11,15 @@ public class NestedIntegerDepthSum {
 	}
 
 	private static int depthSum(List<NestedInteger> nestedList) {
-		int depth = 0, result = 0;
-        List<Element> list = flattenList(nestedList, depth);
-        
-        for(Element e: list) 
-            result += (e.value * e.depth);
-        
-        return result;
+		return flatten(nestedList, 1);
 	}
 	
-	private static List<Element> flattenList(List<NestedInteger> nestedList, int depth) {
-        List<Element> result = new ArrayList<>();
-        for(NestedInteger ni: nestedList) {
-            if(ni.isInteger()) {
-                result.add(new Element(ni.getInteger(), depth + 1));
-            } else {
-                List<Element> el = flattenList(ni.getList(), depth + 1);
-                result.addAll(el);
-            }
+	private static int flatten(List<NestedInteger> nl, int depth) {
+        int result = 0;
+        
+        for(NestedInteger ni: nl) {
+            if(ni.isInteger()) result += ni.getInteger() * depth;
+            else result += flatten(ni.getList(), depth + 1);
         }
         return result;
     }

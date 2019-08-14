@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import graphs.DisjointSet;
+import graphs.UnionFind;
 
 public class FriendCircles {
 
@@ -19,8 +20,24 @@ public class FriendCircles {
 		
 		int result = countFriendCircles(m);
 		System.out.println(result);
+		
+		result = countFriendCirclesUF(m);
+		System.out.println(result);
 	}
 	
+	private static int countFriendCirclesUF(int[][] m) {
+		UnionFind uf = new UnionFind(m.length);
+		
+		for(int i = 0; i < m.length - 1; i++) {
+			for(int j = i + 1; j < m.length; j++) {
+				if(m[i][j] == 1)
+					uf.union(i, j);
+			}
+		}
+		
+		return uf.getCount();
+	}
+
 	private static int countFriendCircles(int[][] m) {
 		
 		Set<Integer> rep = new HashSet<>();

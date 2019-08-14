@@ -3,7 +3,7 @@ package goal.algorithms.dnc;
 public class MergeSort {
 
     public static void main(String[] args) {
-        int A[] = { 3, 1, 4, 2, 6, 5, 8, 7 };
+        int A[] = { 3, 1, 4, 2, 6, 5, 2, 8, 7 };
         mergeSort(A, 0, A.length - 1);
 
         for (int i = 0; i < A.length; i++) {

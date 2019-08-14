@@ -5,13 +5,34 @@ import java.util.Stack;
 public class DailyTemperatures {
 
 	public static void main(String[] args) {
-//		int[] temperatures = { 55, 38, 53, 81, 61, 93, 97, 32, 43, 78 };
 		int[] temperatures = { 73, 74, 75, 71, 69, 72, 76, 73 };
+		
 		int[] result = dailyTemperatures(temperatures);
+		for (int i : result) System.out.print(i + " ");
+		
+		System.out.println();
+		result = dailyTemperaturesSimple(temperatures);
+		for (int i : result) System.out.print(i + " ");
+		
+	}
+	
+	private static int[] dailyTemperaturesSimple(int[] a) {
+		if (a == null || a.length == 0)
+			return null;
 
-		for (int i : result) {
-			System.out.print(i + " ");
+		int[] result = new int[a.length];
+		Stack<Integer> stack = new Stack<>();
+		result[a.length - 1] = 0;
+		stack.push(a.length - 1);
+
+		for (int i = a.length - 2; i >= 0; i--) {
+			while (!stack.isEmpty() && a[stack.peek()] <= a[i])
+				stack.pop();
+			result[i] = stack.isEmpty() ? 0 : stack.peek() - i;
+			stack.push(i);
 		}
+
+		return result;
 	}
 
 	private static int[] dailyTemperatures(int[] temps) {

@@ -10,9 +10,30 @@ public class IntervalListIntersections {
 		Interval[] B = createIntervals2();
 		
 		Interval[] result = intervalIntersection(A, B);
+		for(Interval i: result) System.out.print(i + " ");
+		System.out.println();
 		
-		for(Interval i: result)
-			System.out.print(i + " ");
+		result = intervalIntersectionSimple(A, B);
+		for(Interval i: result) System.out.print(i + " ");
+	}
+	
+	private static Interval[] intervalIntersectionSimple(Interval[] a, Interval[] b) {
+		List<Interval> intervals = new ArrayList<>();
+		
+		for(int i = 0, j = 0; i < a.length && j < b.length; ) {
+			Interval i1 = a[i], i2 = b[j];
+			
+			int start = Math.max(i1.start, i2.start);
+			int end = Math.min(i1.end, i2.end);
+			
+			if(end >= start) 
+				intervals.add(new Interval(start, end));
+			
+			if(i1.end == end) i++;
+			if(i2.end == end) j++;
+		}
+		
+		return intervals.toArray(new Interval[0]);
 	}
 
 	private static Interval[] intervalIntersection(Interval[] a, Interval[] b) {

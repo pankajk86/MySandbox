@@ -2,7 +2,9 @@ package facebook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import trees.TreeNode;
 
@@ -10,32 +12,29 @@ public class BinaryTreeRightSideView {
 
 	public static void main(String[] args) {
 		TreeNode root = createTree();
-		List<TreeNode> result = rightView(root);
-		
-		for(TreeNode node: result)
-			System.out.print(node.val + " ");
+		List<Integer> result = rightView(root);
+		System.out.print(result);
 	}
 
-	private static List<TreeNode> rightView(TreeNode root) {
+	private static List<Integer> rightView(TreeNode root) {
 
-		List<TreeNode> result = new ArrayList<>();
-		List<TreeNode> q = new ArrayList<>();
-		q.addAll(Arrays.asList(root, null));
-		
-		for(int i = 0; i < q.size(); i++) {
-			TreeNode curr = q.get(i);
-			if(curr != null) {
-				if(curr.left != null) q.add(curr.left);
-				if(curr.right != null) q.add(curr.right);
-			} else {
-				if(i > 0 && q.get(i - 1) != null) {
-					result.add(q.get(i - 1));
-					q.add(null);
-				}
-			}
-		}
-		
-		return result;
+		List<Integer> result = new ArrayList<>();
+        if(root == null) return result;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.addAll(Arrays.asList(root, null));
+        
+        while(!q.isEmpty()) {
+            TreeNode curr = q.poll();
+            if(!q.isEmpty() && q.peek() == null) result.add(curr.val);
+            if(curr != null) {
+                if(curr.left != null) q.add(curr.left);
+                if(curr.right != null) q.add(curr.right);
+            } else {
+                if(q.isEmpty()) break;
+                q.add(null);
+            }
+        }
+        return result;
 	}
 
 	private static TreeNode createTree() {

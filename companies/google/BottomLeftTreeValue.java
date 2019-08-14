@@ -1,7 +1,8 @@
 package google;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import trees.TreeNode;
 
@@ -14,28 +15,25 @@ public class BottomLeftTreeValue {
 	}
 
 	private static int findBottomLeftValue(TreeNode root) {
-		List<TreeNode> q = new ArrayList<>();
-		q.add(root); q.add(null);
-		int i = 0;
+		int result = root.val;
 		
-		while(i < q.size()) {
-			TreeNode curr = q.get(i);
+		Queue<TreeNode> q = new LinkedList<>();
+		q.addAll(Arrays.asList(root, null));
+		
+		while(!q.isEmpty()) {
+			TreeNode curr = q.poll();
 			if(curr != null) {
 				if(curr.left != null) q.add(curr.left);
 				if(curr.right != null) q.add(curr.right);
 			} else {
-				if(i == q.size() - 1) break;
-				q.add(null);
+				if(q.size() > 0) {
+					result = q.peek().val;
+					q.add(null);
+				}
 			}
-			i++;
 		}
 		
-		while(i >= 0 && q.get(i) == null) 
-			i--;
-		while(i >= 0 && q.get(i) != null)
-			i--;
-		
-		return q.get(i + 1).val;
+		return result;
 	}
 
 	private static TreeNode createTree() {

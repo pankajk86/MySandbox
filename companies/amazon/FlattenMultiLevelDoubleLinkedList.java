@@ -1,7 +1,6 @@
 package amazon;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 
 public class FlattenMultiLevelDoubleLinkedList {
 
@@ -11,28 +10,25 @@ public class FlattenMultiLevelDoubleLinkedList {
 		System.out.println(result);
 	}
 
-	// NOT PASSING ALL THE TEST CASES - will revisit
 	private static Node flatten(Node head) {
-		Map<Integer, Boolean> map = new HashMap<>();
-		Node[] flatChild = flat(head, map);
-		return flatChild[0];
+		Stack<Node> stack = new Stack<>();
+		
+		for(Node curr = head; curr != null; curr = curr.next) {
+			if(curr.child != null) {
+				stack.push(curr.next);
+				curr.next = curr.child;
+				if(curr.next != null) curr.next.prev = curr;
+				curr.child = null;
+			} else if(curr.next == null && !stack.isEmpty()) {
+				curr.next = stack.pop();
+				if(curr.next != null) curr.next.prev = curr;
+			}
+		}
+		
+		return head;
 	}
 
-	private static Node[] flat(Node child, Map<Integer, Boolean> map) {
-		Node prev = null;
-		
-		for(Node curr = child; curr != null; curr = curr.next) {
-			if(curr.child != null && !map.containsKey(curr.val)) {
-				map.put(curr.val, true);
-				Node[] flatChild = flat(curr.child, map);
-				Node next = curr.next;
-				curr.next = flatChild[0]; flatChild[0].prev = curr;
-				flatChild[1].next = next; next.prev = flatChild[1];
-			}
-			prev = curr;
-		}
-		return new Node[] {child, prev};
-	}
+
 
 	private static Node createList() {
 		Node n1 = new Node(1);
