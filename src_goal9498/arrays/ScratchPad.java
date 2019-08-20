@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -29,6 +30,12 @@ public class ScratchPad {
 		mathCeiling();
 		testSHA256();
 		singleOccurrance();
+		System.out.println("~~~~");
+		//findMissingNumber();
+		resetMatrixLocations();
+		intersectList();
+		System.out.println("~~~~");
+		
 
 		testDataTypeSize();
 		testLinkedHashMap();
@@ -39,6 +46,84 @@ public class ScratchPad {
 		reviseFindBottomLeftTreeValue();
 		reviseValidateStackSequences();
 		reviseSortCharactersByFrequency();
+	}
+
+	private static void intersectList() {
+		List<Integer> l1 = new ArrayList<>(Arrays.asList( 5, 4, 3, 7, 1, 6 ));
+		List<Integer> l2 = new ArrayList<>(Arrays.asList( 2, 4, 1, 7 ));
+		
+		List<Integer> result = intersect(l1, l2);
+		System.out.println(result);
+	}
+
+	private static List<Integer> intersect(List<Integer> l1, List<Integer> l2) {
+		Collections.sort(l1); Collections.sort(l2);
+		List<Integer> result = new ArrayList<>();
+		
+		for(int i = 0, j = 0; i < l1.size() && j < l2.size(); ) {
+			int a = l1.get(i), b = l2.get(j);
+			if(a < b) i++;
+			else if(a > b) j++;
+			else {
+				result.add(a);
+				i++; j++;
+			}
+		}
+		
+		return result;
+	}
+
+	private static void resetMatrixLocations() {
+		int[][] a = new int[10][20];
+		for(int i = 0; i < a.length; i++) Arrays.fill(a[i], 1);
+		int[][] locs = {{5, 3}, {7, 17}, {6, 8}, {9, 15}, {4, 13}, {4, 2}, {7, 15}, {1, 13}};
+		List<int[]> list = new ArrayList<>(Arrays.asList(locs));
+		
+		resetLocations(a, list);
+		
+//		for(int i = 0; i < a.length; i++) {
+//			for(int j = 0; j < a[0].length; j++)
+//				System.out.print(a[i][j] + " ");
+//			System.out.println();
+//		}
+	}
+
+	private static void resetLocations(int[][] a, List<int[]> list) {
+		Collections.sort(list, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] a, int[] b) {
+				return a[0] != b[0] ? a[0] - b[0] : a[1] - b[1];
+			}
+		});
+		
+		for(int i = 0; i < list.size(); i++) {
+			int[] loc = list.get(i);
+			a[loc[0]][loc[1]] = 0;
+		}
+	}
+
+	@SuppressWarnings("unused")
+	private static void findMissingNumber() {
+		int[] list = new int[999999999];
+		for(int i = 0, j = 1; i < 999999999; i++) {
+			list[i] = j;
+			j = i != 7000 ? j + 1 : j + 2; // 7002 is missing
+		}
+		
+		int result = missingNumber(list);
+		System.out.println(result);
+	}
+
+	private static int missingNumber(int[] a) {
+		
+		int allXor = 1, inputXor = a[0];
+		for(int i = 2; i <= 1000000000; i++)
+			allXor ^= i;
+
+		for(int i = 1; i < a.length; i++)
+			inputXor ^= a[i];
+		
+		return allXor ^ inputXor;
 	}
 
 	private static void singleOccurrance() {

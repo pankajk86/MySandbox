@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class DesignHangman {
 
 	public static void main(String[] args) {
-		String s = "dedication";
+		String s = "dedicate";
 		
 		Hangman game = new Hangman(s);
 		char[] guesses = {'e', 'a', 'k', 'd', 't', 'c', 'i', 'n', 'o'};
@@ -48,11 +48,7 @@ class Hangman {
 		}
 		
 		turnsLeft--;
-		if(turnsLeft > 0) {
-			return correctGuesses == size ? Status.SUCCESS : Status.IN_PROGRESS;
-		} else {
-			return correctGuesses == size ? Status.SUCCESS : Status.FAILURE;
-		}
+		return correctGuesses == size ? Status.SUCCESS : (turnsLeft > 0 ? Status.IN_PROGRESS : Status.FAILURE);
 	}
 	
 	public String getCurrentGuesses() {
