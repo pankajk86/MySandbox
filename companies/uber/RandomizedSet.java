@@ -1,51 +1,46 @@
 package uber;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class RandomizedSet {
 	
-	List<Integer> list;
-	Map<Integer, Integer> map;
+	private List<Integer> list;
+	private Map<Integer, Integer> map;
+	private Random rand;
 	
 	public RandomizedSet() {
 		list = new ArrayList<>();
 		map = new HashMap<>();
+		rand = new Random();
 	}
 	
 	public boolean insert(int val) {
+		if(map.containsKey(val)) return false;
 		
-		if(map.containsKey(val)) {
-			return false;
-		}
-		
+		map.put(val, list.size());
 		list.add(val);
-		map.put(val, list.size() - 1);
 		return true;
 	}
 	
 	public boolean remove(int val) {
-		int index = map.getOrDefault(val, -1);
-		if(index == -1) {
-			return false;
-		}
+		Integer index = map.get(val);
+		if(index == null) return false;
 		
-		Collections.swap(list, index, list.size() - 1);
-		int swappedWith = list.get(index);
-		map.put(swappedWith, index);
-		
-		list.remove(list.size() - 1);
+		int temp = list.get(list.size() - 1);
+		list.set(index, temp);
+		map.put(temp, index);
 		map.remove(val);
+		list.remove(list.size() - 1);
+		
 		return true;
 	}
 
 	public int getRandom() {
-		int min = 0, max = list.size();
-		int index = (int)(Math.random() * (max - min) + min);
-		return list.get(index);
+		return list.get(rand.nextInt(list.size()));
 	}
 	
 	public static void main(String[] args) {

@@ -6,6 +6,24 @@ public class PaintHouse {
 		int[][] costs = { { 17, 2, 17 }, { 16, 16, 5 }, { 14, 3, 19 } };
 		int result = minCost(costs);
 		System.out.println(result);
+		
+		result = minCostBetter(costs);
+		System.out.println(result);
+	}
+	
+	private static int minCostBetter(int[][] a) {
+		if(a == null || a.length == 0) return 0;
+        
+        int r = a[0][0], g = a[0][1], b = a[0][2];
+        
+        for(int i = 1; i < a.length; i++) {
+            int newR = Math.min(g, b) + a[i][0];
+            int newG = Math.min(r, b) + a[i][1];
+            int newB = Math.min(r, g) + a[i][2];
+            r = newR; g = newG; b = newB;
+        }
+        
+        return Math.min(r, Math.min(g, b));
 	}
 
 	private static int minCost(int[][] costs) {

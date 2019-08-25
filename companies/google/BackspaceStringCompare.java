@@ -3,7 +3,7 @@ package google;
 public class BackspaceStringCompare {
 
 	public static void main(String[] args) {
-		String s = "ab#c", t = "ad#c";
+		String s = "y#fo##f", t = "y#f#o##f";
 		boolean result = compare(s, t);
 		System.out.println(result);
 	}
