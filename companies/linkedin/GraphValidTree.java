@@ -5,12 +5,18 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import graphs.UnionFind;
+
 public class GraphValidTree {
 
 	public static void main(String[] args) {
 		int n = 5;
-		int[][] edges = {{0, 1},{1, 2},{2, 3},{1, 3},{1, 4}};
+//		int[][] edges = { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 1, 3 }, { 1, 4 } }; // false
+		int[][] edges = { { 0, 1 }, { 0, 2 }, { 0, 3 }, { 1, 4 } }; // true
 		boolean result = isGraphValidTree(n, edges);
+		System.out.println(result);
+		
+		result = isGraphValidTree2(n, edges);
 		System.out.println(result);
 	}
 
@@ -30,6 +36,17 @@ public class GraphValidTree {
 			rep.add(dset.find(i));
 		
 		return rep.size() == 1 ? true : false;
+	}
+	
+	private static boolean isGraphValidTree2(int n, int[][] a) {
+		UnionFind uf = new UnionFind(n);
+		
+		for(int i = 0; i < a.length; i++) {
+			int rootP = uf.find(a[i][0]), rootQ = uf.find(a[i][1]);
+			if(rootP == rootQ) return false;
+			uf.union(a[i][0], a[i][1]);
+		}
+		return true;
 	}
 
 }

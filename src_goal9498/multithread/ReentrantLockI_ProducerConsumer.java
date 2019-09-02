@@ -5,7 +5,7 @@ import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ReentrantLockI {
+public class ReentrantLockI_ProducerConsumer {
 	
 	public static void main(String[] args) {
 		ReentrantLock lock = new ReentrantLock();
@@ -16,7 +16,7 @@ public class ReentrantLockI {
 		int capacity = 10;
 		
 		Thread producer = new Thread(new Producer(q, lock, prod, con, capacity), "Producer");
-		Thread consumer = new Thread(new Consumer(q, lock, prod, con, capacity), "Consumer");
+		Thread consumer = new Thread(new Consumer(q, lock, prod, con), "Consumer");
 		
 		producer.start(); consumer.start();
 	}
@@ -28,7 +28,7 @@ class Producer implements Runnable {
 	private Queue<Integer> q;
 	private ReentrantLock lock;
 	private Condition prod, con;
-	private int capacity;
+	private int capacity, i;
 	
 	Producer(Queue<Integer> q, ReentrantLock lock, Condition prod, Condition con, int capacity) {
 		this.q = q;
@@ -40,7 +40,7 @@ class Producer implements Runnable {
 	
 	@Override
 	public void run() {
-		for(int i = 0; i < capacity; i++) {
+		while(true) {
 			lock.lock();
 			while(q.size() == capacity)
 				try {
@@ -49,7 +49,7 @@ class Producer implements Runnable {
 					e.printStackTrace();
 				}
 			System.out.println("Thread: " + Thread.currentThread().getName() + ", Produced: " + i);
-			q.add(i);
+			q.add(i++);
 			con.signal();
 			lock.unlock();
 			
@@ -66,19 +66,17 @@ class Consumer implements Runnable {
 	private Queue<Integer> q;
 	private ReentrantLock lock;
 	private Condition prod, con;
-	private int capacity;
 	
-	Consumer(Queue<Integer> q, ReentrantLock lock, Condition prod, Condition con, int capacity) {
+	Consumer(Queue<Integer> q, ReentrantLock lock, Condition prod, Condition con) {
 		this.q = q;
 		this.lock = lock;
 		this.prod = prod;
 		this.con = con;
-		this.capacity = capacity;
 	}
 	
 	@Override
 	public void run() {
-		for(int i = 0; i < capacity; i++) {
+		while(true) {
 			lock.lock();
 			while(q.size() == 0)
 				try {

@@ -2,7 +2,6 @@ package multithread;
 
 import java.util.concurrent.Semaphore;
 
-// not complete
 public class DesignH2O {
 
 	public static void main(String[] args) throws InterruptedException {

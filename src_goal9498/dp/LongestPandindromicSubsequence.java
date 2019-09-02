@@ -1,6 +1,6 @@
 package dp;
 
-public class LongestPandindromicSequence {
+public class LongestPandindromicSubsequence {
 
 	public static void main(String[] args) {
 		String s = "aaba";

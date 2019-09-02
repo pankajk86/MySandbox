@@ -10,9 +10,10 @@ public class ExclusiveTimeOfFunctions {
 	public static void main(String[] args) {
 		int n = 3;
 		List<String> logs = new ArrayList<>();
-//		logs.addAll(Arrays.asList("0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"));
-		logs.addAll(Arrays.asList("0:start:0","1:start:10","2:start:15","2:end:17",
-				"0:start:18","0:end:22","1:end:25","0:end:30"));
+		n = 2;
+		logs.addAll(Arrays.asList("0:start:0","1:start:2","1:end:5","0:end:6"));
+//		logs.addAll(Arrays.asList("0:start:0","1:start:10","2:start:15","2:end:17",
+//				"0:start:18","0:end:22","1:end:25","0:end:30"));
 		
 		int[] result = exclusiveTime(n, logs);
 		for(int i: result) {

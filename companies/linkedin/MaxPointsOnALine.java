@@ -17,6 +17,77 @@ public class MaxPointsOnALine {
 		result = maxPoints(points);
 		System.out.println(result);
 		//testLineMap();
+		
+		int[][] locations = { { 1, 1 }, { 3, 2 }, { 5, 3 }, { 4, 1 }, { 2, 3 }, { 1, 4 } };
+		result = maxPointsBetter(locations);
+		System.out.println(result);
+		
+		int[][] locs = { { 0, 0 }, { 1, 65536 }, { 65536, 0 } };
+		result = maxPointsBetterAndSimpler(locs);
+		System.out.println(result);
+	}
+	
+	private static int maxPointsBetterAndSimpler(int[][] a) {
+		if(a == null || a.length == 0) return 0;
+		int result = 2, n = a.length;
+		if(n < 3) return n;
+		
+		for(int i = 1; i < n; i++) {
+			long x1 = a[i - 1][0], y1 = a[i - 1][1];
+			long x2 = a[i][0], y2 = a[i][1];
+			int count = 0;
+			
+			if(x1 == x2 && y1 == y2) {
+				for(int j = 0; j < n; j++) {
+					if(a[j][0] == x1 && a[j][1] == y1) count++;
+				}
+			} else {
+				for(int j = 0; j < n; j++) {
+					long x3 = a[j][0], y3 = a[j][1];
+					/* 
+					 * same slope condition for (x1, y1), (x2, y2), (x3, y3)
+					 * (y2 - y1) / (x2 - x1) = (y3 - y2) / (x3 - x2)
+					 * => (y2 - y1) * (x3 - x2) = (y3 - y2) * (x2 - x1) 
+					 */
+					if((y3 - y2) * (x2 - x1) == (y2 - y1) * (x3 - x2)) count++;
+				}
+			}
+			result = Math.max(result, count);
+		}
+		return result;
+	}
+
+	private static int maxPointsBetter(int[][] a) {
+		if(a == null || a.length == 0) return 0;
+		int result = 0;
+		Map<String, Integer> map = new HashMap<>();
+		
+		for(int i = 0; i < a.length; i++) {
+			int max = 0, overlap = 0;
+			map.clear();
+			for(int j = i + 1; j < a.length; j++) {
+				int x = a[j][0] - a[i][0], y = a[j][1] - a[i][1];
+				if(x == 0 && y == 0) {
+					overlap++; continue;
+				}
+				
+				int gcd = findGcd(x, y);
+				if(gcd != 0) {
+					x /= gcd; y /= gcd;
+				}
+				String key = x + "@" + y;
+				map.put(key, map.getOrDefault(key, 0) + 1);
+				max = Math.max(max, map.get(key));
+			}
+			result = Math.max(result, max + overlap + 1);
+		}
+		
+		return result;
+	}
+
+	private static int findGcd(int x, int y) {
+		if(y == 0) return x;
+		return findGcd(y, x % y);
 	}
 
 	private static int maxPoints(Point[] points) {

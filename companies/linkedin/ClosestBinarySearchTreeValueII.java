@@ -8,7 +8,7 @@ import java.util.Stack;
 
 import trees.TreeNode;
 
-public class ClosestKInBST {
+public class ClosestBinarySearchTreeValueII {
 
 	public static void main(String[] args) {
 		TreeNode root = createTree();
@@ -16,6 +16,31 @@ public class ClosestKInBST {
 		int k = 2;
 		List<Integer> result = closestKValues(root, target, k);
 		System.out.println(result);
+		
+		result = closestKValuesRecursion(root, target, k);
+		System.out.println(result);
+	}
+	
+	// better
+	private static List<Integer> closestKValuesRecursion(TreeNode root, double target, int k) {
+		List<Integer> result = new ArrayList<>();
+		inorder(root, target, k, result);
+		return result;
+	}
+
+	private static boolean inorder(TreeNode root, double target, int k, List<Integer> result) {
+		if(root == null) return false;
+		
+		if(inorder(root.left, target, k, result)) return true;
+		
+		if(result.size() == k) {
+			if(Math.abs(result.get(0) - target) < Math.abs(root.val - target))
+				return true;
+			else result.remove(0);
+		}
+		
+		result.add(root.val);
+		return inorder(root.right, target, k, result);
 	}
 
 	private static List<Integer> closestKValues(TreeNode root, double target, int k) {

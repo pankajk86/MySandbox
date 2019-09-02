@@ -3,6 +3,7 @@ package multithread;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+// not complete
 public class ReentrantLockIIWithH2O {
 
 	public static void main(String[] args) {
