@@ -17,17 +17,16 @@ public class ReplaceStringWithAnotherInYetAnother {
 		if(found == -1) return orig;
 		
 		StringBuilder result = new StringBuilder();
-		char[] carr = orig.toCharArray();
 		int index = 0;
 		
 		while(found != -1) {
-			result.append(carr, index, found - index);
+			result.append(orig.substring(index, found));
 			result.append(repl);
 			index = found + findLength;
 			found = orig.indexOf(find, index);
 		}
 		
-		result.append(carr, index, orig.length() - index);
+		result.append(orig.substring(index));
 		return result.toString();
 	}
 

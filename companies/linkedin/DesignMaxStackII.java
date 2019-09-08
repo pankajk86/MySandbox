@@ -2,10 +2,10 @@ package linkedin;
 
 import java.util.Stack;
 
-public class DesignIMaxStack {
+public class DesignMaxStackII {
 
 	public static void main(String[] args) {
-		MyMaxStack ms = new MyMaxStack();
+		MyMaxStackII ms = new MyMaxStackII();
 		ms.push(5); ms.push(1); ms.push(5);
 		System.out.println(ms.top());
 		System.out.println(ms.popMax());
@@ -17,11 +17,11 @@ public class DesignIMaxStack {
 
 }
 
-class MyMaxStack {
+class MyMaxStackII {
 	
 	private Stack<Integer> s1, s2;
 	
-	public MyMaxStack() {
+	public MyMaxStackII() {
         s1 = new Stack<>(); s2 = new Stack<>();
     }
     

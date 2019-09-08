@@ -1,7 +1,6 @@
 package dp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CombinationSum {
@@ -18,7 +17,7 @@ public class CombinationSum {
 
 		List<List<Integer>> result = new ArrayList<>();
 		List<Integer> temp = new ArrayList<>();
-		Arrays.sort(a);
+		//Arrays.sort(a);
 		
 		helper(a, target, result, temp, 0);
 		return result;

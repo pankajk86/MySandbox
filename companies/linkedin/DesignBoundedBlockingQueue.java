@@ -83,7 +83,7 @@ class BoundedBlockingQueue {
 					}
 				}
 				currSize++;
-				list.add(o);
+				this.list.add(o);
 				notEmpty.signal();
 			}
 		} finally {

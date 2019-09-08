@@ -29,28 +29,36 @@ public class ShuffleAnArray {
 
 class Shuffle {
 	
-	private int[] original = null;
-	private Random rand = null;
+	private int[] original, nums;
+	private Random rand;
 	
 	public Shuffle(int[] nums) {
-		original = nums;
+		this.original = new int[nums.length];
+		for(int i = 0; i < nums.length; i++)
+			this.original[i] = nums[i];
+		
+		this.nums = nums;
 		rand = new Random();
 	}
 	
 	/** Resets the array to its original configuration and return it. */
     public int[] reset() {
-		return original;
-        
+    	this.nums = original;
+    	this.original = new int[nums.length];
+		for(int i = 0; i < nums.length; i++)
+			this.original[i] = nums[i];
+		
+		return this.nums;
     }
     
     /** Returns a random shuffling of the array. */
     public int[] shuffle() {
-    	int[] cache = original.clone();
-    	for(int j = 1; j < cache.length; j++) {
+
+    	for(int j = 1; j < nums.length; j++) {
     		int i = rand.nextInt(j + 1);
-    		swap(cache, i, j);
+    		swap(nums, i, j);
     	}
-		return cache;
+		return nums;
     }
     
     private void swap(int[] a, int i, int j) {

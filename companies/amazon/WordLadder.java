@@ -23,6 +23,35 @@ public class WordLadder {
 		result = countLadderBFS(start, end, dict);
 		System.out.println(result + ", time taken: " + (System.currentTimeMillis() - begin));
 	}
+	
+	private static int countLadder(String start, String end, List<String> wordList) {
+
+		Set<String> dict = new HashSet<>(wordList);
+		Set<String> reached = new HashSet<>();
+		reached.add(start); dict.remove(start);
+		int count = 1;
+		
+		while(!reached.isEmpty()) {
+			Set<String> reachedNext = new HashSet<>();
+			for(String s: reached) {
+				for(int i = 0; i < s.length(); i++) {
+					char[] c = s.toCharArray();
+					for(char j = 'a'; j <= 'z'; j++) {
+						c[i] = j;
+						String newS = String.valueOf(c);
+						if(dict.remove(newS)) {
+							reachedNext.add(newS);
+							if(end.equals(newS))
+								return count + 1;
+						}
+					}
+				}
+			}
+			reached = reachedNext;
+			count++;
+		}
+		return 0;
+	}
 
 	private static int countLadderBFS(String start, String end, List<String> dict) {
 		Queue<String> q = new LinkedList<>();
@@ -57,39 +86,7 @@ public class WordLadder {
 					q.add(null);
 			}
 		}
-		
 		return 0;
 	}
-
-	private static int countLadder(String start, String end, List<String> wordList) {
-
-		Set<String> dict = new HashSet<>(wordList);
-		Set<String> reached = new HashSet<>();
-		reached.add(start); dict.remove(start);
-		int count = 1;
-		
-		while(!reached.isEmpty()) {
-			Set<String> reachedNext = new HashSet<>();
-			for(String s: reached) {
-				for(int i = 0; i < s.length(); i++) {
-					char[] c = s.toCharArray();
-					for(char j = 'a'; j <= 'z'; j++) {
-						c[i] = j;
-						String newS = String.valueOf(c);
-						if(dict.remove(newS)) {
-							reachedNext.add(newS);
-							if(end.equals(newS))
-								return count + 1;
-						}
-					}
-				}
-			}
-			reached = reachedNext;
-			count++;
-		}
-		
-		return 0;
-	}
-
 
 }

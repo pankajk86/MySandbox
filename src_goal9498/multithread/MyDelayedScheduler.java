@@ -1,5 +1,6 @@
 package multithread;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -8,12 +9,19 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class MyDelayedScheduler implements DelayedScheduler {
 	
-	private PriorityQueue<Item> pq = new PriorityQueue<>();
+	private PriorityQueue<Item> pq = null;
 	private Lock lock = new ReentrantLock();
 	private Condition cond = lock.newCondition();
 	
 	public MyDelayedScheduler() {
 		new Thread(new BackgroundProcessor()).start();
+		pq = new PriorityQueue<>(new Comparator<Item>() {
+			@Override
+			public int compare(Item i1, Item i2) {
+				if(i1.timeToRun < i2.timeToRun) return -1;
+				return 1;
+			}
+		});
 	}
 
 	@Override

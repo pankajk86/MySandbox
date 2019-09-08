@@ -1,11 +1,10 @@
 package linkedin;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import graphs.UnionFind;
 
 public class GraphValidTree {
 
@@ -16,7 +15,7 @@ public class GraphValidTree {
 		boolean result = isGraphValidTree(n, edges);
 		System.out.println(result);
 		
-		result = isGraphValidTree2(n, edges);
+		result = isGraphValidTreeBetter(n, edges);
 		System.out.println(result);
 	}
 
@@ -38,15 +37,23 @@ public class GraphValidTree {
 		return rep.size() == 1 ? true : false;
 	}
 	
-	private static boolean isGraphValidTree2(int n, int[][] a) {
-		UnionFind uf = new UnionFind(n);
+	private static boolean isGraphValidTreeBetter(int n, int[][] e) {
+		if(e.length != n - 1) return false;
 		
-		for(int i = 0; i < a.length; i++) {
-			int rootP = uf.find(a[i][0]), rootQ = uf.find(a[i][1]);
-			if(rootP == rootQ) return false;
-			uf.union(a[i][0], a[i][1]);
+		int[] a = new int[n];
+		Arrays.fill(a, -1);
+		
+		for(int i = 0; i < e.length; i++) {
+			int p1 = find(a, e[i][0]), p2 = find(a, e[i][1]);
+			if(p1 == p2) return false;
+			a[p1] = p2;
 		}
 		return true;
+	}
+
+	private static int find(int[] a, int i) {
+		if(a[i] == -1) return i;
+		return find(a, a[i]);
 	}
 
 }

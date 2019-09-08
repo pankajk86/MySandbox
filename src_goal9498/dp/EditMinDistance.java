@@ -19,20 +19,20 @@ public class EditMinDistance {
 		for (int j = 1; j <= s2.length(); j++) {
 			dp[0][j] = j;
 		}
-		
-		for(int i=1; i<= s1.length(); i++) {
-			for(int j=1; j<=s2.length(); j++) {
-				if(s1.charAt(i-1) == s2.charAt(j-1)) {
-					dp[i][j] = dp[i-1][j-1];
+
+		for (int i = 1; i <= s1.length(); i++) {
+			for (int j = 1; j <= s2.length(); j++) {
+				if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+					dp[i][j] = dp[i - 1][j - 1];
 				} else {
-					dp[i][j] = minInThree(dp[i-1][j], dp[i-1][j-1], dp[i][j-1]) + 1;
+					dp[i][j] = minInThree(dp[i - 1][j], dp[i - 1][j - 1], dp[i][j - 1]) + 1;
 				}
 			}
 		}
 
 		return dp[s1.length()][s2.length()];
 	}
-	
+
 	private static int minInThree(int a, int b, int c) {
 		return Math.min(Math.min(a, b), c);
 	}

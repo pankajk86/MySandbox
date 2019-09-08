@@ -8,9 +8,9 @@ import java.util.PriorityQueue;
 public class KPairsWithSmallestSums {
 
 	public static void main(String[] args) {
-		int[] a = { 1, 1, 2 };
-		int[] b = { 1, 2, 3 };
-		int k = 2;
+		int[] a = { 1, 7, 11 };
+		int[] b = { 2, 4, 6 };
+		int k = 3;
 		
 		List<int[]> result = kSmallestPairs(a, b, k);
 		for(int[] pair: result) 

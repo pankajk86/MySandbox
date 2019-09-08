@@ -1,14 +1,13 @@
 package dp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CombinationSumII {
 
 	public static void main(String[] args) {
-		int[] a = {2, 3, 6, 7};
-		int target = 7;
+		int[] a = {1, 7, 3, 4, 7, 5};//{2, 3, 6, 7};
+		int target = 5;
 		
 		List<List<Integer>> result = getCombinationsWithoutDuplicates(a, target);
 		System.out.println(result);
@@ -18,7 +17,7 @@ public class CombinationSumII {
 
 		List<List<Integer>> result = new ArrayList<>();
 		List<Integer> temp = new ArrayList<>();
-		Arrays.sort(a);
+		//Arrays.sort(a);
 		
 		helper(a, target, result, temp, 0);
 		return result;

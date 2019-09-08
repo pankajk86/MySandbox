@@ -7,8 +7,8 @@ public class MinimumWindowSubstring {
 
     public static void main(String[] args) {
 
-        String s = "ADOBECODEBANC";
-        String t = "ABC";
+        String s = "a";
+        String t = "ab";
 
         String result = getMinWindowSubstring(s, t);
         System.out.println(result);

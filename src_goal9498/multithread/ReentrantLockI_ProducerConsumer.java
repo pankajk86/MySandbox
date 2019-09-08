@@ -29,6 +29,7 @@ class Producer implements Runnable {
 	private ReentrantLock lock;
 	private Condition prod, con;
 	private int capacity, i;
+	private int poisonPill = -1;
 	
 	Producer(Queue<Integer> q, ReentrantLock lock, Condition prod, Condition con, int capacity) {
 		this.q = q;
@@ -40,7 +41,7 @@ class Producer implements Runnable {
 	
 	@Override
 	public void run() {
-		while(true) {
+		while(i != poisonPill) {
 			lock.lock();
 			while(q.size() == capacity)
 				try {
@@ -48,8 +49,14 @@ class Producer implements Runnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			System.out.println("Thread: " + Thread.currentThread().getName() + ", Produced: " + i);
-			q.add(i++);
+			if(i < 15) {
+				System.out.println("Thread: " + Thread.currentThread().getName() + ", Produced: " + i);
+				q.add(i++);
+			} else {
+				i = poisonPill;
+				System.out.println("Thread: " + Thread.currentThread().getName() + ", Produced Poison Pill: " + poisonPill);
+				q.add(poisonPill);
+			}
 			con.signal();
 			lock.unlock();
 			
@@ -66,6 +73,7 @@ class Consumer implements Runnable {
 	private Queue<Integer> q;
 	private ReentrantLock lock;
 	private Condition prod, con;
+	private int poisonPill = -1;
 	
 	Consumer(Queue<Integer> q, ReentrantLock lock, Condition prod, Condition con) {
 		this.q = q;
@@ -84,7 +92,13 @@ class Consumer implements Runnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			System.out.println("Thread: " + Thread.currentThread().getName() + ", Consumed: " + q.remove());
+			int item = q.remove();
+			if(item != poisonPill)
+				System.out.println("Thread: " + Thread.currentThread().getName() + ", Consumed: " + item);
+			else {
+				System.out.println("Thread: " + Thread.currentThread().getName() + ", Consumed Poison Pill: " + item);
+				break;
+			}
 			prod.signal();
 			lock.unlock();
 			
