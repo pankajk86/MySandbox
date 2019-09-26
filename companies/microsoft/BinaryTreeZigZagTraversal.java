@@ -2,7 +2,9 @@ package microsoft;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import trees.TreeNode;
 
@@ -10,14 +12,39 @@ public class BinaryTreeZigZagTraversal {
 
 	public static void main(String[] args) {
 		TreeNode root = createTree();
-		List<List<Integer>> result = zigzagLevelOrder(root);
+
+		List<List<Integer>> result = zigzagLevelOrder2(root);
+		System.out.println(result);
+	}
+	
+	private static List<List<Integer>> zigzagLevelOrder2(TreeNode root) {
+		List<List<Integer>> result = new ArrayList<>();
+		if(root == null) return result;
 		
-		for(List<Integer> level: result) {
-			for(int i: level) System.out.print(i + " ");
-			System.out.println();
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		int size = q.size();
+		boolean flag = true;
+		
+		while(!q.isEmpty()) {
+			List<Integer> temp = new ArrayList<>();
+			for(int i = 0; i < size; i++) {
+				TreeNode curr = q.poll();
+				if(flag) temp.add(curr.val);
+				else temp.add(0, curr.val);
+				
+				if(curr.left != null) q.add(curr.left);
+				if(curr.right != null) q.add(curr.right);
+			}
+			result.add(temp);
+			size = q.size();
+			flag = !flag;
 		}
+		
+		return result;
 	}
 
+	@SuppressWarnings("unused")
 	private static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 
 		List<List<Integer>> result = new ArrayList<>();

@@ -1,6 +1,6 @@
 package facebook;
 
-public class IslandParameter {
+public class IslandPerimeter {
 	
 	public static void main(String[] args) {
 		int[][] a = {

@@ -1,34 +1,52 @@
 package linkedin;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class MaxStack {
-	
-	private Stack<Integer> stack = null;
-	private TreeMap<Integer, Integer> map = null;
 
+	private DllNode head, tail;
+	private TreeMap<Integer, List<DllNode>> map;
+	
 	public MaxStack() {
-        stack = new Stack<>();
+        this.head = new DllNode(0);
+        this.tail = new DllNode(0);
+        head.prev = tail;
+        tail.prev = head;
         map = new TreeMap<>();
     }
     
     public void push(int x) {
-        stack.push(x);
-        map.put(x, map.getOrDefault(x, 0) + 1);
+    	DllNode node = new DllNode(x);
+    	node.prev = tail.prev;
+    	node.next = tail;
+    	tail.prev.next = node;
+    	tail.prev = node;
+    	
+    	if(!map.containsKey(x)) map.put(x, new ArrayList<>());
+    	map.get(x).add(node);
     }
     
     public int pop() {
-    	int result = stack.pop();
-    	if(map.get(result) > 1) 
-    		map.put(result, map.get(result) - 1);
-    	else
-    		map.remove(result);
-		return result;
+    	int val = tail.prev.val;
+    	remove(tail.prev);
+    	int size = map.get(val).size();
+    	map.get(val).remove(size - 1);
+    	if(map.get(val).size() == 0) map.remove(val);
+    	
+    	return val;
     }
     
-    public int top() {
-		return stack.peek();
+    private void remove(DllNode node) {
+    	DllNode next = node.next;
+    	DllNode prev = node.prev;
+    	next.prev = prev;
+    	prev.next = next;
+	}
+
+	public int top() {
+		return tail.prev.val;
     }
     
     public int peekMax() {
@@ -36,24 +54,23 @@ public class MaxStack {
     }
     
     public int popMax() {
-    	int result = map.lastKey();
-    	if(map.get(result) > 1) 
-    		map.put(result, map.get(result) - 1);
-    	else
-    		map.remove(result);
+    	int val = map.lastKey();
+    	int size = map.get(val).size();
+    	DllNode node = map.get(val).remove(size - 1);
+    	remove(node);
+    	if(map.get(val).size() == 0) map.remove(val);
     	
-    	Stack<Integer> temp = new Stack<>();
-    	
-    	while(stack.peek() != result) {
-    		temp.push(stack.pop());
-    	}
-    	
-    	stack.pop();
-    	
-    	while(!temp.isEmpty())
-    		stack.push(temp.pop());
-    	
-		return result;
+    	return val;
     }
 
+}
+
+class DllNode {
+	int val;
+	DllNode next, prev;
+	
+	DllNode(int val) {
+		this.val = val;
+		this.next = null; this.prev = null;
+	}
 }

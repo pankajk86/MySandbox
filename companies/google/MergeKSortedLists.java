@@ -1,6 +1,5 @@
 package google;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class MergeKSortedLists {
@@ -9,45 +8,36 @@ public class MergeKSortedLists {
 		ListNode[] lists = create3Lists();
 		ListNode result = merge(lists);
 		ListNode temp = result;
-		
-		while(temp != null) {
+
+		while (temp != null) {
 			System.out.print(temp.val + ", ");
 			temp = temp.next;
 		}
 	}
 
 	private static ListNode merge(ListNode[] lists) {
-		int k = lists.length;
-		ListNode head = null, current = null;
-		PriorityQueue<IndexNode> pq = new PriorityQueue<>(new IndexNodeComparator());
-		
-		if(lists != null) {
-            for(int i = 0; i < k; i++) {
-                if(lists[i] != null)
-                    pq.add(new IndexNode(i, lists[i]));
-            }
+		if (lists == null || lists.length == 0)
+			return null;
 
-            while(!pq.isEmpty()) {
-                IndexNode inode = pq.poll();
-                if(inode != null && inode.node != null) {
-                    ListNode node = new ListNode(inode.node.val);
+		ListNode head = null, next = head;
+		PriorityQueue<IndexNode> pq = new PriorityQueue<>((i1, i2) -> (i1.node.val - i2.node.val));
+		for (int i = 0; i < lists.length; i++) {
+			if (lists[i] != null) pq.add(new IndexNode(i, lists[i]));
+		}
 
-                    if(current == null) {
-                        current = node;
-                        head = current;
-                    } else {
-                        current.next = node;
-                        current = current.next;
-                    }
+		while (!pq.isEmpty()) {
+			IndexNode curr = pq.poll();
+			if (head == null) {
+				head = curr.node;
+				next = head;
+			} else {
+				next.next = curr.node;
+				next = next.next;
+			}
 
-                    if(inode.node.next != null) {
-                        IndexNode next = new IndexNode(inode.index, inode.node.next); 
-                        pq.add(next);
-                    } 
-                }
-            }
-        }
-		
+			if (curr.node.next != null)
+				pq.add(new IndexNode(curr.index, curr.node.next));
+		}
 		return head;
 	}
 
@@ -67,36 +57,31 @@ public class MergeKSortedLists {
 		ListNode n12 = new ListNode(25);
 		ListNode n13 = new ListNode(27);
 		ListNode n14 = new ListNode(4);
-		
-//		ListNode n15 = new ListNode(30);
-//		n15.next = n1; 
-		
-		n1.next = n2; n2.next = n4; n4.next = n5;
-		n3.next = n6; n6.next = n7; n7.next = n11; n11.next = n13;
-		n14.next = n8; n8.next = n9; n9.next = n10; n10.next = n12;
-		
-		return new ListNode[] {n1, n3, n14};
+
+		// ListNode n15 = new ListNode(30);
+		// n15.next = n1;
+
+		n1.next = n2;
+		n2.next = n4;
+		n4.next = n5;
+		n3.next = n6;
+		n6.next = n7;
+		n7.next = n11;
+		n11.next = n13;
+		n14.next = n8;
+		n8.next = n9;
+		n9.next = n10;
+		n10.next = n12;
+
+		return new ListNode[] { n1, n3, n14 };
 	}
 
-}
-
-class IndexNodeComparator implements Comparator<IndexNode> {
-
-	@Override
-	public int compare(IndexNode a1, IndexNode a2) {
-		if(a1.node.val < a2.node.val)
-			return -1;
-		else if(a1.node.val > a2.node.val)
-			return 1;
-		return 0;
-	}
-	
 }
 
 class IndexNode {
 	int index;
 	ListNode node;
-	
+
 	IndexNode(int index, ListNode node) {
 		this.index = index;
 		this.node = node;

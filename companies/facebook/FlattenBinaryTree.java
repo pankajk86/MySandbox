@@ -6,14 +6,24 @@ import trees.TreeNode;
 
 public class FlattenBinaryTree {
 
+	private static TreeNode prev = null;
+	
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		flatten(root);
+		System.out.println(root);
 		
-		while(root != null) {
-			System.out.print(root.val + " ");
-			root = root.right;
-		}
+		root = createTree();
+		flattenRecursive(root);
+		System.out.println(root);
+	}
+
+	private static void flattenRecursive(TreeNode root) {
+		if(root == null) return;
+		flattenRecursive(root.right);
+		flattenRecursive(root.left);
+		root.right = prev; root.left = null;
+		prev = root;
 	}
 
 	private static void flatten(TreeNode root) {

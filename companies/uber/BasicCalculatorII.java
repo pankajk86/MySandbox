@@ -8,6 +8,35 @@ public class BasicCalculatorII {
 		String s = "3+12*2-4";
 		int result = calculate(s);
 		System.out.println(result);
+		
+		result = calculateConstantSpace(s);
+		System.out.println(result);
+	}
+	
+	private static int calculateConstantSpace(String s) {
+		if(s == null) return 0;
+		s += "+";
+		int num = 0, sum = 0, prev = 0;
+		char sign = '+';
+		
+		for(char c: s.toCharArray()) {
+			if(c == ' ') continue;
+			if(Character.isDigit(c)) num = num * 10 + (c - '0');
+			else {
+				if(sign == '+') {
+					sum += prev; prev = num;
+				} else if(sign == '-') {
+					sum += prev; prev = -num;
+				} else if(sign == '*') {
+					prev *= num;
+				} else if(sign == '/') {
+					prev /= num;
+				}
+				sign = c;
+				num = 0;
+			}
+		}
+		return sum + prev;
 	}
 
 	private static int calculate(String s) {

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CloneGraph {
 
-	static Map<Integer, UndirectedGraphNode> map = new HashMap<>();
+	static Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
 
 	public static void main(String[] args) {
 		UndirectedGraphNode node = createGraph();
@@ -21,11 +21,11 @@ public class CloneGraph {
 		if(node == null)
 			return null;
 		
-		if(map.containsKey(node.label))
-			return node;
+		if(map.containsKey(node))
+			return map.get(node);
 		
 		UndirectedGraphNode cnode = new UndirectedGraphNode(node.label);
-		map.put(cnode.label, cnode);
+		map.put(node, cnode);
 		
 		for(UndirectedGraphNode neighbor: node.neighbors) {
 			cnode.neighbors.add(cloneGraph(neighbor));

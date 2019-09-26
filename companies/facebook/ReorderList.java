@@ -9,10 +9,46 @@ public class ReorderList {
 	public static void main(String[] args) {
 		ListNode head = createList();
 		reorderList(head);
+		System.out.println(head);
 		
-		for(ListNode curr = head; curr != null; curr = curr.next) {
-			System.out.print(curr.val + " ");
+		head = createList();
+		reorderList2(head);
+		System.out.println(head);
+	}
+	
+	private static void reorderList2(ListNode head) {
+		if(head == null || head.next == null) return;
+		ListNode mid = findMid(head);
+		ListNode left = head, right = mid.next;
+		mid.next = null;
+		right = reverse(right);
+		merge(left, right);
+	}
+
+	private static void merge(ListNode left, ListNode right) {
+		while(right != null) {
+			ListNode next = left.next;
+			left.next = right;
+			left = right; right = next;
 		}
+	}
+
+	private static ListNode reverse(ListNode head) {
+		ListNode prev = null;
+		while(head != null) {
+			ListNode next = head.next;
+			head.next = prev;
+			prev = head; head = next;
+		}
+		return prev;
+	}
+
+	private static ListNode findMid(ListNode head) {
+		ListNode slow = head, fast = head;
+		while(fast != null && fast.next.next != null) {
+			slow = slow.next; fast = fast.next.next;
+		}
+		return slow;
 	}
 
 	private static void reorderList(ListNode head) {

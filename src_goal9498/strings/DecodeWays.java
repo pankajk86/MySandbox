@@ -3,7 +3,7 @@ package strings;
 public class DecodeWays {
 
 	public static void main(String[] args) {
-		String s = "101";
+		String s = "115";
 		int count = decodeWays(s);
 		System.out.println(count);
 		

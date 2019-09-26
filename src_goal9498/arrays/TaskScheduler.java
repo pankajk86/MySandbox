@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class TaskScheduler {
 
@@ -14,6 +15,38 @@ public class TaskScheduler {
 
 		int result = leastIntervalCorrect(tasks, n);
 		System.out.println(result);
+		
+		result = leastInterval(tasks, n);
+		System.out.println(result);
+	}
+	
+	private static int leastInterval(char[] tasks, int n) {
+		if(tasks == null || tasks.length == 0) return 0;
+		
+		Map<Character, Integer> map = new HashMap<>();
+		for(char c: tasks) map.put(c, map.getOrDefault(c, 0) + 1);
+		
+		PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> (b - a));
+		pq.addAll(map.values());
+		int result = 0;
+		
+		while(!pq.isEmpty()) {
+			int time = 0;
+			List<Integer> temp = new ArrayList<>();
+			for(int i = 0; i < n + 1; i++) {
+				if(!pq.isEmpty()) {
+					temp.add(pq.poll());
+					time++;
+				}
+			}
+			
+			for(int t: temp) {
+				if(--t > 0) pq.add(t);
+			}
+			
+			result += pq.isEmpty() ? time : n + 1;
+		}
+		return result;
 	}
 
 	private static int leastIntervalCorrect(char[] tasks, int n) {
@@ -34,72 +67,7 @@ public class TaskScheduler {
 		return interval;
 	}
 
-	@SuppressWarnings("unused")
-	private static int leastInterval(char[] tasks, int n) {
-
-		List<Character> result = new ArrayList<>();
-		Map<Character, Integer> taskMap = new HashMap<>();
-
-		for (char c : tasks) {
-			if (!taskMap.containsKey(c)) {
-				taskMap.put(c, 1);
-			} else {
-				taskMap.put(c, taskMap.get(c) + 1);
-			}
-		}
-
-		Task[] taskList = new Task[taskMap.size()];
-		int i = 0;
-
-		for (Map.Entry<Character, Integer> entry : taskMap.entrySet()) {
-			Task task = new Task(entry.getKey(), entry.getValue());
-			taskList[i++] = task;
-		}
-
-		int presentInterval = 1, size = tasks.length;
-		i = 0;
-
-		for (i = 0; size > 0;) {
-			Task currentTask = taskList[i];
-
-			if (currentTask.count > 0) {
-				if (currentTask.lastInterval == 0 || presentInterval - currentTask.lastInterval > n) {
-					result.add(currentTask.name);
-					currentTask.lastInterval = presentInterval;
-
-					currentTask.count--;
-					size--;
-					i++;
-
-					if (i == taskList.length) {
-						i = 0;
-					}
-
-				} else {
-					result.add('-');
-				}
-				presentInterval++;
-			} else {
-				i++;
-
-				if (i == taskList.length) {
-					i = 0;
-				}
-			}
-		}
-
-		return result.size();
-	}
+	
 
 }
 
-class Task {
-	char name;
-	int count;
-	int lastInterval;
-
-	public Task(char name, int count) {
-		this.name = name;
-		this.count = count;
-	}
-}

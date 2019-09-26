@@ -28,19 +28,18 @@ public class ClosestBinarySearchTreeValueII {
 		return result;
 	}
 
-	private static boolean inorder(TreeNode root, double target, int k, List<Integer> result) {
-		if(root == null) return false;
+	private static void inorder(TreeNode root, double target, int k, List<Integer> result) {
+		if(root == null) return;
 		
-		if(inorder(root.left, target, k, result)) return true;
+		inorder(root.left, target, k, result);
 		
 		if(result.size() == k) {
-			if(Math.abs(result.get(0) - target) < Math.abs(root.val - target))
-				return true;
+			if(Math.abs(result.get(0) - target) < Math.abs(root.val - target)) return;
 			else result.remove(0);
 		}
 		
 		result.add(root.val);
-		return inorder(root.right, target, k, result);
+		inorder(root.right, target, k, result);
 	}
 
 	private static List<Integer> closestKValues(TreeNode root, double target, int k) {

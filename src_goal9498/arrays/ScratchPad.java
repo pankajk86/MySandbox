@@ -39,6 +39,7 @@ public class ScratchPad {
 
 		testDataTypeSize();
 		testLinkedHashMap();
+		testTreeMap();
 		
 		reviseMergeKSortedList();
 		reviseIntervalListIntersections();
@@ -46,6 +47,18 @@ public class ScratchPad {
 		reviseFindBottomLeftTreeValue();
 		reviseValidateStackSequences();
 		reviseSortCharactersByFrequency();
+	}
+
+	private static void testTreeMap() {
+		long n = 150L;
+		TreeMap<Long, Integer> tmap = new TreeMap<>();
+		tmap.put(10L, 4); tmap.put(100L, 35); tmap.put(20L, 14); tmap.put(130L, 6);
+		
+		System.out.println("`````");
+		while(n - tmap.firstKey() > 30) {
+			tmap.remove(tmap.firstKey());
+		}
+		System.out.println(tmap);
 	}
 
 	private static void intersectList() {

@@ -15,7 +15,7 @@ public class RestoreIpAddresses {
 
 		List<String> result = new ArrayList<>();
 		
-		if(s == null || s.isEmpty())
+		if(s == null || s.isEmpty() || s.length() > 12)
 			return result;
 
 		for (int a = 1; a <= 3; a++) {
