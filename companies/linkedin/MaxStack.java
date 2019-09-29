@@ -12,7 +12,7 @@ public class MaxStack {
 	public MaxStack() {
         this.head = new DllNode(0);
         this.tail = new DllNode(0);
-        head.prev = tail;
+        head.next = tail;
         tail.prev = head;
         map = new TreeMap<>();
     }
@@ -33,7 +33,7 @@ public class MaxStack {
     	remove(tail.prev);
     	int size = map.get(val).size();
     	map.get(val).remove(size - 1);
-    	if(map.get(val).size() == 0) map.remove(val);
+    	if(size == 1) map.remove(val);
     	
     	return val;
     }
@@ -58,7 +58,7 @@ public class MaxStack {
     	int size = map.get(val).size();
     	DllNode node = map.get(val).remove(size - 1);
     	remove(node);
-    	if(map.get(val).size() == 0) map.remove(val);
+    	if(size == 1) map.remove(val);
     	
     	return val;
     }
