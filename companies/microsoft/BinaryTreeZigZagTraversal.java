@@ -1,7 +1,6 @@
 package microsoft;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -40,44 +39,6 @@ public class BinaryTreeZigZagTraversal {
 			size = q.size();
 			flag = !flag;
 		}
-		
-		return result;
-	}
-
-	@SuppressWarnings("unused")
-	private static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
-		List<List<Integer>> result = new ArrayList<>();
-		List<TreeNode> list = new ArrayList<>();
-		List<TreeNode> currList = new ArrayList<>();
-		
-		list.add(root); list.add(null);
-		int i = 0, flag = 0;
-		
-		while(i < list.size()) {
-			TreeNode current = list.get(i);
-			
-			if(current != null) {
-				currList.add(current);
-				if(current.left != null) list.add(current.left);
-				if(current.right != null) list.add(current.right);
-			} else {
-				List<Integer> intList = new ArrayList<>();
-				for(TreeNode node: currList)
-					intList.add(node.val);
-				if(flag == 0) {
-					flag = 1;
-				} else {
-					Collections.reverse(intList);
-					flag = 0;
-				}
-				if(intList.size() > 0) result.add(intList);
-				else break;
-				list.add(null);
-				currList = new ArrayList<>();
-			}
-			i++;
- 		}
 		
 		return result;
 	}

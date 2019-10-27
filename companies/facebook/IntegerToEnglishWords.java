@@ -20,8 +20,9 @@ public class IntegerToEnglishWords {
 		StringBuilder sb = new StringBuilder();
 		int index = 0;
 		while(n > 0) {
-			sb.insert(0, parse(n % 1000) + thousands[index++]);
+			if(n % 1000 > 0) sb.insert(0, parse(n % 1000) + thousands[index]);
 			n /= 1000;
+			index++;
 		}
 		return sb.length() == 0 ? "Zero" : sb.substring(1);
 	}

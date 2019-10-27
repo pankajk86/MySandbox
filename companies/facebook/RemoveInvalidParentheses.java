@@ -15,7 +15,7 @@ public class RemoveInvalidParentheses {
 		System.out.println(result);
 	}
 
-	private static List<String> removeInvalidParentheses(String s) {
+	private static List<String> removeInvalidParentheses(String s) { 
 		List<String> result = new ArrayList<>();
 		if(s == null || s.isEmpty()) return result;
 		

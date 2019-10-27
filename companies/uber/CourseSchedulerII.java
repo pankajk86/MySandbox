@@ -1,5 +1,6 @@
 package uber;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,9 +16,7 @@ public class CourseSchedulerII {
 		int n = 8;
 		
 		int[] result = findOrder(n, a);
-		
-		for(int i: result)
-			System.out.print(i + " ");
+		System.out.println(Arrays.toString(result));
 	}
 
 	private static int[] findOrder(int n, int[][] pres) {

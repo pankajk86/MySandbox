@@ -18,7 +18,6 @@ public class test1 {
 		}
 		
 		Collections.sort(lower); Collections.sort(upper);
-		System.out.println(lower + ", " + upper);
 		String result = "NO";
 		
 		for(int i = lower.size() - 1, j = upper.size() - 1; i >= 0 && j >= 0; ) {

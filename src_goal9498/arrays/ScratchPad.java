@@ -19,6 +19,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 import trees.TreeNode;
 
@@ -40,6 +41,9 @@ public class ScratchPad {
 		testDataTypeSize();
 		testLinkedHashMap();
 		testTreeMap();
+		testLambdaInComparator();
+		testStreamWithCollections();
+		testCountBits();
 		
 		reviseMergeKSortedList();
 		reviseIntervalListIntersections();
@@ -47,6 +51,55 @@ public class ScratchPad {
 		reviseFindBottomLeftTreeValue();
 		reviseValidateStackSequences();
 		reviseSortCharactersByFrequency();
+	}
+
+
+
+	private static void testCountBits() {
+		int n = 37, result = 0;
+		System.out.print(n + " -> " + Integer.toBinaryString(n));
+		while(n != 0) {
+			result += n & 1;
+			n = n >> 1;
+		}
+		System.out.println(result);
+	}
+
+	private static void testLambdaInComparator() {
+		List<int[]> list = Arrays.asList(new int[] {3, 4}, new int[] {5, 1}, new int[] {7, 5},
+		        new int[] {4, 7}, new int[] {6, 2}, new int[] {5, 9} , new int[] {3, 8} ,
+		        new int[] {2, 7}, new int[] {1, 6}, new int[] {6, 0});
+		
+		Collections.sort(list, (a, b) -> {return a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]; });
+		Collections.sort(list, (a, b) -> a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]);
+	}
+	
+	private static void testStreamWithCollections() {
+		String[] s = { "3", "30", "34" ,"5" ,"9" };
+		Arrays.sort(s, (a, b) -> {
+			String s1 = a + b, s2 = b + a;
+			return -1 * s1.compareTo(s2);
+		});
+		
+		System.out.println(Arrays.toString(s));
+		Stream<String> stream1 = Arrays.stream(s);
+		stream1.forEach(x -> System.out.print(x + ", "));
+		System.out.println();
+		
+		Map<String, Integer> items = new HashMap<>();
+		items.put("A", 10);
+		items.put("B", 20);
+		items.put("C", 30);
+		items.put("D", 40);
+		items.put("E", 50);
+		items.put("F", 60);
+		
+		//items.forEach((k, v) -> System.out.println("Key: " + k + ", Value: " + v));
+		
+		items.forEach((k, v) -> {
+			if(k.equals("B") || k.equals("D")) System.out.println("Blacklisted key: " + k);
+			else System.out.println("Key: " + k + ", Value: " + v);
+		});
 	}
 
 	private static void testTreeMap() {

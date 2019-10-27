@@ -2,9 +2,7 @@ package facebook;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 import trees.TreeNode;
@@ -22,44 +20,28 @@ public class BinaryTreeVerticalOrderTraversal {
 	}
 
 	private static List<List<Integer>> verticalTraversal(TreeNode root) {
-		TreeMap<Integer, List<int[]>> map = new TreeMap<>();
-		helper(root, 0, 0, map);
-		
 		List<List<Integer>> result = new ArrayList<>();
-		
-		for(List<int[]> list: map.values()) {
-			Collections.sort(list, new Comparator<int[]>() {
-				@Override
-				public int compare(int[] a, int[] b) {
-					if(a[0] < b[0]) return -1;
-					else if(a[1] > b[0]) return 1;
-					return 0;
-				}
-			});
-			
-			List<Integer> levelOrder = new ArrayList<>();
-			for(int[] arr: list)
-				levelOrder.add(arr[1]);
-			
-			result.add(levelOrder);
-		}
-		return result;
+        TreeMap<Integer, List<int[]>> map = new TreeMap<>();
+        dfs(root, 0, 0, map);
+        
+        for(List<int[]> value: map.values()) {
+            Collections.sort(value, (a, b) -> (a[0] - b[0]));
+            List<Integer> list = new ArrayList<>();
+            for(int[] val: value) list.add(val[1]);
+            result.add(list);
+        }
+        
+        return result;
 	}
 
-	private static void helper(TreeNode node, int col, int level, Map<Integer, List<int[]>> map) {
-		if(node == null) return;
-		
-		List<int[]> list = map.getOrDefault(col, new ArrayList<>());
-		list.add(new int[] {level, node.val});
-		map.put(col, list);
-		
-		if(node.left != null)
-			helper(node.left, col - 1, level + 1, map);
-		
-		if(node.right != null)
-			helper(node.right, col + 1, level + 1, map);
-		
-		return;
+	private static void dfs(TreeNode root, int col, int level, TreeMap<Integer, List<int[]>> map) {
+		if(root == null) return;
+        List<int[]> list = map.getOrDefault(col, new ArrayList<>());
+        list.add(new int[] {level, root.val});
+        map.put(col, list);
+        
+        dfs(root.left, col - 1, level + 1, map);
+        dfs(root.right, col + 1, level + 1, map);
 	}
 	
 	private static TreeNode createTree2() {

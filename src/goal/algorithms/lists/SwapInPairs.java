@@ -1,37 +1,42 @@
 package goal.algorithms.lists;
 
+import google.ListNode;
+
 public class SwapInPairs {
 
     public static void main(String[] args) {
 
-        MyLinkedList l1 = new MyLinkedList();
-        l1.add(1);
-        l1.add(2);
-        l1.add(3);
-        l1.add(4);
-        l1.add(5);
-        l1.add(6);
-
-        Node head = swapListInPairs(l1.getHead());
-
-        while (head != null) {
-            System.out.print((Integer) head.getData() + " ");
-            head = head.getNext();
-        }
+    	ListNode head = createList();
+        ListNode result = swapListInPairs(head);
+        System.out.println(result);
     }
 
-    private static Node swapListInPairs(Node head) {
-
-        Node current = head;
-
-        while (current != null && current.getNext() != null) {
-            Integer temp = (Integer) current.getData();
-            current.setData(current.getNext().getData());
-            current.getNext().setData(temp);
-            current = current.getNext().getNext();
+	private static ListNode swapListInPairs(ListNode head) {
+    	if(head == null || head.next == null) return head;
+        ListNode newHead = null, curr = head, prev = null;
+        
+        while(curr != null && curr.next != null) {
+            ListNode next = curr.next, nextNext = curr.next.next;
+            if(prev != null) prev.next = next;
+            
+            curr.next = nextNext;
+            next.next = curr;
+            if(newHead == null) newHead = next;
+            prev = curr;
+            curr = nextNext;
         }
-
-        return head;
+        return newHead;
     }
+	
+    private static ListNode createList() {
+    	ListNode n1 = new ListNode(1);
+    	ListNode n2 = new ListNode(2);
+    	ListNode n3 = new ListNode(3);
+    	ListNode n4 = new ListNode(4);
+    	ListNode n5 = new ListNode(5);
+    	
+    	n4.next = n5; n3.next = n4; n2.next = n3; n1.next = n2;
+    	return n1;
+	}
 
 }

@@ -6,7 +6,7 @@ import java.util.Set;
 public class ContinousSubarraySum {
 
 	public static void main(String[] args) {
-		int[] a = {23, 2, 4, 6, 8};
+		int[] a = {23, 2, 4, 6, 7};
 		int k = 6;
 		
 		long start = System.currentTimeMillis();

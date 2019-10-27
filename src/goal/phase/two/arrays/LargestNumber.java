@@ -1,50 +1,27 @@
 package goal.phase.two.arrays;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class LargestNumber {
 
     public static void main(String[] args) {
 
-        int[] a = { 3, 30, 34, 5, 9 };
-        String largest = getLargestNumber(a);
+    	String[] s = { "3", "30", "34" ,"5" ,"9" };
+        String largest = getLargestNumber(s);
 
         System.out.println("Result: " + largest);
     }
 
-    private static String getLargestNumber(int[] a) {
-
-        String[] s = new String[a.length];
-
-        for (int i = 0; i < a.length; i++) {
-            s[i] = String.valueOf(a[i]);
-        }
-
-        Arrays.sort(s, new Comparator<String>() {
-
-            @Override
-            public int compare(String o1, String o2) {
-
-                String s1 = o1 + o2;
-                String s2 = o2 + o1;
-
-                return -s1.compareTo(s2);
-            }
-
-        });
-
-        StringBuilder sb = new StringBuilder();
-
-        for (String ss : s) {
-            sb.append(ss);
-        }
-
-        while (sb.charAt(0) == '0' && sb.length() > 1) {
-            sb.deleteCharAt(0);
-        }
-
-        return sb.toString();
+    private static String getLargestNumber(String[] s) {
+    	Arrays.sort(s, (s1, s2) -> {
+	        String a = s1 + s2, b = s2 + s1;
+	        return -1 * a.compareTo(b);
+	    });
+	    
+	    StringBuilder sb = new StringBuilder();
+	    Arrays.stream(s).forEach(x -> sb.append(x));
+	    while(sb.charAt(0) == '0' && sb.length() > 1) sb.deleteCharAt(0);
+	    return sb.toString();
     }
 
 }

@@ -9,11 +9,7 @@ public class IntervalListIntersections {
 		Interval[] A = createIntervals1();
 		Interval[] B = createIntervals2();
 		
-		Interval[] result = intervalIntersection(A, B);
-		for(Interval i: result) System.out.print(i + " ");
-		System.out.println();
-		
-		result = intervalIntersectionSimple(A, B);
+		Interval[] result = intervalIntersectionSimple(A, B);
 		for(Interval i: result) System.out.print(i + " ");
 	}
 	
@@ -34,40 +30,6 @@ public class IntervalListIntersections {
 		}
 		
 		return intervals.toArray(new Interval[0]);
-	}
-
-	private static Interval[] intervalIntersection(Interval[] a, Interval[] b) {
-		if(a == null || a.length == 0 || b == null || b.length == 0) return null;
-		List<Interval> intervals = new ArrayList<>();
-		int i = 0, j = 0;
-		
-		while(i < a.length && j < b.length) {
-			Interval i1 = a[i], i2 = b[j];
-			
-			if(i1.end < i2.start) i++;
-			else if(i1.start > i2.end) j++;
-			else if(i1.end == i2.start) {
-				intervals.add(new Interval(i1.end, i1.end));
-				i++;
-			} else if(i1.start == i2.end) {
-				intervals.add(new Interval(i1.start, i1.start));
-				j++;
-			} else {
-				int start = Math.max(i1.start, i2.start);
-				int end = Math.min(i1.end, i2.end);
-				intervals.add(new Interval(start, end));
-				if(i1.end == end && i2.end == end) {
-					i++; j++;
-				} else if(i1.end == end) i++;
-				else j++;
-			}
-		}
-		
-		Interval[] result = new Interval[intervals.size()];
-		for(i = 0; i < intervals.size(); i++)
-			result[i] = intervals.get(i);
-		
-		return result;
 	}
 
 	private static Interval[] createIntervals1() {

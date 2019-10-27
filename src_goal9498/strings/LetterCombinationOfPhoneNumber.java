@@ -7,12 +7,14 @@ import java.util.Map;
 
 public class LetterCombinationOfPhoneNumber {
 	
-	private static List<String> result = new ArrayList<>();
-	private static Map<String, String> map = new HashMap<>();
-
 	public static void main(String[] args) {
 		String digits = "23";
-		
+		List<String> result = getCombinations(digits);
+		System.out.println(result);
+	}
+	
+	private static List<String> getCombinations(String digits) {
+		Map<String, String> map = new HashMap<>();
 		map.put("2", "abc");
 		map.put("3", "def");
 		map.put("4", "ghi");
@@ -22,24 +24,24 @@ public class LetterCombinationOfPhoneNumber {
 		map.put("8", "tuv");
 		map.put("9", "wxyz");
 		
-		getCombinations(digits, new StringBuilder());
-		System.out.println(result);
+		List<String> result = new ArrayList<>();
+		helper(digits, map, result, new StringBuilder());
+		return result;
 	}
-	
-	private static void getCombinations(String digits, StringBuilder temp) {
-		
-		if(digits.isEmpty()) {
-			result.add(temp.toString());
+
+	private static void helper(String s, Map<String, String> map, List<String> result, StringBuilder sb) {
+		if(s.isEmpty()) {
+			result.add(sb.toString());
 			return;
 		}
 		
-		String first = String.valueOf(digits.charAt(0));
+		String first = String.valueOf(s.charAt(0));
 		String letters = map.get(first);
 		
-		for(int i=0; i<letters.length(); i++) {
-			temp.append(letters.charAt(i));
-			getCombinations(digits.substring(1), temp);
-			temp.deleteCharAt(temp.length()-1);
+		for(int i = 0; i < letters.length(); i++) {
+			sb.append(letters.charAt(i));
+			helper(s.substring(1), map, result, sb);
+			sb.deleteCharAt(sb.length() - 1);
 		}
 	}
 }

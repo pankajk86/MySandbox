@@ -1,7 +1,5 @@
 package facebook;
 
-import java.util.Stack;
-
 import google.ListNode;
 
 public class ReorderList {
@@ -10,13 +8,9 @@ public class ReorderList {
 		ListNode head = createList();
 		reorderList(head);
 		System.out.println(head);
-		
-		head = createList();
-		reorderList2(head);
-		System.out.println(head);
 	}
 	
-	private static void reorderList2(ListNode head) {
+	private static void reorderList(ListNode head) {
 		if(head == null || head.next == null) return;
 		ListNode mid = findMid(head);
 		ListNode left = head, right = mid.next;
@@ -49,40 +43,6 @@ public class ReorderList {
 			slow = slow.next; fast = fast.next.next;
 		}
 		return slow;
-	}
-
-	private static void reorderList(ListNode head) {
-		if(head == null) return;
-		
-		ListNode curr = head;
-		int count = 0;
-		
-		while(curr != null) {
-			count++;
-			curr = curr.next;
-		}
-		
-		Stack<ListNode> stack = new Stack<>();
-		curr = head;
-		
-		for(int i = 0; i < count / 2; i++) 
-			curr = curr.next;
-
-		ListNode part = curr.next;
-		curr.next = null;
-		
-		while(part != null) {
-			stack.push(part);
-			part = part.next;
-		}
-		
-		curr = head;
-		
-		while(curr != null && !stack.isEmpty()) {
-			ListNode next = curr.next;
-			curr.next = stack.pop(); curr = curr.next;
-			curr.next = next; curr = curr.next;
-		}
 	}
 
 	private static ListNode createList() {
