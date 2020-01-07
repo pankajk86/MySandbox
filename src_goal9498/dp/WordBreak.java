@@ -38,7 +38,6 @@ public class WordBreak {
     			}
     		}
     	}
-    	
     	return dp[str.length()];
     }
 
