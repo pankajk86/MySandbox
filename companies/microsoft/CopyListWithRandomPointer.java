@@ -8,38 +8,27 @@ public class CopyListWithRandomPointer {
 	public static void main(String[] args) {
 		RandomListNode head = createRandomList();
 		RandomListNode result = deepCopy(head);
-		System.out.println(result.label);
+		System.out.println(result.val);
 	}
 
 	private static RandomListNode deepCopy(RandomListNode head) {
-
 		Map<RandomListNode, RandomListNode> map = new HashMap<>();
-		
-		RandomListNode currentNew = null, headNew = null, current = head;
-		
-		while(current != null) {
-			if(currentNew == null) {
-				currentNew = new RandomListNode(current.label);
-				headNew = currentNew;
-			} else {
-				RandomListNode next = new RandomListNode(current.label);
-				currentNew.next = next;
-				currentNew = currentNew.next;
-			}
-			
-			map.put(current, currentNew);
-			current = current.next;
-		}
-		
-		current = head; currentNew = headNew;
-		
-		while(current != null) {
-			currentNew.random = map.get(current.random);
-			current = current.next;
-			currentNew = currentNew.next;
-		}
-		
-		return headNew;
+		RandomListNode nHead = null, nCurr = null, curr = null;
+        
+        for(curr = head; curr != null; curr = curr.next) {
+        	RandomListNode newNode = new RandomListNode(curr.val);
+            if(nHead == null) {
+                nHead = newNode; nCurr = newNode;
+            } else {
+                nCurr.next = newNode; nCurr = nCurr.next;
+            }
+            map.put(curr, nCurr);
+        }
+        
+        for(curr = head, nCurr = nHead; curr != null; curr = curr.next, nCurr = nCurr.next)
+            nCurr.random = map.get(curr.random);
+        
+        return nHead;
 	}
 
 	private static RandomListNode createRandomList() {
@@ -61,10 +50,10 @@ public class CopyListWithRandomPointer {
 }
 
 class RandomListNode {
-	int label;
+	int val;
 	RandomListNode next, random;
 
-	public RandomListNode(int label) {
-		this.label = label;
+	public RandomListNode(int val) {
+		this.val = val;
 	}
 }

@@ -46,6 +46,6 @@ public class MinimumWindowSubstring {
     			}
     		}
     	}
-    	return minLeft > s.length() ? "" : s.substring(minLeft, minLeft + minLen);
+    	return minLen > s.length() ? "" : s.substring(minLeft, minLeft + minLen);
 	}
 }

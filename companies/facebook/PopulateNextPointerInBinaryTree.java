@@ -5,25 +5,18 @@ public class PopulateNextPointerInBinaryTree {
 	public static void main(String[] args) {
 		TreeLinkNode root = createTree();
 		connect(root);
-		System.out.println("Connected");
 	}
 
-	private static void connect(TreeLinkNode root) {
-		for(TreeLinkNode head = root; head != null; ) {
-			TreeLinkNode nextHead = new TreeLinkNode(0), nextTail = nextHead;
-			for(TreeLinkNode node = head; node != null; node = node.next) {
-				if(node.left != null) {
-					nextTail.next = node.left;
-					nextTail = nextTail.next;
-				}
-				
-				if(node.right != null) {
-					nextTail.next = node.right;
-					nextTail = nextTail.next;
-				}
+	private static TreeLinkNode connect(TreeLinkNode root) {
+		TreeLinkNode currRoot = root;
+		while(currRoot != null && currRoot.left != null) {
+			for(TreeLinkNode curr = currRoot; curr != null; curr = curr.next) {
+				curr.left.next = curr.right;
+				curr.right.next = curr.next == null ? null : curr.next.left;
 			}
-			head = nextHead.next;
+			currRoot = currRoot.left;
 		}
+		return root;
 	}
 
 	private static TreeLinkNode createTree() {

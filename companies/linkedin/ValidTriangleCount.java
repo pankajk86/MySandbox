@@ -14,19 +14,18 @@ public class ValidTriangleCount {
 
 		Arrays.sort(a);
 		
-		int count = 0, n = a.length;
+		int result = 0, n = a.length;
 		
-		for(int i = n - 1; i >= 2; i--) {
-			int left = 0, right = i - 1;
-			while(left < right) {
-				if(a[left] + a[right] > a[i]) {
-					count += right - left;
-					right--;
-				} else left++;
-			}
-		}
+		for(int k = n - 1; k >= 2; k--) {
+            for(int i = 0, j = k - 1; i < j; ){
+                if(a[i] + a[j] > a[k]) {
+                    result += j - i;
+                    j--;
+                } else i++;
+            }
+        }
 		
- 		return count;
+ 		return result;
 	}
 
 }

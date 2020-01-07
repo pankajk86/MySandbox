@@ -12,12 +12,9 @@ public class BlockingQueue_ProducerConsumer {
 		
 		producer.start(); consumer.start();
 	}
-
 }
 
-
 class ProducerBQ implements Runnable {
-
 	private int i;
 	private BlockingQueue<Integer> q;
 	

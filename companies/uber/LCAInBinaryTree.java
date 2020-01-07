@@ -20,9 +20,7 @@ public class LCAInBinaryTree {
 	}
 	
 	private static TreeNode lcaRecursion(TreeNode root, TreeNode p, TreeNode q) {
-		if(root == null)
-			return null;
-		if(root == p || root == q)
+		if(root == null || root == p || root == q)
 			return root;
 		TreeNode left = lcaRecursion(root.left, p, q);
 		TreeNode right = lcaRecursion(root.right, p, q);

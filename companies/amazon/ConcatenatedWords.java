@@ -2,7 +2,6 @@ package amazon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,38 +16,24 @@ public class ConcatenatedWords {
 
 	private static List<String> concatenatedWordsInDict(String[] words) {
 		List<String> result = new ArrayList<>();
-		Set<String> dict = new HashSet<>();
+		Set<String> dict = new HashSet<>(Arrays.asList(words));
 		
-		Arrays.sort(words, new Comparator<String>() {
-			@Override
-			public int compare(String s1, String s2) {
-				return s1.length() - s2.length();
-			}
-		});
-		
-		for(int i = 0; i < words.length; i++) {
-			if(canFormWord(words[i], dict))
-				result.add(words[i]);
-			dict.add(words[i]);
+		for(String word: words) {
+			if(isConcatenated(word, dict))
+				result.add(word);
 		}
-		
 		return result;
 	}
 
-	private static boolean canFormWord(String word, Set<String> dict) {
-		boolean[] dp = new boolean[word.length() + 1];
-		dp[0] = true;
-		
-		for(int i = 1; i <= word.length(); i++) {
-			for(int j = 0; j < i; j++) {
-				if(dp[j] && dict.contains(word.substring(j, i))) {
-					dp[i] = true;
-					break;
-				}
+	private static boolean isConcatenated(String word, Set<String> dict) {
+		for(int i = 1; i < word.length(); i++) {
+			if(dict.contains(word.substring(0, i))) {
+				String rest = word.substring(i);
+				if(dict.contains(rest) || isConcatenated(rest, dict))
+					return true;
 			}
 		}
-		
-		return dp[word.length()];
+		return false;
 	}
 
 }

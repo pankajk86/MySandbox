@@ -19,11 +19,11 @@ public class MaximumSwap {
 		Map<Integer, Integer> map = new HashMap<>();
 
 		for (int i = 0; i < carr.length; i++) {
-			map.put(Integer.parseInt(String.valueOf(carr[i])), i);
+			map.put(carr[i] - '0', i);
 		}
 
 		for (int i = 0; i < carr.length; i++) {
-			int temp = Integer.parseInt(String.valueOf(carr[i]));
+			int temp = carr[i] - '0';
 			int index = getLargest(map, temp, i);
 			
 			if(index != -1 && index > i) {
@@ -49,6 +49,7 @@ public class MaximumSwap {
 	}
 
 
+	@SuppressWarnings("unused")
 	private static int maxSwap2(int n) {
 
 		String s = String.valueOf(n);

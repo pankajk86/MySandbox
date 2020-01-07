@@ -1,5 +1,7 @@
 package uber;
 
+import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -32,7 +34,7 @@ public class DesignHitCounter {
 	}
 
 	private static void test1() {
-		HitCounter hc = new HitCounter();
+		HitCounter2 hc = new HitCounter2();
 		hc.hit(1);
 		hc.hit(2);
 		hc.hit(3);
@@ -92,4 +94,44 @@ class HitCounter1 {
         }
         return q.size();
     }
+}
+
+class HitCounter2 {
+	private Deque<Pair> dq;
+	
+	HitCounter2() {
+		this.dq = new LinkedList<>();
+	}
+	
+	public void hit(int timestamp) {
+		if(!dq.isEmpty() && dq.peekLast().timestamp == timestamp)
+			dq.peekLast().count += 1;
+		else dq.offerLast(new Pair(timestamp, 1));
+		
+		clear(timestamp);
+	}
+	
+	public int getHits(int timestamp) {
+		clear(timestamp);
+		
+		int result = 0;
+		Iterator<Pair> it = dq.iterator();
+		
+		while(it.hasNext()) result += it.next().count;
+		return result;
+	}
+
+	private void clear(int timestamp) {
+		while(!dq.isEmpty() && dq.peekFirst().timestamp >= timestamp - 300)
+			dq.pollFirst();
+	}
+}
+
+class Pair {
+	int timestamp, count;
+	
+	public Pair(int timestamp, int count) {
+		this.timestamp = timestamp;
+		this.count = count;
+	}
 }

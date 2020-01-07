@@ -7,75 +7,57 @@ public class AddTwoNumbersII {
 	public static void main(String[] args) {
 		ListNode l1 = createList1();
 		ListNode l2 = createList2();
-		ListNode result = sum(l1, l2);
-		
-		while(result.next != null) {
-			System.out.print(result.val);
-			result = result.next;
-		}
-		System.out.print(result.val);
-	}
 
-	private static ListNode sum(ListNode l1, ListNode l2) {
-		String s1 = getNumStr(l1), s2 = getNumStr(l2);
-		int carry = 0, i1 = 0, i2 = 0;
-		StringBuilder sb = new StringBuilder();
+		ListNode result = sumBetter(l1, l2);
+		System.out.print(result);
+	}
+	
+	private static ListNode sumBetter(ListNode h1, ListNode h2) {
+		h1 = reverse(h1); h2 = reverse(h2);
+		ListNode dummy = new ListNode(0), curr = dummy;
+		ListNode l1 = h1, l2 = h2;
+		int carry = 0;
 		
-		while(i1 < s1.length() && i2 < s2.length()) {
-			int sum = (s1.charAt(i1) - '0') + (s2.charAt(i2) - '0') + carry;
-			if(sum > 9) {
-				carry = 1; 
-				sum %= 10;
-			} else carry = 0;
-			sb.append(sum);
-			i1++; i2++;
+		for(; l1 != null && l2 != null; l1 = l1.next, l2 = l2.next) {
+			int val = l1.val + l2.val + carry;
+			carry = val / 10; val = val % 10; 
+			
+			curr.next = new ListNode(val);
+			curr = curr.next;
 		}
 		
-		while(i1 < s1.length()) {
-			int sum = (s1.charAt(i1) - '0') + carry;
-			if(sum > 9) {
-				carry = 1; 
-				sum %= 10;
-			} else carry = 0;
-			sb.append(sum);
-			i1++;
+		while(l1 != null) {
+			int val = l1.val + carry;
+			carry = val / 10; val = val % 10;
+			
+			curr.next = new ListNode(val);
+			curr = curr.next;
+			l1 = l1.next;
 		}
 		
-		while(i2 < s2.length()) {
-			int sum = (s2.charAt(i2) - '0') + carry;
-			if(sum > 9) {
-				carry = 1; 
-				sum %= 10;
-			} else carry = 0;
-			sb.append(sum);
-			i2++;
+		while(l2 != null) {
+			int val = l2.val + carry;
+			carry = val / 10; val = val % 10;
+			
+			curr.next = new ListNode(val);
+			curr = curr.next;
+			l2 = l2.next;
 		}
 		
-		if(carry == 1) sb.append(carry);
-		String total = sb.reverse().toString();
-		
-		ListNode head = new ListNode(total.charAt(0) - '0');
-		ListNode result = head;
-		
-		for(int i = 1; i < total.length(); i++) {
-			ListNode next = new ListNode(total.charAt(i) - '0');
-			head.next = next;
-			head = head.next;
-		}
+		if(carry > 0) curr.next = new ListNode(carry);
+		ListNode result = reverse(dummy.next);
 		
 		return result;
 	}
-	
-	private static String getNumStr(ListNode l) {
-		StringBuilder sb = new StringBuilder();
-		
-		while(l.next != null) {
-			sb.append(l.val);
-			l = l.next;
+
+	private static ListNode reverse(ListNode head) {
+		ListNode prev = null, curr = head;
+		while(curr != null) {
+			ListNode next = curr.next;
+			curr.next = prev;
+			prev = curr; curr = next;
 		}
-		
-		sb.append(l.val);
-		return sb.reverse().toString();
+		return prev;
 	}
 
 	private static ListNode createList1() {

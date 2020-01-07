@@ -5,13 +5,10 @@ import google.ListNode;
 public class OddEvenLinkedList {
 
 	public static void main(String[] args) {
-		ListNode head = createList2();
+		ListNode head = createList();
 		ListNode result = processList(head);
 		
-		while(result != null) {
-			System.out.print(result.val + " ");
-			result = result.next;
-		}
+		System.out.println(result);
 	}
 
 	private static ListNode processList(ListNode head) {
@@ -29,6 +26,7 @@ public class OddEvenLinkedList {
 		return head;
 	}
 	
+	@SuppressWarnings("unused")
 	private static ListNode createList2() {
 		ListNode n1 = new ListNode(0);
 		ListNode n2 = new ListNode(1);
@@ -47,7 +45,7 @@ public class OddEvenLinkedList {
 		ListNode n6 = new ListNode(6);
 		ListNode n7 = new ListNode(7);
 		
-//		n4.next = n7; n6.next = n4; n5.next = n6;
+		n4.next = n7; n6.next = n4; n5.next = n6;
 		n6.next = n7; n5.next = n6;
 		n3.next = n5; n1.next = n3; n2.next = n1;
 		

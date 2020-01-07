@@ -15,7 +15,7 @@ public class SortColors {
 		int left = 0, mid = 0, right = a.length - 1;
 
 		while(mid <= right) {
-			if(a[mid] == 0 && mid != left) {
+			if(a[mid] == 0) {
 				swap(a, left, mid);
 				left++; mid++;
 			} else if(a[mid] == 2 && mid != right) {

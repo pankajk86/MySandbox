@@ -6,8 +6,34 @@ public class SortedListToBST {
 
 	public static void main(String[] args) {
 		ListNode head = createList();
+		
 		TreeNode result = createBST(head);
-		System.out.println(result.val);
+		System.out.println(result);
+		
+		result = createBST2(head);
+		System.out.println(result);
+	}
+
+	/**
+	 * Better approach.
+	 * 
+	 * @param head
+	 * @return
+	 */
+	private static TreeNode createBST2(ListNode head) {
+		if(head == null) return null;
+		ListNode slow = head, fast = head, prev = null;
+		
+		while(fast != null && fast.next != null) {
+			prev = slow; slow = slow.next; fast = fast.next.next;
+		}
+		
+		if(prev == null) return new TreeNode(head.val);
+		prev.next = null;
+		TreeNode root = new TreeNode(slow.val);
+		root.left = createBST2(head);
+		root.right = createBST2(slow.next);
+		return root;
 	}
 
 	private static TreeNode createBST(ListNode head) {

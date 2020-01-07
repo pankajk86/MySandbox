@@ -1,7 +1,6 @@
 package facebook;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -17,24 +16,28 @@ public class BinaryTreeRightSideView {
 	}
 
 	private static List<Integer> rightView(TreeNode root) {
-
 		List<Integer> result = new ArrayList<>();
-        if(root == null) return result;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.addAll(Arrays.asList(root, null));
-        
-        while(!q.isEmpty()) {
-            TreeNode curr = q.poll();
-            if(!q.isEmpty() && q.peek() == null) result.add(curr.val);
-            if(curr != null) {
-                if(curr.left != null) q.add(curr.left);
-                if(curr.right != null) q.add(curr.right);
-            } else {
-                if(q.isEmpty()) break;
-                q.add(null);
-            }
-        }
-        return result;
+		if(root == null) return result;
+		
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root); result.add(root.val);
+		int size = q.size();
+		TreeNode rightInRow = null;
+		
+		while(!q.isEmpty()) {
+			for(int i = 0; i < size; i++) {
+				TreeNode curr = q.poll();
+				if(curr.left != null) {
+					q.add(curr.left); rightInRow = curr.left;
+				}
+				if(curr.right != null) {
+					q.add(curr.right); rightInRow = curr.right;
+				}
+			}
+			size = q.size();
+			if(size > 0) result.add(rightInRow.val);
+		}
+		return result;
 	}
 
 	private static TreeNode createTree() {
