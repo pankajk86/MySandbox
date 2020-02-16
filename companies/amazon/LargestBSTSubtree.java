@@ -25,6 +25,18 @@ public class LargestBSTSubtree {
 			return new int[] {Math.min(left[0], root.val), Math.max(root.val, right[1]), left[2] + right[2] + 1};
 		else return new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left[2], right[2])};
 	}
+	
+	// need to test it further
+	private static int largestBSTII(TreeNode root) {
+  		if(root==null){return 0;}
+    
+		int leftsum = sum(root.left);
+		int rightsum =sum(root.right);
+		int total = leftsum + rightsum + root.val;
+		int currmax = Math.max(total,Math.max(leftsum,rightsum));
+		max = Math.max(max,currmax);    
+		return total;
+	}
 
 	private static TreeNode createTree() {
 		TreeNode n1 = new TreeNode(10);
