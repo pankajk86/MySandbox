@@ -12,6 +12,41 @@ public class FindAllAnagramsInString {
 		String s = "acbaebabacd", p = "aabc";
 		List<Integer> result = findAnagrams(s, p);
 		System.out.println(result);
+		
+		result = findAnagramsII(s, p);
+		System.out.println(result);
+	}
+
+	/**
+	 * BETTER PERFORMANCE.
+	 * 
+	 * The algorithm is similar to the other solution. Usage of integer array (instead of Map),
+	 * improves space complexity.
+	 * 
+	 * @param s
+	 * @param p
+	 * @return
+	 */
+	private static List<Integer> findAnagramsII(String s, String p) {
+		List<Integer> result = new ArrayList<>();
+		int[] map = new int[26];
+		for(char c: p.toCharArray()) map[c - 'a']++;
+		int count = 0;
+		
+		for(int left = 0, right = 0; right < s.length(); ) {
+			char r = s.charAt(right++);
+			map[r - 'a']--;
+			if(map[r - 'a'] >= 0) count++;
+			
+			while(right - left > p.length()) {
+				char l = s.charAt(left++);
+				map[l - 'a']++;
+				if(map[l - 'a'] > 0) count--;
+			}
+			
+			if(count == p.length()) result.add(left);
+		}
+		return result;
 	}
 
 	private static List<Integer> findAnagrams(String s, String p) {
