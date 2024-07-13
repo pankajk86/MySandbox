@@ -15,39 +15,36 @@ public class TheMaze {
 				{ 1, 1, 0, 1, 1 },
 				{ 0, 0, 0, 0, 0 } 
 			};
-		int[] start = { 0, 4 }, dest = { 4, 4 };
+		int[] start = { 0, 4 }, dest = { 3, 2 };
 		
 		boolean result = hasPath(maze, start, dest);
 		System.out.println(result);
 	}
 
-	private static boolean hasPath(int[][] m, int[] start, int[] dest) {
-		Queue<int[]> q = new LinkedList<>();
-		boolean[][] visited = new boolean[m.length][m[0].length];
-		q.add(start);
-		visited[start[0]][start[1]] = true;
-		
-		while(!q.isEmpty()) {
-			int[] curr = q.poll();
-			if(curr[0] == dest[0] && curr[1] == dest[1]) return true;
-			
-			for(int[] dir: dirs) {
-				int x = curr[0], y = curr[1];
-				while(isValid(m, x + dir[0], y + dir[1])) {
-					x += dir[0]; y += dir[1];
-				}
-				
-				if(!visited[x][y]) {
-					q.add(new int[] {x, y});
-					visited[x][y] = true;
-				}
+	private static boolean hasPath(int[][] a, int[] start, int[] dest) {
+		boolean[][] visited = new boolean[a.length][a[0].length];
+		return dfs(a, start, dest, visited);
+	}
+
+	private static boolean dfs(int[][] a, int[] curr, int[] dest, boolean[][] visited) {
+		int r = curr[0], c = curr[1];
+		if (r == dest[0] && c == dest[1]) return true;
+		if (visited[r][c]) return false;
+
+		visited[r][c] = true;
+
+		for (int[] dir : dirs) {
+			int r1 = r, c1 = c;
+			while (r1 >= 0 && r1 < a.length && c1 >= 0 && c1 < a[0].length) {
+				r1 += dir[0]; c1 += dir[1];
 			}
+			r1 -= dir[0]; c1 -= dir[1];
+
+			if (dfs(a, new int[]{r1, c1}, dest, visited)) return true;
 		}
+
 		return false;
 	}
 
-	private static boolean isValid(int[][] m, int i, int j) {
-		return i >= 0 && i < m.length && j >= 0 && j < m[0].length && m[i][j] != 1;
-	}
 
 }

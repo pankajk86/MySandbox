@@ -1,10 +1,8 @@
 package facebook;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
+import maps.Pair;
 import trees.TreeNode;
 
 public class BinaryTreeVerticalOrderTraversal {
@@ -21,27 +19,34 @@ public class BinaryTreeVerticalOrderTraversal {
 
 	private static List<List<Integer>> verticalTraversal(TreeNode root) {
 		List<List<Integer>> result = new ArrayList<>();
-        TreeMap<Integer, List<int[]>> map = new TreeMap<>();
-        dfs(root, 0, 0, map);
-        
-        for(List<int[]> value: map.values()) {
-            Collections.sort(value, (a, b) -> (a[0] - b[0]));
-            List<Integer> list = new ArrayList<>();
-            for(int[] val: value) list.add(val[1]);
-            result.add(list);
-        }
-        
-        return result;
-	}
+		if (root == null) return result;
 
-	private static void dfs(TreeNode root, int col, int level, TreeMap<Integer, List<int[]>> map) {
-		if(root == null) return;
-        List<int[]> list = map.getOrDefault(col, new ArrayList<>());
-        list.add(new int[] {level, root.val});
-        map.put(col, list);
-        
-        dfs(root.left, col - 1, level + 1, map);
-        dfs(root.right, col + 1, level + 1, map);
+		Map<Integer, List<Integer>> map = new HashMap<>();
+		Queue<Pair<Integer, TreeNode>> q = new LinkedList<>();
+		q.add(new Pair<>(0, root));
+		int min = 0, max = 0;
+
+		while (!q.isEmpty()) {
+			Pair<Integer, TreeNode> curr = q.poll();
+			int col = curr.getKey();
+			TreeNode node= curr.getValue();
+
+			List<Integer> list = map.getOrDefault(col, new ArrayList<>());
+			list.add(node.val);
+			map.put(col, list);
+
+			min = Math.min(min, col);
+			max = Math.max(max, col);
+
+			if (node.left != null) q.add(new Pair<>(col - 1, node.left));
+			if (node.right != null) q.add(new Pair<>(col + 1, node.right));
+		}
+
+
+		for (int i = min; i <= max; i++)
+			result.add(map.get(i));
+
+		return result;
 	}
 	
 	private static TreeNode createTree2() {

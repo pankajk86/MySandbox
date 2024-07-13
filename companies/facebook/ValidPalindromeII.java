@@ -9,30 +9,15 @@ public class ValidPalindromeII {
 	}
 
 	private static boolean validPalindrome(String s) {
-
-		if(s == null) return false;
-		if(s.isEmpty()) return true;
-		
-		int start = 0, end = s.length() - 1;
-		
-		while(start < end) {
-			if(s.charAt(start) == s.charAt(end)) {
-				start++; end--;
-			} else {
-				if(isPalindrome(s, start + 1, end) || isPalindrome(s, start, end - 1))
-					return true;
-				else return false;
-			}
-		}
-		return true;
+		return isPalindrome(s, 0, s.length() - 1, 0);
 	}
 
-	private static boolean isPalindrome(String s, int start, int end) {
+	private static boolean isPalindrome(String s, int start, int end, int count) {
+		if (count > 1) return false;
 
-		while(start < end) {
-			if(s.charAt(start) != s.charAt(end))
-				return false;
-			start++; end--;
+		for (int i = start, j = end; i <= j; i++, j--) {
+			if (s.charAt(i) == s.charAt(j)) continue;
+			return isPalindrome(s, i + 1, j, count + 1) || isPalindrome(s, i, j - 1, count + 1);
 		}
 		return true;
 	}

@@ -1,8 +1,5 @@
 package amazon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import trees.TreeNode;
 
 public class SumOfRootToLeafBinaryNumbers {
@@ -14,24 +11,15 @@ public class SumOfRootToLeafBinaryNumbers {
 	}
 
 	private static int sumRootToLeaf(TreeNode root) {
-		List<String> list = new ArrayList<>();
-		dfs(root, "", list);
-		int result = 0;
-		
-		for(String s: list)
-			result += Integer.parseInt(s, 2);
-		
-		return result;
+		return dfs(root, 0);
 	}
 
-	private static void dfs(TreeNode root, String s, List<String> list) {
-		if(root != null && root.left == null && root.right == null) {
-			list.add(s + root.val);
-			return;
-		}
-		
-		if(root.left != null) dfs(root.left, s + root.val, list);
-		if(root.right != null) dfs(root.right, s + root.val, list);
+	private static int dfs(TreeNode root, int sum) {
+		int curr = sum * 10 + root.val, result = 0;
+		if (root.left == null && root.right == null) return curr;
+		if (root.left != null) result += dfs(root.left, curr);
+		if (root.right != null) result += dfs(root.right, curr);
+		return result;
 	}
 
 	private static TreeNode createTree() {

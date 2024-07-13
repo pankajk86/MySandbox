@@ -9,29 +9,15 @@ public class FindPeakElement {
 	}
 
 	private static int findPeak(int[] a) {
+		int left = 0, right = a.length - 1;
 
-		int result = 0;
-		
-		if(a.length == 1) return 0;
-
-		for (int i = 0; i < a.length; i++) {
-
-			if (i == 0) {
-				if (a[i] > a[i + 1]) {
-					result = a[result] > a[i] ? result : i;
-				}
-			} else if (i == a.length - 1) {
-				if (a[i] > a[i - 1]) {
-					result = a[result] > a[i] ? result : i;
-				}
-			} else {
-				if (a[i] > a[i - 1] && a[i] > a[i + 1]) {
-					result = a[result] > a[i] ? result : i;
-				}
-			}
+		while (left < right) {
+			int mid = left + (right - left) / 2;
+			if (a[mid] < a[mid + 1]) left = mid + 1;
+			else right = mid;
 		}
 
-		return result;
+		return right;
 	}
 
 }

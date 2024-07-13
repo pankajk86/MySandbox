@@ -17,27 +17,16 @@ public class BinaryTreeRightSideView {
 
 	private static List<Integer> rightView(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
-		if(root == null) return result;
-		
-		Queue<TreeNode> q = new LinkedList<>();
-		q.add(root); result.add(root.val);
-		int size = q.size();
-		TreeNode rightInRow = null;
-		
-		while(!q.isEmpty()) {
-			for(int i = 0; i < size; i++) {
-				TreeNode curr = q.poll();
-				if(curr.left != null) {
-					q.add(curr.left); rightInRow = curr.left;
-				}
-				if(curr.right != null) {
-					q.add(curr.right); rightInRow = curr.right;
-				}
-			}
-			size = q.size();
-			if(size > 0) result.add(rightInRow.val);
-		}
+		dfs(root, result, 0);
 		return result;
+	}
+
+	private static void dfs(TreeNode root, List<Integer> result, int depth) {
+		if (root == null) return;
+		if (depth == result.size()) result.add(root.val);
+
+		dfs(root.right, result, depth + 1);
+		dfs(root.left, result, depth + 1);
 	}
 
 	private static TreeNode createTree() {

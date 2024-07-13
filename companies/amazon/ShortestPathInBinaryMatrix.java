@@ -23,29 +23,23 @@ public class ShortestPathInBinaryMatrix {
 		int n = a.length;
 		if(a[0][0] == 1 || a[n - 1][n - 1] == 1) return -1;
 		
-		boolean[][] visited = new boolean[n][n];
 		Queue<int[]> q = new LinkedList<>();
-		visited[0][0] = true;
-		q.add(new int[] {0, 0});
-		int size = q.size(), result = 0;
+		q.add(new int[] {0, 0, 1});
+		a[0][0] = 1;
 		
 		while(!q.isEmpty()) {
-			for(int i = 0; i < size; i++) {
-				int[] curr = q.poll();
-				
-				if(curr[0] == n - 1 && curr[1] == n - 1) 
-					return result + 1;
-				
-				for(int[] dir: dirs) {
-					int x = curr[0] + dir[0], y = curr[1] + dir[1];
-					if(x >= 0 && x < n && y >= 0 && y < n && a[x][y] == 0 && !visited[x][y]) {
-						q.add(new int[] {x, y});
-						visited[x][y] = true;
-					}
+			int[] curr = q.poll();
+			int r = curr[0], c = curr[1];
+
+			if (r == n - 1 && c == n - 1) return curr[2];
+
+			for(int[] dir : dirs) {
+				int nr = r + dir[0], nc = c + dir[1];
+				if (nr >= 0 && nr < n && nc >= 0 && nc < n && a[nr][nc] == 0) {
+					q.add(new int[]{nr, nc, curr[2] + 1});
+					a[nr][nc] = 1;
 				}
 			}
-			result++;
-			size = q.size();
 		}
 		return -1;
 	}

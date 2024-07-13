@@ -13,27 +13,22 @@ public class PalindromeSubstrings {
 	}
 
 	private static int countPalindromeSubstrings(String s) {
-		
-		int n = s.length(), ans = 0;
-		List<String> list = new ArrayList<>();
-		
-		for(int i=0; i< 2*n - 1; i++) {
-			int left = i/2;
-			int right = left + i%2;
-			
-			while(left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-				ans++;
-				list.add(s.substring(left, right+1));
-				left--;
-				right++;
-			}
+
+		int result = 0;
+		for (int i = 0; i < s.length(); i++) {
+			result += helper(s, i, i);
+			result += helper(s, i, i + 1);
 		}
-		
-		for(String p: list) {
-			System.out.print(p + ", ");
+		return result;
+	}
+
+	private static int helper(String s, int i, int j) {
+		int result = 0;
+		while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+			i--; j++;
+			result++;
 		}
-		
-		return ans;
+		return result;
 	}
 
 }

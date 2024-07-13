@@ -13,14 +13,12 @@ public class PalindromePermutation {
 
 	private static boolean canPermutePalindrome(String s) {
 
-		Map<Character, Integer> map = new HashMap<>();
-		
-		for(char c: s.toCharArray())
-			map.put(c, map.getOrDefault(c, 0) + 1);
+		int[] map = new int[26];
+		for (char c : s.toCharArray()) map[c - 'a']++;
 		
 		int countOdd = 0;
 		
-		for(int value: map.values()) {
+		for(int value: map) {
 			if(value % 2 != 0) countOdd++;
 			if(countOdd > 1) return false;
 		}

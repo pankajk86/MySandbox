@@ -17,31 +17,23 @@ public class VerifyingAlienDictionary {
 	}
 
 	private static boolean isSorted(String[] words, String order) {
-		List<String> originalList = new ArrayList<>();
-		originalList.addAll(Arrays.asList(words));
+		int[] map = new int[26];
+		for (int i = 0; i < order.length(); i++)
+			map[order.charAt(i) - 'a'] = i;
 
-		Collections.sort(originalList, new Comparator<String>() {
-			@Override
-			public int compare(String s, String t) {
-				int i = 0, j = 0;
-				for (; i < s.length() && j < t.length(); i++, j++) {
-					int i1 = order.indexOf(s.charAt(i)), i2 = order.indexOf(t.charAt(j));
-					if (i1 < i2)
-						return -1;
-					else if (i1 > i2)
-						return 1;
-				}
-				if(i < s.length() || j < t.length()) return -1;
-				return 0;
-			}
-		});
-
-		for (int i = 0; i < originalList.size(); i++) {
-			if (!originalList.get(i).equals(words[i]))
-				return false;
+		for (int i = 0; i < words.length - 1; i++) {
+			if (!isInOrder(words[i], words[i + 1], map)) return false;
 		}
-
 		return true;
+	}
+
+	private static boolean isInOrder(String s1, String s2, int[] map) {
+		for (int i = 0, j = 0; i < s1.length() && j < s2.length(); i++, j++) {
+			char c1 = s1.charAt(i), c2 = s2.charAt(j);
+			if (c1 == c2) continue;
+			return map[c1 - 'a'] < map[c2 - 'a'];
+		}
+		return s1.length() <= s2.length();
 	}
 
 }

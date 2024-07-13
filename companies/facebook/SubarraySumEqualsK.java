@@ -13,17 +13,14 @@ public class SubarraySumEqualsK {
 		System.out.println(result);
 	}
 
-	private static int subArraySum(int[] a, int target) {
+	private static int subArraySum(int[] a, int k) {
 		Map<Integer, Integer> map = new HashMap<>();
 		int sum = 0, result = 0;
 		map.put(0, 1);
-		
-		for(int i = 0; i < a.length; i++) {
-			sum += a[i];
-			
-			if(map.containsKey(sum - target))
-				result += map.get(sum - target);
-			
+
+		for (int i : a) {
+			sum += i;
+			result += map.getOrDefault(sum - k, 0);
 			map.put(sum, map.getOrDefault(sum, 0) + 1);
 		}
 		return result;

@@ -14,22 +14,21 @@ public class MissingElementInSortedArray {
 	}
 
 	private static int missingElement(int[] a, int k) {
-		List<Integer> cache = new ArrayList<>();
-		int val = a[0], i = 0;
-		
-		for(; val <= Integer.MAX_VALUE; val++) {
-			if(a[i] == val) { 
-				i++;
-				if(i == a.length - 1) break;
-			}
-			else {
-				cache.add(val);
-				if(cache.size() == k) return cache.get(cache.size() - 1);
-			}
+		int n = a.length;
+		if (getMissingCount(a, n - 1) < k)
+			return a[n - 1] + k - getMissingCount(a, n - 1);
+
+		int left = 0, right = n - 1;
+		while (left < right) {
+			int mid = left + (right - left) / 2;
+			if (getMissingCount(a, mid) < k) left = mid + 1;
+			else right = mid;
 		}
-		
-		int result = val + 1 + k - cache.size();
-		return result;
+		return a[right - 1] + k - getMissingCount(a, right - 1);
+	}
+
+	private static int getMissingCount(int[] a, int index) {
+		return a[index] - a[0] - index;
 	}
 
 }

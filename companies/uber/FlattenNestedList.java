@@ -1,5 +1,6 @@
 package uber;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -8,14 +9,19 @@ public class FlattenNestedList {
 
 	public static void main(String[] args) {
 		List<NestedInteger> nlist = createdNestedList();
-		
-		//NestedInteger n4 = new NestedInteger(null, Arrays.asList());
-		
 		NestedIterator nit = new NestedIterator(nlist);
-		//nit = new NestedIterator(Arrays.asList(n4));
 		while(nit.hasNext()) {
 			System.out.println(nit.next());
 		}
+
+		System.out.println("==========");
+
+		// cached
+		NestedIteratorII nitII = new NestedIteratorII(nlist);
+		while(nitII.hasNext()) {
+			System.out.println(nitII.next());
+		}
+
 	}
 
 	private static List<NestedInteger> createdNestedList() {
@@ -34,6 +40,35 @@ public class FlattenNestedList {
 		return Arrays.asList(n8, n7);
 	}
 
+}
+
+class NestedIteratorII implements Iterator<Integer> {
+
+	private List<Integer> list;
+	private int index = 0;
+
+	public NestedIteratorII(List<NestedInteger> nestedList) {
+		list = new ArrayList<>();
+		flatten(nestedList);
+
+	}
+
+	private void flatten(List<NestedInteger> nl) {
+		for (NestedInteger ni : nl) {
+			if (ni.isInteger()) list.add(ni.getInteger());
+			else flatten(ni.getList());
+		}
+	}
+
+	@Override
+	public Integer next() {
+		return list.get(index++);
+	}
+
+	@Override
+	public boolean hasNext() {
+		return index < list.size();
+	}
 }
 
 class NestedIterator implements Iterator<Integer> {

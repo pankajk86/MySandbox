@@ -1,5 +1,8 @@
 package google;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovingAvgOfIntegers {
 
 	public static void main(String[] args) {
@@ -13,26 +16,22 @@ public class MovingAvgOfIntegers {
 }
 
 class MovingAverage {
-	
-	double average;
-	int[] cache;
-	int currentCap, size;
+
+	List<Integer> list = new ArrayList<>();
+	double total;
+	int size;
 	
 	public MovingAverage(int size) {
-		this.cache = new int[size];
-		this.currentCap = 0;
 		this.size = size;
 	}
 	
 	public double next(int val) {
-		average = 0D;
-		cache[currentCap % size] = val;
-		currentCap++;
+		if (list.size() == this.size) {
+			total -= list.remove(0);
+		}
 		
-		for(int i = 0; i < size; i++)
-			average += cache[i];
-		
-		int den = (currentCap < size ? currentCap : size);
-		return average / den;
+		list.add(val);
+		total += val;
+		return total / list.size();
 	}
 }

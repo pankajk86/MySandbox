@@ -10,15 +10,15 @@ public class MaxConsecutiveOnesIII {
 	}
 
 	private static int longestOnes(int[] a, int k) {
-		int i = 0, n = 0, result = 0;
-		
-		for(int j = 0; j < a.length; j++) {
-			if(a[j] == 0) n++;
-			while(n > k) {
-				if(a[i] == 0) n--;
-				i++;
+		int start = 0, count = 0, result = 0;
+
+		for (int end = 0; end < a.length; end++) {
+			if (a[end] == 0) count++;
+			while (count > k) {
+				if (a[start] == 0) count--;
+				start++;
 			}
-			result = Math.max(result, j - i + 1);
+			result = Math.max(result, end - start + 1);
 		}
 		return result;
 	}

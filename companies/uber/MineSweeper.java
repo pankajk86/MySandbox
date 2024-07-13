@@ -2,6 +2,8 @@ package uber;
 
 public class MineSweeper {
 
+	static int[][] dirs = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}, {0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+
 	public static void main(String[] args) {
 		char[][] board = {
 				{'E', 'E', 'E', 'E', 'E'},
@@ -21,42 +23,35 @@ public class MineSweeper {
 	}
 
 	private static char[][] updateBoard(char[][] board, int[] click) {
-		int row = click[0], col = click[1];
-		
-		if(row >= 0 && row < board.length && col >= 0 && col < board[0].length) {
-			if(board[row][col] == 'M') {
-				board[row][col] = 'X';
-				return board;
-			}
-			
-			if(board[row][col] == 'E') {
-				int countMines = 0;
-				if(row - 1 >= 0 && col - 1 >= 0 && board[row - 1][col - 1] == 'M') countMines++;
-				if(row - 1 >= 0 && col >= 0 && board[row - 1][col] == 'M') countMines++;
-				if(row - 1 >= 0 && col + 1 < board[0].length && board[row - 1][col + 1] == 'M') countMines++;
-				if(row >= 0 && col + 1 < board[0].length && board[row][col + 1] == 'M') countMines++;
-				if(row + 1 < board.length && col + 1 < board[0].length && board[row + 1][col + 1] == 'M') countMines++;
-				if(row + 1 < board.length && col < board[0].length && board[row + 1][col] == 'M') countMines++;
-				if(row + 1 < board.length && col - 1 >= 0 && board[row + 1][col - 1] == 'M') countMines++;
-				if(row >= 0 && col - 1 >= 0 && board[row][col - 1] == 'M') countMines++;
-				
-				if(countMines > 0) {
-					board[row][col] = (char) (countMines + '0');
-					return board;
-				} else {
-					board[row][col] = 'B';
-					board = updateBoard(board, new int[] {row - 1, col - 1});
-					board = updateBoard(board, new int[] {row - 1, col});
-					board = updateBoard(board, new int[] {row - 1, col + 1});
-					board = updateBoard(board, new int[] {row, col + 1});
-					board = updateBoard(board, new int[] {row + 1, col + 1});
-					board = updateBoard(board, new int[] {row + 1, col});
-					board = updateBoard(board, new int[] {row + 1, col - 1});
-					board = updateBoard(board, new int[] {row, col - 1});
-					return board;
-				}
+		int r = click[0], c = click[1], m = board.length, n = board[0].length;
+
+		if (board[r][c] == 'M' || board[r][c] == 'X') {
+			board[r][c] = 'X';
+			return board;
+		}
+
+		int mines = 0;
+		for (int[] dir : dirs) {
+			int nr = r + dir[0], nc = c + dir[1];
+			if (nr >= 0 && nr < m && nc >= 0 && nc < m && board[nr][nc] == 'M') {
+				mines++;
 			}
 		}
+
+		if (mines > 0) {
+			board[r][c] = (char)(mines + '0');
+			return board;
+		}
+
+		board[r][c] = 'B';
+
+		for (int[] dir : dirs) {
+			int nr = r + dir[0], nc = c + dir[1];
+			if (nr >= 0 && nr < m && nc >= 0 && nc < m && board[nr][nc] == 'E') {
+				updateBoard(board, new int[]{nr, nc});
+			}
+		}
+
 		return board;
 	}
 

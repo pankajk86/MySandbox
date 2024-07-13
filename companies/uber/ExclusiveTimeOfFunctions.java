@@ -22,70 +22,36 @@ public class ExclusiveTimeOfFunctions {
 	}
 	
 	private static int[] exclusiveTime(int n, List<String> logs) {
-		
+		Stack<Log> stack = new Stack<>();
 		int[] result = new int[n];
-		Stack<Integer> stack = new Stack<>();
-		int previous = 0;
-		
-		for(String log: logs) {
-			String[] parts = log.split(":");
-			int id = Integer.parseInt(parts[0]);
-			int duration = Integer.parseInt(parts[2]);
-			
-			if(parts[1].equals("start")) {
-				if(!stack.isEmpty() ) {
-					result[stack.peek()] += duration - previous;
-				}
-				stack.push(id);
-				previous = duration;
+		int prev = 0;
+
+		for(String log : logs) {
+			Log l = new Log(log);
+
+			if (l.isStart) {
+				if (!stack.isEmpty()) result[stack.peek().id] += l.time - prev;
+				stack.push(l);
+				prev = l.time;
 			} else {
-				result[stack.pop()] += duration - previous + 1;
-				previous = duration + 1;
+				result[stack.pop().id] += l.time + 1 - prev;
+				prev = l.time + 1;
 			}
 		}
-		
-		return result;
-	}
-
-	@SuppressWarnings("unused")
-	private static int[] exclusiveTime2(int n, List<String> logs) {
-
-		int[] result = new int[n];
-		Stack<Function> stack = new Stack<>();
-		String[] parts = logs.get(0).split(":");
-		stack.push(new Function(Integer.parseInt(parts[0]), Integer.parseInt(parts[2])));
-		
-		for(int i = 1; i < logs.size(); i++) {
-			parts = logs.get(i).split(":");
-			
-			if(parts[1].equals("start")) {
-				Function f = stack.pop();
-				f.duration = Integer.parseInt(parts[2]) - f.duration;
-				stack.push(f);
-				
-				stack.push(new Function(Integer.parseInt(parts[0]), Integer.parseInt(parts[2])));
-			} else if(parts[1].equals("end")) {
-				Function f = stack.pop();
-				String[] previousJob = logs.get(i - 1).split(":");
-				
-				if(parts[0].equals(previousJob[0])) {
-					result[f.id] += Integer.parseInt(parts[2]) - f.duration + 1;
-				} else {
-					result[f.id] += f.duration + (Integer.parseInt(parts[2]) - Integer.parseInt(previousJob[2])) ;
-				}
-			}
-		}
-		
 		return result;
 	}
 
 }
 
-class Function {
-	int id; int duration;
-	
-	Function(int id, int duration) {
-		this.id = id;
-		this.duration = duration;
+class Log {
+	int id;
+	boolean isStart;
+	int time;
+
+	public Log(String log) {
+		String[] parts = log.split(":");
+		id = Integer.parseInt(parts[0]);
+		isStart = parts[1].equals("start");
+		time = Integer.parseInt(parts[2]);
 	}
 }
