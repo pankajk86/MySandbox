@@ -8,13 +8,13 @@ public class PopulateNextPointerInBinaryTree {
 	}
 
 	private static TreeLinkNode connect(TreeLinkNode root) {
-		TreeLinkNode currRoot = root;
-		while(currRoot != null && currRoot.left != null) {
-			for(TreeLinkNode curr = currRoot; curr != null; curr = curr.next) {
+		TreeLinkNode dummy = root;
+		while(dummy != null && dummy.left != null) {
+			for(TreeLinkNode curr = dummy; curr != null; curr = curr.next) {
 				curr.left.next = curr.right;
 				curr.right.next = curr.next == null ? null : curr.next.left;
 			}
-			currRoot = currRoot.left;
+			dummy = dummy.left;
 		}
 		return root;
 	}

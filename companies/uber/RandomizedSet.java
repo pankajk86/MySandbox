@@ -27,15 +27,17 @@ public class RandomizedSet {
 	}
 	
 	public boolean remove(int val) {
-		Integer index = map.get(val);
-		if(index == null) return false;
-		
-		int temp = list.get(list.size() - 1);
-		list.set(index, temp);
-		map.put(temp, index);
-		map.remove(val);
+		if (!map.containsKey(val)) return false;
+
+		int index = map.get(val);
+		int lastVal = list.get(list.size() - 1);
+
+		list.set(index, lastVal);
+		map.put(lastVal, index);
+
 		list.remove(list.size() - 1);
-		
+		map.remove(val);
+
 		return true;
 	}
 

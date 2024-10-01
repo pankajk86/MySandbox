@@ -15,6 +15,7 @@ public class KthMissingPositiveNumber {
 
         while (left < right) {
             int mid = left + (right - left) / 2;
+            // missing = a[mid] - (mid + 1)
             if (a[mid] - mid - 1 < k) left = mid + 1;
             else right = mid;
         }

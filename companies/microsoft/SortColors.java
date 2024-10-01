@@ -12,16 +12,16 @@ public class SortColors {
 
 	private static void sort(int[] a) {
 		if(a == null || a.length == 0) return;
-		int left = 0, mid = 0, right = a.length - 1;
+		int left = 0, i = 0, right = a.length - 1;
 
-		while(mid <= right) {
-			if(a[mid] == 0) {
-				swap(a, left, mid);
-				left++; mid++;
-			} else if(a[mid] == 2 && mid != right) {
-				swap(a, mid, right);
+		while(i <= right) {
+			if(a[i] == 0) {
+				swap(a, left, i);
+				left++; i++;
+			} else if(a[i] == 2 && i != right) {
+				swap(a, i, right);
 				right--;
-			} else mid++;
+			} else i++;
 		}
 	}
 

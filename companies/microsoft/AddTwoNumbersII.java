@@ -45,9 +45,8 @@ public class AddTwoNumbersII {
 		}
 		
 		if(carry > 0) curr.next = new ListNode(carry);
-		ListNode result = reverse(dummy.next);
-		
-		return result;
+
+        return reverse(dummy.next);
 	}
 
 	private static ListNode reverse(ListNode head) {

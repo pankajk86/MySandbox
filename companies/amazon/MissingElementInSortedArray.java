@@ -1,8 +1,5 @@
 package amazon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MissingElementInSortedArray {
 
 	public static void main(String[] args) {

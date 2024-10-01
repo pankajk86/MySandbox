@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class ShortestPathInBinaryMatrix {
 
-	private static int dirs[][] = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, 
+	private static int[][] dirs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 },
 												{ 1, -1 }, { -1, 1 }, { -1, -1 }, { 1, 1 } };
 	
 	public static void main(String[] args) {

@@ -13,40 +13,54 @@ public class FirstMissingPositive {
 
 	// Time: O(n), Space: O(1)
 	private static int firstMissingPositiveII(int[] a) {
-		int i = 0;
-		
-		while(i < a.length) {
-			if(a[i] == i + 1 || a[i] <= 0 || a[i] >= a.length) 
-				i++;
-			else if(a[a[i] - 1] != a[i])
-				swap(a, i, a[i] - 1);
-			else i++;
+		int n = a.length;
+		boolean contains1 = false;
+
+		for (int i = 0; i < n; i++) {
+			if (a[i] == 1) contains1 = true;
+
+			// solution exists in range : [1, n]
+			if (a[i] <= 0 || a[i] > n) a[i] = 1;
 		}
-		
-		i = 0;
-		while(i < a.length && a[i] == i + 1)
-			i++;
-		return i + 1;
+
+		if (!contains1) return 1;
+
+		for (int i = 0; i < n; i++) {
+			int num = Math.abs(a[i]);
+			int index = num - 1;
+
+			// if it is positive, it means that number is being seen first time,
+			// and mark it as negative (as seen).
+			if (a[index] > 0) a[index] *= -1;
+		}
+
+		for (int i = 0; i < n; i++) {
+			// if the number is positive, it means that has not been updated before.
+			// it means that number is not present in the array.
+			// hence it is our result.
+			if (a[i] > 0) return i + 1;
+		}
+
+		// if all number is negative, it means they have been seen before.
+		// all are present.
+		// hence we will return the next number (beyond the size of array) as result.
+		return n + 1;
 	}
 
-	private static void swap(int[] a, int i, int j) {
-		int temp = a[i];
-		a[i] = a[j];
-		a[j] = temp;
-	}
+
 
 	// Time: O(n), Space: O(n)
 	private static int firstMissingPositiveI(int[] a) {
 		int n = 0;
 
-		for (int i = 0; i < a.length; i++) {
-			if (a[i] > 0) n = Math.max(a[i], n);
-		}
+        for (int j : a) {
+            if (j > 0) n = Math.max(j, n);
+        }
 
 		int[] cache = new int[n + 1];
-		for (int i = 0; i < a.length; i++) {
-			if (a[i] > 0) cache[a[i]] = 1;
-		}
+        for (int j : a) {
+            if (j > 0) cache[j] = 1;
+        }
 
 		for (int i = 1; i < cache.length; i++) {
 			if (cache[i] == 0) return i;

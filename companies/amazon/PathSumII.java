@@ -26,9 +26,8 @@ public class PathSumII {
 		path.add(root.val);
 		temp += root.val;
 		
-		if(root.left == null && root.right == null) {
-			if(temp == sum)
-				result.add(new ArrayList<>(path));
+		if(root.left == null && root.right == null && temp == sum) {
+			result.add(new ArrayList<>(path));
 		}
 		
 		dfs(root.left, result, path, temp, sum);

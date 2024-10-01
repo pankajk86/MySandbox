@@ -6,7 +6,7 @@ import java.util.Map;
 public class LongestSubstringWithAtMostKDistinctCharacters {
 
 	public static void main(String[] args) {
-		String s = "eceba";
+		String s = "ababbc";
 		int k = 2;
 		
 		int result = longestSubstrKDistinct(s, k);

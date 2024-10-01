@@ -11,7 +11,7 @@ import java.util.Set;
 public class LongestConsecutiveSubsequence {
 
     public static void main(String[] args) {
-        int arr[] = { 36, 41, 56, 35, 44, 33, 34, 92, 43, 32, 42 };
+        int[] arr = { 36, 41, 56, 35, 44, 33, 34, 92, 43, 32, 42 };
         List<Integer> result = getLongestConsecutiveSubsequenceWithSorting(arr);
 
         for (int n : result) {
@@ -32,8 +32,8 @@ public class LongestConsecutiveSubsequence {
     	
     	for(int n: a) {
     		if(!map.containsKey(n)) {
-    			int left = map.containsKey(n - 1) ? map.get(n - 1) : 0;
-    			int right = map.containsKey(n + 1) ? map.get(n + 1) : 0;
+    			int left = map.getOrDefault(n - 1, 0);
+    			int right = map.getOrDefault(n + 1, 0);
     			int sum = left + right + 1;
     			
     			map.put(n, sum);
@@ -77,7 +77,7 @@ public class LongestConsecutiveSubsequence {
     
     private static int getLongestConsecutiveSubsequence(int[] arr) {
 
-        Set<Integer> set = new HashSet<Integer>();
+        Set<Integer> set = new HashSet<>();
         int max = 1;
 
         for (int i : arr) {

@@ -1,76 +1,67 @@
 package linkedin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.PriorityQueue;
 
 public class MaxStack {
 
 	private DllNode head, tail;
-	private TreeMap<Integer, List<DllNode>> map;
-	
+	private int count;
+	private PriorityQueue<DllNode> pq;
+
 	public MaxStack() {
-        this.head = new DllNode(0);
-        this.tail = new DllNode(0);
-        head.next = tail;
-        tail.prev = head;
-        map = new TreeMap<>();
-    }
-    
-    public void push(int x) {
-    	DllNode node = new DllNode(x);
-    	node.prev = tail.prev;
-    	node.next = tail;
-    	tail.prev.next = node;
-    	tail.prev = node;
-    	
-    	if(!map.containsKey(x)) map.put(x, new ArrayList<>());
-    	map.get(x).add(node);
-    }
-    
-    public int pop() {
-    	int val = tail.prev.val;
-    	remove(tail.prev);
-    	int size = map.get(val).size();
-    	map.get(val).remove(size - 1);
-    	if(size == 1) map.remove(val);
-    	
-    	return val;
-    }
-    
-    private void remove(DllNode node) {
-    	DllNode next = node.next;
-    	DllNode prev = node.prev;
-    	next.prev = prev;
-    	prev.next = next;
+		head = new DllNode(-1);
+		tail = new DllNode(-1);
+		head.next = tail;
+		tail.prev = head;
+		count = 0;
+		pq = new PriorityQueue<>((a, b) -> a.val != b.val ? b.val - a.val : b.id - a.id);
+	}
+
+	public void push(int x) {
+		DllNode temp = new DllNode(x);
+		temp.id = count++;
+		addHead(temp);
+		pq.add(temp);
+	}
+
+	public int pop() {
+		if (pq.isEmpty()) return -1;
+		DllNode temp = head.next;
+		pq.remove(temp);
+		head.next = temp.next;
+		temp.next.prev = head;
+		return temp.val;
 	}
 
 	public int top() {
-		return tail.prev.val;
-    }
-    
-    public int peekMax() {
-    	return map.lastKey();
-    }
-    
-    public int popMax() {
-    	int val = map.lastKey();
-    	int size = map.get(val).size();
-    	DllNode node = map.get(val).remove(size - 1);
-    	remove(node);
-    	if(size == 1) map.remove(val);
-    	
-    	return val;
-    }
+		return head.next.val;
+	}
+
+	public int peekMax() {
+		return pq.peek().val;
+	}
+
+	public int popMax() {
+		DllNode temp = pq.poll();
+		temp.prev.next = temp.next;
+		temp.next.prev = temp.prev;
+		return temp.val;
+	}
+
+	private void addHead(DllNode node) {
+		node.next= head.next;
+		head.next.prev = node;
+		node.prev = head;
+		head.next = node;
+	}
 
 }
 
 class DllNode {
-	int val;
-	DllNode next, prev;
-	
-	DllNode(int val) {
+	int id, val;
+	DllNode prev, next;
+
+	public DllNode(int val) {
 		this.val = val;
-		this.next = null; this.prev = null;
 	}
 }

@@ -11,18 +11,27 @@ public class NestedIntegerWeightSum {
 	}
 
 	private static int depthSum(List<NestedInteger> nestedList) {
-		return flatten(nestedList, 1);
+		return dfs(nestedList, 1);
 	}
 	
-	private static int flatten(List<NestedInteger> nl, int depth) {
+	private static int dfs(List<NestedInteger> nl, int depth) {
         int result = 0;
         
         for(NestedInteger ni: nl) {
             if(ni.isInteger()) result += ni.getInteger() * depth;
-            else result += flatten(ni.getList(), depth + 1);
+            else result += dfs(ni.getList(), depth + 1);
         }
         return result;
     }
+
+
+
+
+
+
+
+
+
 
 	private static List<NestedInteger> createNestedList() {
 		//TODO

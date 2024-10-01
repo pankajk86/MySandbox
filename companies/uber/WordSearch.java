@@ -19,6 +19,14 @@ public class WordSearch {
 		System.out.println(Integer.parseInt(t) + 1);
 	}
 
+	/**
+	 * T : O(M . N . 4^L) = M, N - dimension of the board, L = length of the word.
+	 * S : O(M . N)
+	 *
+	 * @param board
+	 * @param word
+	 * @return
+	 */
 	private static boolean exist(char[][] board, String word) {
 
 		boolean[][] visited = new boolean[board.length][board[0].length];

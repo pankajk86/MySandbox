@@ -13,8 +13,8 @@ public class MedianOfSortedArrays {
 	private static double getMedian(int[] a, int[] b) {
 		int m = a.length, n = b.length, len = m + n;
 		if(len % 2 == 0) {
-			double left = (double) helper(a, 0, b, 0, len / 2);
-			double right = (double) helper(a, 0, b, 0, len / 2 + 1);
+			double left = helper(a, 0, b, 0, len / 2);
+			double right = helper(a, 0, b, 0, len / 2 + 1);
 			return (left + right) / 2;
 		} else return (double) helper(a, 0, b, 0, len / 2 + 1);
 	}

@@ -7,11 +7,14 @@ public class CopyListWithRandomPointer {
 
 	public static void main(String[] args) {
 		RandomListNode head = createRandomList();
-		RandomListNode result = deepCopy(head);
+		RandomListNode result = deepCopyLinearSpace(head);
+		System.out.println(result.val);
+
+		result = deepCopyConstantSpace(head);
 		System.out.println(result.val);
 	}
 
-	private static RandomListNode deepCopy(RandomListNode head) {
+	private static RandomListNode deepCopyLinearSpace(RandomListNode head) {
 		Map<RandomListNode, RandomListNode> map = new HashMap<>();
 		RandomListNode nHead = null, nCurr = null, curr = null;
         
@@ -29,6 +32,39 @@ public class CopyListWithRandomPointer {
             nCurr.random = map.get(curr.random);
         
         return nHead;
+	}
+
+	private static RandomListNode deepCopyConstantSpace(RandomListNode head) {
+		RandomListNode temp = head;
+		while(temp != null) {
+			RandomListNode next = temp.next;
+			RandomListNode clone = new RandomListNode(temp.val);
+			temp.next = clone;
+			clone.next = next;
+			temp = next;
+		}
+
+		temp = head;
+		while(temp != null) {
+			if(temp.random != null) {
+				temp.next.random = temp.random.next;
+			}
+			temp = temp.next.next;
+		}
+
+		RandomListNode cloneHead = new RandomListNode(0);
+		RandomListNode tempHead = cloneHead;
+		temp = head;
+
+		while(temp != null) {
+			RandomListNode next = temp.next.next;
+			RandomListNode clone = temp.next;
+			tempHead.next = clone;
+			tempHead = clone;
+			temp.next = next;
+			temp = next;
+		}
+		return cloneHead.next;
 	}
 
 	private static RandomListNode createRandomList() {

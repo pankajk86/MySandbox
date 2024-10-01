@@ -12,20 +12,18 @@ public class MajorityElementII {
 	}
 
 	private static List<Integer> findMajority(int[] a) {
+		int candidate1 = 0, candidate2 = 0, count1 = 0, count2 = 0;
 
-		List<Integer> result = new ArrayList<>();
-		int candidate1 = 0, candidate2 = 1, count1 = 0, count2 = 0;
-
-		for (int n : a) {
-			if (n == candidate1)
+		for (int i : a) {
+			if (i == candidate1)
 				count1++;
-			else if (n == candidate2)
+			else if (i == candidate2)
 				count2++;
 			else if (count1 == 0) {
-				candidate1 = n;
+				candidate1 = i;
 				count1 = 1;
 			} else if (count2 == 0) {
-				candidate2 = n;
+				candidate2 = i;
 				count2 = 1;
 			} else {
 				count1--;
@@ -33,24 +31,17 @@ public class MajorityElementII {
 			}
 		}
 
-		count1 = 0;
-		count2 = 0;
+		int freq1 = 0, freq2 = 0, n = a.length;
 
-		for (int n : a) {
-			if (n == candidate1)
-				count1 += 2;
-			else
-				count1--;
-			if (n == candidate2)
-				count2 += 2;
-			else
-				count2--;
+		for (int i : a) {
+			if (i == candidate1) freq1++;
+			else if (i == candidate2) freq2++;
 		}
 
-		if (count1 > 0)
-			result.add(candidate1);
-		if (count2 > 0)
-			result.add(candidate2);
+		List<Integer> result = new ArrayList<>();
+
+		if (freq1 > (n / 3)) result.add(candidate1);
+		if (freq2 > (n / 3)) result.add(candidate2);
 
 		return result;
 	}

@@ -2,6 +2,8 @@ package trees;
 
 public class BinaryTreeMaxPathSum {
 
+	private static int result = Integer.MIN_VALUE;
+
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		int result = maxPathSum(root);
@@ -20,19 +22,18 @@ public class BinaryTreeMaxPathSum {
 	}
 
 	private static int maxPathSum(TreeNode root) {
-		int[] max = {Integer.MIN_VALUE};
-		calculateSum(root, max);
-		return max[0];
+		dfs(root);
+		return result;
 	}
 
-	private static int calculateSum(TreeNode root, int[] max) {
+	private static int dfs(TreeNode root) {
 		if(root == null) return 0;
 		
-		int left = calculateSum(root.left, max);
-		int right = calculateSum(root.right, max);
+		int left = dfs(root.left);
+		int right = dfs(root.right);
 		
 		int current = Math.max(root.val, Math.max(left + root.val, right + root.val));
-		max[0] = Math.max(current, Math.max(max[0], left + root.val + right));
+		result = Math.max(current, Math.max(result, left + root.val + right));
 		
 		return current;
 	}

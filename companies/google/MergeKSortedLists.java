@@ -1,21 +1,75 @@
 package google;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class MergeKSortedLists {
 
 	public static void main(String[] args) {
 		ListNode[] lists = create3Lists();
-		ListNode result = merge(lists);
-		ListNode temp = result;
+		ListNode result = mergeWithPriorityQueue(lists);
+		System.out.println(result);
 
-		while (temp != null) {
-			System.out.print(temp.val + ", ");
-			temp = temp.next;
-		}
+		lists = create3Lists();
+		result = mergeBetter(lists);
+		System.out.println(result);
 	}
 
-	private static ListNode merge(ListNode[] lists) {
+	/**
+	 * T : O(n log k)
+	 * S: O(k)
+	 *
+	 * @param lists
+	 * @return
+	 */
+	private static ListNode mergeBetter(ListNode[] lists) {
+		if (lists == null || lists.length == 0) return null;
+
+		while (lists.length > 1) {
+			List<ListNode> list = new ArrayList<>();
+			for (int i = 0; i < lists.length; i += 2) {
+				ListNode l1 = lists[i];
+				ListNode l2 = i + 1 < lists.length ? lists[i + 1] : null;
+				ListNode mergedList = mergeTwo(l1, l2);
+				list.add(mergedList);
+			}
+
+			lists = new ListNode[list.size()];
+			for (int i = 0; i < list.size(); i++) lists[i] = list.get(i);
+		}
+
+		return lists[0];
+	}
+
+	private static ListNode mergeTwo(ListNode l1, ListNode l2) {
+		ListNode dummy = new ListNode(0);
+		ListNode curr = dummy;
+
+		while (l1 != null && l2 != null) {
+			if (l1.val < l2.val) {
+				curr.next = l1;
+				l1 = l1.next;
+			} else {
+				curr.next = l2;
+				l2 = l2.next;
+			}
+			curr = curr.next;
+		}
+
+		if (l1 != null) curr.next = l1;
+		else curr.next = l2;
+		return dummy.next;
+	}
+
+	/**
+	 * T: O(n log k)
+	 * S: O(k)
+	 *
+	 * @param lists
+	 * @return
+	 */
+	private static ListNode mergeWithPriorityQueue(ListNode[] lists) {
 		if (lists == null || lists.length == 0)
 			return null;
 

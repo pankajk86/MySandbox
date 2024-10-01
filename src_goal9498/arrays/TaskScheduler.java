@@ -1,7 +1,6 @@
 package arrays;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +12,35 @@ public class TaskScheduler {
 		char[] tasks = { 'A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G' };
 		int n = 2;
 
-		int result = leastIntervalCorrect(tasks, n);
+		int result = leastIntervalConstant(tasks, n);
 		System.out.println(result);
 		
 		result = leastInterval(tasks, n);
 		System.out.println(result);
+	}
+
+	private static int leastIntervalConstant(char[] tasks, int n) {
+
+		/**
+		A A A, n = 2
+		A I I A I I A , maxFreq = 3, total = 7
+
+		A A A B, n = 2
+		A B I A B I A, total = 7
+		**/
+
+		int[] map = new int[26];
+		int maxFreq = 0, maxFreqCount = 0;
+
+		for(char c: tasks) map[c - 'A']++;
+		for (int i : map) maxFreq = Math.max(maxFreq, i);
+
+		for (int i : map) {
+			if (i == maxFreq) maxFreqCount++;
+		}
+
+		int intervals = (maxFreq - 1) * (n + 1) + maxFreqCount;
+		return Math.max(intervals, tasks.length);
 	}
 	
 	private static int leastInterval(char[] tasks, int n) {
@@ -48,26 +71,5 @@ public class TaskScheduler {
 		}
 		return result;
 	}
-
-	private static int leastIntervalCorrect(char[] tasks, int n) {
-		int[] c = new int[26];
-
-		for (char t : tasks) {
-			c[t - 'A']++;
-		}
-
-		Arrays.sort(c);
-
-		int i = 25;
-		while (i >= 0 && c[i] == c[25]) {
-			i--;
-		}
-
-		int interval = Math.max(tasks.length, (c[25] - 1) * (n + 1) + 25 - i);
-		return interval;
-	}
-
-	
-
 }
 

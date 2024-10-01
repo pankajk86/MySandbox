@@ -6,16 +6,17 @@ import java.util.List;
 public class Subsets {
 
 	public static void main(String[] args) {
-		int[] nums = { 1, 2, 3, 4, 5, 6, 32, 50, 70, 100, 500, 3000, 1000000 };
+//		int[] nums = { 1, 2, 3, 4, 5, 6, 32, 50, 70, 100, 500, 3000, 1000000 };
+		int[] nums = { 1, 2, 3 };
 		
 		long start = System.currentTimeMillis();
 		List<List<Integer>> result = subsets(nums);
-		System.out.println(result.size());
+		System.out.println(result);
 		System.out.println(System.currentTimeMillis() - start);
 
 		start = System.currentTimeMillis();
 		result = subsetsBM(nums);
-		System.out.println(result.size());
+		System.out.println(result);
 		System.out.println(System.currentTimeMillis() - start);
 	}
 
@@ -59,11 +60,8 @@ public class Subsets {
 		result.add(new ArrayList<>(list));
 
 		for (int i = start; i < nums.length; i++) {
-			if(list.contains(nums[i]))
-				continue;
-			
 			list.add(nums[i]);
-			helper(result, list, nums, i);
+			helper(result, list, nums, i + 1);
 			list.remove(list.size() - 1);
 		}
 	}

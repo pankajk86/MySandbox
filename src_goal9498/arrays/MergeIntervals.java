@@ -20,19 +20,16 @@ public class MergeIntervals {
 	private static List<Interval> merge(List<Interval> intervals) {
 		List<Interval> result = new ArrayList<>();
 		
-		Collections.sort(intervals, new Comparator<Interval>() {
-			@Override
-			public int compare(Interval i1, Interval i2) {
+		Collections.sort(intervals, (i1, i2) -> {
 
-				if(i1.start < i2.start) return -1;
-				else if(i1.start > i2.start) return 1;
-				else {
-					if(i1.end < i2.end) return -1;
-					else if(i1.end > i2.end) return 1;
-					else return 0;
-				}
-			}
-		});
+            if(i1.start < i2.start) return -1;
+            else if(i1.start > i2.start) return 1;
+            else {
+                if(i1.end < i2.end) return -1;
+                else if(i1.end > i2.end) return 1;
+                else return 0;
+            }
+        });
 		
 		int start = intervals.get(0).start, end = intervals.get(0).end;
 		

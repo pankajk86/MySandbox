@@ -24,7 +24,6 @@ class Solution {
 
     public int pick(int target) {
         int index = rand.nextInt(a.length);
-        if (a[index] == target) return index;
-        else return pick(target);
+        return a[index] == target ? index : pick(target);
     }
 }

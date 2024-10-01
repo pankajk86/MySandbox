@@ -4,6 +4,8 @@ import trees.TreeNode;
 
 public class RangeSumBST {
 
+	private static int globalResult = 0;
+
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		int result = rangeSum(root, 7, 15);
@@ -12,6 +14,21 @@ public class RangeSumBST {
 		root = createTree2();
 		result = rangeSum(root, 6, 10);
 		System.out.println(result);
+
+		globalResult = rangeSumII(root, 6, 10);
+		System.out.println(globalResult);
+	}
+
+	private static int rangeSumII(TreeNode root, int l, int r) {
+		dfs(root, l, r);
+		return globalResult;
+	}
+
+	private static void dfs(TreeNode root, int l, int r) {
+		if (root == null) return;
+		if (root.val > l) dfs(root.left, l, r);
+		if (root.val < r) dfs(root.right, l, r);
+		if (root.val >= l && root.val <= r) globalResult += root.val;
 	}
 
 	private static int rangeSum(TreeNode root, int l, int r) {

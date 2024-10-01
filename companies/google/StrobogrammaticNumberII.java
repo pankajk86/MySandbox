@@ -12,6 +12,36 @@ public class StrobogrammaticNumberII {
 		int n = 3;
 		List<String> result = findStrobogrammatic(n);
 		System.out.println(result);
+
+		result = findStrobogrammaticMoreIntuitive(n);
+		System.out.println(result);
+	}
+
+	private static List<String> findStrobogrammaticMoreIntuitive(int n) {
+		List<String> result = new ArrayList<>();
+		dfs(0, n - 1, new char[n], result);
+		return result;
+	}
+
+	private static void dfs(int l, int r, char[] carr, List<String> result) {
+		if (l > r) {
+			result.add(String.valueOf(carr));
+			return;
+		}
+
+		for (char[] pair : pairs) {
+			carr[l] = pair[0];
+			carr[r] = pair[1];
+
+			// for odd length strings, like 619. the middle element must be 0, 1, or 8.
+			// if it is 6, or 9, then it'd not be valid.
+			if (l == r && pair[0] != pair[1]) continue;
+
+			// we avoid strings with leading zeros.
+			if (carr.length > 1 && carr[0] == '0') continue;
+
+			dfs(l + 1, r - 1, carr, result);
+		}
 	}
 
 	private static List<String> findStrobogrammatic(int n) {

@@ -1,11 +1,6 @@
 package facebook;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 public class AccountsMerge {
 
@@ -23,52 +18,72 @@ public class AccountsMerge {
 	}
 
 	private static List<List<String>> mergeAccounts(List<List<String>> accounts) {
-		Map<String, String> emailToMap = new HashMap<>();
-		Map<String, String> parents = new HashMap<>();
-		Map<String, TreeSet<String>> union = new HashMap<>();
-		
-		// create the two maps
-		for(List<String> act: accounts) {
-			for(int i = 1; i < act.size(); i++) {
-				emailToMap.put(act.get(i), act.get(0));
-				parents.put(act.get(i), act.get(i));
+		UnionFind uf = new UnionFind(accounts.size());
+		Map<String, Integer> map = new HashMap<>();
+
+		for (int i = 0; i < accounts.size(); i++) {
+			List<String> account = accounts.get(i);
+			for (int j = 1; j < account.size(); j++) {
+				String email = account.get(j);
+				if (map.containsKey(email)) {
+					uf.union(i, map.get(email));
+				} else {
+					map.put(email, i);
+				}
 			}
 		}
-		
-		// update parents in each list
-		for(List<String> act: accounts) {
-			String p = find(act.get(1), parents);
-			for(int i = 2; i < act.size(); i++) {
-				parents.put(find(act.get(i), parents), p);
-			}
+
+		Map<Integer, List<String>> groups = new HashMap<>();
+
+		for(Map.Entry<String, Integer> entry : map.entrySet()) {
+			int leader = uf.find(entry.getValue());
+			List<String> group = groups.getOrDefault(leader, new ArrayList<>());
+			group.add(entry.getKey());
+			groups.put(leader, group);
 		}
-		
-		// union all lists
-		for(List<String> a : accounts) {
-            String p = find(a.get(1), parents);
-            if (!union.containsKey(p)) 
-            	union.put(p, new TreeSet<>());
-            for (int i = 1; i < a.size(); i++)
-                union.get(p).add(a.get(i));
-        }
-		
-		// prepare result
+
 		List<List<String>> result = new ArrayList<>();
-		for(String s: union.keySet()) {
-			List<String> list = new ArrayList<>(union.get(s));
-			list.add(0, emailToMap.get(s));
-			result.add(list);
+		for (Map.Entry<Integer, List<String>> entry : groups.entrySet()) {
+			List<String> group = entry.getValue();
+			Collections.sort(group);
+			String name = accounts.get(entry.getKey()).get(0);
+			group.add(0, name);
+			result.add(group);
 		}
-		
 		return result;
 	}
-	
-	private static String find(String s, Map<String, String> p) {
-		while(!p.get(s).equals(s)) {
-			p.put(s, p.get(s));
-			s = p.get(s);
-		}
-		return s;
+
+
+}
+
+class UnionFind {
+	private int[] parent, rank;
+
+	public UnionFind(int n) {
+		this.parent = new int[n];
+		this.rank = new int[n];
+
+		for (int i = 0; i < n; i++) this.parent[i] = i;
 	}
 
+	public int find(int p) {
+		while (p != parent[p]) {
+			parent[p] = parent[parent[p]];
+			p = parent[p];
+		}
+		return p;
+	}
+
+	public void union(int p, int q) {
+		int rootP = find(p), rootQ = find(q);
+		if (rootP == rootQ) return;
+		if (rank[rootP] > rank[rootQ]) {
+			parent[rootQ] = rootP;
+		} else {
+			parent[rootP] = rootQ;
+			if (rank[rootP] == rank[rootQ]) {
+				rank[rootQ]++;
+			}
+		}
+	}
 }

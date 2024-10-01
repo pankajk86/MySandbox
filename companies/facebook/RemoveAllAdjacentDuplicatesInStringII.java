@@ -16,13 +16,12 @@ public class RemoveAllAdjacentDuplicatesInStringII {
         Stack<Pair> stack = new Stack<>();
 
         for (char c : s.toCharArray()) {
-            if (stack.isEmpty()) stack.push(new Pair(c, 1));
+            if (stack.isEmpty() || stack.peek().c != c)
+                stack.push(new Pair(c, 1));
             else {
-                if (stack.peek().c == c) {
-                    Pair curr = stack.pop();
-                    if (curr.freq < k - 1)
-                        stack.push(new Pair(c, curr.freq + 1));
-                } else stack.push(new Pair(c, 1));
+                Pair curr = stack.pop();
+                if (curr.freq < k - 1)
+                    stack.push(new Pair(c, curr.freq + 1));
             }
         }
 

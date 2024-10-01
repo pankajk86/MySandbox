@@ -12,9 +12,17 @@ public class BinaryTreeRightSideView {
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		List<Integer> result = rightView(root);
-		System.out.print(result);
+		System.out.println(result);
+
+		result = rightViewIterative(root);
+		System.out.println(result);
 	}
 
+	/**
+	 * T: O(N), S: O(H), where N = number of nodes, H - height of the tree.
+	 * @param root
+	 * @return
+	 */
 	private static List<Integer> rightView(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
 		dfs(root, result, 0);
@@ -28,6 +36,28 @@ public class BinaryTreeRightSideView {
 		dfs(root.right, result, depth + 1);
 		dfs(root.left, result, depth + 1);
 	}
+
+	private static List<Integer> rightViewIterative(TreeNode root) {
+		List<Integer> result = new ArrayList<>();
+		if (root == null) return result;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		int size = 1;
+
+		while (!q.isEmpty()) {
+			TreeNode curr = null;
+			for (int i = 0; i < size; i++) {
+				curr = q.poll();
+				if (curr.left != null) q.add(curr.left);
+				if (curr.right != null) q.add(curr.right);
+			}
+			result.add(curr.val);
+			size = q.size();
+		}
+		return result;
+	}
+
+
 
 	private static TreeNode createTree() {
 

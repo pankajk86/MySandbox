@@ -19,7 +19,7 @@ public class PrimeNumberGeneration {
      */
     private static List<Integer> getPrimeList(int limit) {
 
-        List<Integer> primeList = new ArrayList<Integer>();
+        List<Integer> primeList = new ArrayList<>();
 
         for (int i = 2; i <= limit; i++) {
             primeList.add(i);

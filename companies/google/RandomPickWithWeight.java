@@ -34,14 +34,14 @@ class RandomPick {
 	}
 	
 	public int pickIndex() {
-		int r = rand.nextInt(prefixSum.length);
-		int left = 0, right = prefixSum.length - 1;
+		int val = rand.nextInt(prefixSum.length) + 1;
+		int left = 0, right = prefixSum.length;
 
 		while (left < right) {
 			int mid = left + (right - left) / 2;
-			if (r < prefixSum[mid]) right = mid;
-			else left = mid + 1;
+			if (prefixSum[mid] < val) left = mid + 1;
+			else right = mid;
 		}
-		return right;
+		return left;
 	}
 }

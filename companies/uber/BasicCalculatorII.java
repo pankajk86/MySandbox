@@ -14,7 +14,7 @@ public class BasicCalculatorII {
 	}
 	
 	private static int calculateConstantSpace(String s) {
-		if(s == null) return 0;
+		if(s.isEmpty()) return 0;
 		s += "+";
 		int num = 0, sum = 0, prev = 0;
 		char sign = '+';

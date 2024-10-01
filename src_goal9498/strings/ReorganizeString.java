@@ -30,7 +30,7 @@ public class ReorganizeString {
 		StringBuilder sb = new StringBuilder();
 		while(!pq.isEmpty()) {
 			int[] first = pq.poll();
-			if(sb.length() == 0 || first[0] != sb.charAt(sb.length() - 1)) {
+			if(sb.isEmpty() || first[0] != sb.charAt(sb.length() - 1)) {
 				sb.append((char) first[0]);
 				if(--first[1] > 0)
 					pq.add(first);

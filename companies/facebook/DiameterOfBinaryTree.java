@@ -12,6 +12,13 @@ public class DiameterOfBinaryTree {
 		System.out.println(result);
 	}
 
+	/**
+	 * T : O(n)
+	 * S : O(h), height of the tree, worst case: O(n)
+	 *
+	 * @param root
+	 * @return
+	 */
 	private static int diameterOfBinaryTree(TreeNode root) {
 		maxDepth(root);
 		return max;

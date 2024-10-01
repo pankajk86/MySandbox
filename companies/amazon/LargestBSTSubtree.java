@@ -22,8 +22,16 @@ public class LargestBSTSubtree {
 		int[] right = largestBST(root.right);
 		
 		if(root.val > left[1] && root.val < right[0])
-			return new int[] {Math.min(left[0], root.val), Math.max(root.val, right[1]), left[2] + right[2] + 1};
-		else return new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left[2], right[2])};
+			return new int[] {
+					Math.min(left[0], root.val),
+					Math.max(root.val, right[1]),
+					left[2] + right[2] + 1
+			};
+		else return new int[] {
+				Integer.MIN_VALUE,
+				Integer.MAX_VALUE,
+				Math.max(left[2], right[2])
+			};
 	}
 
 	private static TreeNode createTree() {

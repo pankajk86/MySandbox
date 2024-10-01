@@ -1,5 +1,10 @@
 package uber;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class ValidSudoku {
 
 	public static void main(String[] args) {
@@ -19,29 +24,27 @@ public class ValidSudoku {
 	}
 
 	private static boolean isValidSudoku(char[][] board) {
+		Map<Integer, Set<Character>> rows = new HashMap<>();
+		Map<Integer, Set<Character>> cols = new HashMap<>();
+		Map<Integer, Set<Character>> subs = new HashMap<>();
 
-		int[] rows = new int[9];
-		int[] cols = new int[9];
-		int[] squares = new int[9];
-		
-		for(int i = 0; i < board.length; i++) {
-			for(int j = 0; j < board[0].length; j++) {
-				if(board[i][j] == '.') {
-					continue;
-				}
-				
-				int value = 1 << (board[i][j] - '0');
-				
-				if((value & rows[i]) > 0) return false;
-				if((value & cols[j]) > 0) return false;
-				if((value & squares[3 * (i/3) + (j/3)]) > 0) return false;
-				
-				rows[i] |= value;
-				cols[j] |= value;
-				squares[3 * (i/3) + (j/3)] |= value;
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				char c = board[i][j];
+				if (board[i][j] == '.') continue;
+
+				Set<Character> row = rows.getOrDefault(i, new HashSet<>());
+				Set<Character> col = cols.getOrDefault(j, new HashSet<>());
+				Set<Character> sub = subs.getOrDefault((i / 3) * 3 + (j / 3), new HashSet<>());
+
+				if (row.contains(c) || col.contains(c) || sub.contains(c)) return false;
+
+				row.add(c); col.add(c); sub.add(c);
+				rows.put(i, row);
+				cols.put(j, col);
+				subs.put((i / 3) * 3 + (j / 3), sub);
 			}
 		}
-		
 		return true;
 	}
 

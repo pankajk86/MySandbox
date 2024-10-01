@@ -13,13 +13,11 @@ public class FindAllDuplicatesInArray {
 
 	private static List<Integer> findDuplicates(int[] a) {
 		List<Integer> result = new ArrayList<>();
-		if(a == null || a.length == 0) return result;
-		
-		for(int i = 0; i < a.length; i++) {
-			int index = Math.abs(a[i]) - 1;
-			if(a[index] < 0)
-				result.add(Math.abs(index + 1));
-			a[index] = -a[index];
+
+		for (int curr : a) {
+			int index = Math.abs(curr) - 1;
+			if (a[index] < 0) result.add(Math.abs(curr));
+			else a[index] = -a[index];
 		}
 		
 		return result;

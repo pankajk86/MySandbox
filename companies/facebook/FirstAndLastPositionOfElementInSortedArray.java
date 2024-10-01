@@ -1,7 +1,5 @@
 package facebook;
 
-import java.util.Arrays;
-
 public class FirstAndLastPositionOfElementInSortedArray {
 
 	public static void main(String[] args) {
@@ -20,7 +18,7 @@ public class FirstAndLastPositionOfElementInSortedArray {
 
 	private static int find(int[] a, int target, boolean leftBias) {
 		int left = 0, right = a.length - 1;
-		int index =-1;
+		int index = -1;
 
 		while (left <= right) {
 			int mid = left + (right - left) / 2;

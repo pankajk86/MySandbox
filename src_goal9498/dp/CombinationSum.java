@@ -14,17 +14,12 @@ public class CombinationSum {
 	}
 
 	private static List<List<Integer>> getCombinations(int[] a, int target) {
-
 		List<List<Integer>> result = new ArrayList<>();
-		List<Integer> temp = new ArrayList<>();
-		//Arrays.sort(a);
-		
-		helper(a, target, result, temp, 0);
+		helper(a, target, result, new ArrayList<>(), 0);
 		return result;
 	}
 
 	private static void helper(int[] a, int target, List<List<Integer>> result, List<Integer> temp, int start) {
-
 		if(target < 0)
 			return;
 		

@@ -1,28 +1,30 @@
 package amazon;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import trees.TreeNode;
 
 public class AllNodesDistanceKInBinaryTree {
 
 	private static Map<TreeNode, Integer> map = new HashMap<>();
+	private static Map<TreeNode, TreeNode> parent = new HashMap<>();
 	
 	public static void main(String[] args) {
 		TreeNode[] input = createTree(); 
 		TreeNode root = input[0], target = input[1];
 		int k = 2;
-		List<Integer> result = distanceK(root, target, k);
+		List<Integer> result = distanceKWithDFS(root, target, k);
 		System.out.println(result);
+
+		result = distanceKWithBFS(root, target, k);
+		System.out.println(result);
+
 	}
 
-	private static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+	private static List<Integer> distanceKWithDFS(TreeNode root, TreeNode target, int k) {
 		List<Integer> result = new ArrayList<>();
 		find(root, target);
-		dfs(root, target, k, map.get(root), result);
+		dfs(root, k, map.get(root), result);
 		return result;
 	}
 
@@ -47,12 +49,62 @@ public class AllNodesDistanceKInBinaryTree {
 		return -1;
 	}
 	
-	private static void dfs(TreeNode root, TreeNode target, int k, int length, List<Integer> result) {
+	private static void dfs(TreeNode root, int k, int length, List<Integer> result) {
 		if(root == null) return;
 		if(map.containsKey(root)) length = map.get(root);
 		if(length == k) result.add(root.val);
-		dfs(root.left, target, k, length + 1, result);
-		dfs(root.right, target, k, length + 1, result);
+		dfs(root.left, k, length + 1, result);
+		dfs(root.right, k, length + 1, result);
+	}
+
+	private static List<Integer> distanceKWithBFS(TreeNode root, TreeNode target, int k) {
+		List<Integer> result = new ArrayList<>();
+		inorder(root);
+		bfs(target, k, result);
+		return result;
+	}
+
+	private static void bfs(TreeNode target, int k, List<Integer> result) {
+		Queue<TreeNode> q = new LinkedList<>();
+		Set<Integer> visited = new HashSet<>();
+		q.add(target);
+		visited.add(target.val);
+
+		while (!q.isEmpty()) {
+			int n = q.size();
+			if (k == 0) break;
+			while (n-- > 0) {
+				TreeNode curr = q.poll();
+				if (curr.left != null && !visited.contains(curr.left.val)) {
+					q.add(curr.left);
+					visited.add(curr.left.val);
+				}
+
+				if (curr.right != null && !visited.contains(curr.right.val)) {
+					q.add(curr.right);
+					visited.add(curr.right.val);
+				}
+
+				if (parent.containsKey(curr) && !visited.contains(parent.get(curr).val)) {
+					q.add(parent.get(curr));
+					visited.add(parent.get(curr).val);
+				}
+			}
+			k--;
+		}
+
+		while (!q.isEmpty()) {
+			result.add(q.poll().val);
+		}
+	}
+
+	private static void inorder(TreeNode root) {
+		if (root == null) return;
+		if (root.left != null) parent.put(root.left, root);
+		inorder(root.left);
+
+		if (root.right != null) parent.put(root.right, root);
+		inorder(root.right);
 	}
 
 	private static TreeNode[] createTree() {

@@ -13,7 +13,7 @@ public class ReverseLinkedListII {
 
 	private static ListNode reverse(ListNode head, int m, int n) {
 		if(m == n) return head;
-		ListNode origHead = head, prev = null, curr = head;
+		ListNode prev = null, curr = head;
 		
 		for(int i = 1; i < m; i++) {
 			prev = curr;
@@ -31,7 +31,7 @@ public class ReverseLinkedListII {
 		if(prev != null)
 			prev.next = temp;
 		
-		return m == 1 ? temp : origHead;
+		return m == 1 ? temp : head;
 	}
 
 	private static ListNode createList() {

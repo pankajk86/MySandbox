@@ -12,18 +12,15 @@ public class PerfectSquare {
 
 	private static int countPerfectSquares(int n) {
 
-		int max = (int) Math.sqrt(n);
 		int[] dp = new int[n + 1];
-
-		Arrays.fill(dp, Integer.MAX_VALUE);
+		Arrays.fill(dp, n);
+		dp[0] = 0;
 
 		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= max; j++) {
-				if (i == j * j) {
-					dp[i] = 1;
-				} else if (i > j * j) {
-					dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
-				}
+			for (int j = 1; j <= i; j++) {
+				int sq = j * j;
+				if (i - sq < 0) break;
+				dp[i] = Math.min(dp[i], 1 + dp[i - sq]);
 			}
 		}
 

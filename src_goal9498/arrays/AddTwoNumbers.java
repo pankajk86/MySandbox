@@ -1,5 +1,7 @@
 package arrays;
 
+import google.ListNode;
+
 public class AddTwoNumbers {
 
 	public static void main(String[] args) {
@@ -7,75 +9,39 @@ public class AddTwoNumbers {
 		ListNode l1 = getList(342);
 		ListNode l2 = getList(465);
 		
-		ListNode sum = addNumbers(l1, l2);
-		
-		for(ListNode l = sum; l != null; l = l.next) {
-			System.out.print(l.val + "->" );
-		}
+		ListNode result = addNumbers(l1, l2);
+		System.out.println(result);
 	}
 
-	
-
 	private static ListNode addNumbers(ListNode l1, ListNode l2) {
-		
-		ListNode head = null;
-		ListNode sum = head;
+		ListNode dummy = new ListNode(0);
 		int carry = 0;
-		
-		while(l1 != null && l2 != null) {
-			int val = l1.val + l2.val + carry;
-			
-			if(val >= 10) {
-				carry = val / 10;
-				val = val % 10;
-			} else {
-				carry = 0;
-			}
-			
-			if(sum == null) {
-				sum = new ListNode(val);
-				head = sum;
-			} else {
-				sum.next = new ListNode(val);
-				sum = sum.next;
-			}
-			
-			l1 = l1.next; l2 = l2.next;
+		ListNode c1 = l1, c2 = l2, c = dummy;
+
+		for (;c1 != null && c2 != null; c1 = c1.next, c2 = c2.next, c = c.next) {
+			int val = c1.val + c2.val + carry;
+			carry = val / 10;
+			val = val % 10;
+			c.next = new ListNode(val);
 		}
-		
-		while(l1 != null) {
-			int val = l1.val + carry;
-			if(val >= 10) {
-				carry = val / 10;
-				val = val % 10;
-			} else {
-				carry = 0;
-			}
-			sum.next = new ListNode(val);
-			
-			sum = sum.next; l1 = l1.next;
+
+		for (;c1 != null; c1 = c1.next, c = c.next) {
+			int val = c1.val + carry;
+			carry = val / 10;
+			val = val % 10;
+			c.next = new ListNode(val);
 		}
-		
-		while(l2 != null) {
-			int val = l2.val + carry;
-			if(val >= 10) {
-				carry = val / 10;
-				val = val % 10;
-			} else {
-				carry = 0;
-			}
-			
-			sum.next = new ListNode(val);
-			
-			sum = sum.next; l2 = l2.next;
+
+		for (;c2 != null; c2 = c2.next, c = c.next) {
+			int val = c2.val + carry;
+			carry = val / 10;
+			val = val % 10;
+			c.next = new ListNode(val);
 		}
-		
-		if(carry > 0) {
-			sum.next = new ListNode(carry);
-		}
-		
-		
-		return head;
+
+		if (carry > 0)
+			c.next = new ListNode(carry);
+		return dummy.next;
 	}
 
 
@@ -124,13 +90,4 @@ public class AddTwoNumbers {
 		return head;
 	}
 
-}
-
-class ListNode {
-	int val;
-	ListNode next;
-
-	ListNode(int x) {
-		val = x;
-	}
 }

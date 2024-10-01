@@ -18,18 +18,18 @@ public class IntArrayPermutations {
 		return result;
 	}
 
-	private static void helper(List<List<Integer>> result, List<Integer> cache, int[] a) {
+	private static void helper(List<List<Integer>> result, List<Integer> temp, int[] a) {
 		
-		if(cache.size() == a.length) {
-			result.add(new ArrayList<>(cache));
+		if(temp.size() == a.length) {
+			result.add(new ArrayList<>(temp));
 		} else {
-			for(int i = 0; i < a.length; i++) {
-				if(!cache.contains(a[i])) {
-					cache.add(a[i]);
-					helper(result, cache, a);
-					cache.remove(cache.size() - 1);
-				}
-			}
+            for (int j : a) {
+                if (!temp.contains(j)) {
+                    temp.add(j);
+                    helper(result, temp, a);
+                    temp.remove(temp.size() - 1);
+                }
+            }
 		}
 	}
 

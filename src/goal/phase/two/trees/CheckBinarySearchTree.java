@@ -7,6 +7,24 @@ public class CheckBinarySearchTree {
         test2();
     }
 
+    private static int val = Integer.MIN_VALUE;
+    private static boolean isValid = true;
+
+    private static boolean isBST(Node root) {
+        inorder(root);
+        return isValid;
+    }
+
+    private static void inorder(Node root) {
+        if (root == null) return;
+        inorder(root.left);
+
+        if (val > root.data) isValid = false;
+        val = root.data;
+
+        inorder(root.right);
+    }
+
     private static void test1() {
         BinarySearchTree bst = new BinarySearchTree(4);
         bst.add(2);
@@ -43,29 +61,6 @@ public class CheckBinarySearchTree {
         System.out.println("Result of test2: " + result);
     }
 
-    private static boolean isBST(Node root) {
 
-        if (root == null) {
-            return false;
-        }
-
-        if (root.left != null) {
-            if (root.left.data < root.data) {
-                return isBST(root.left);
-            } else {
-                return false;
-            }
-        }
-
-        if (root.right != null) {
-            if (root.right.data > root.data) {
-                return isBST(root.right);
-            } else {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
 }

@@ -21,24 +21,20 @@ public class RangeSumQuery2D {
 
 class NumMatrix {
 	
-	int[][] t = null;
+	int[][] map = null;
 	
-	public NumMatrix(int[][] matrix) {
-		int rows = matrix.length;
-		int cols = rows > 0 ? matrix[0].length : 0;
+	public NumMatrix(int[][] a) {
+		int m = a.length, n = a[0].length;
+		map = new int[m + 1][n + 1];
+		for(int i = 1; i <= m ; i++)
+			map[i][1] = map[i - 1][1] + a[i - 1][0];
 
-		if(rows > 0 && cols > 0) {
-			t = new int[rows + 1][cols + 1];
-			for(int i = 1; i < t.length; i++)
-				t[i][1] = t[i - 1][1] + matrix[i - 1][0];
-			
-			for(int i = 1; i < t[0].length; i++)
-				t[1][i] = t[1][i - 1] + matrix[0][i - 1];
-			
-			for(int i = 2; i < t.length; i++) {
-				for(int j = 2; j < t[0].length; j++) {
-					t[i][j] = t[i - 1][j] + t[i][j - 1] + matrix[i - 1][j - 1] - t[i - 1][j - 1];
-				}
+		for(int i = 1; i <= n; i++)
+			map[1][i] = map[1][i - 1] + a[0][i - 1];
+
+		for(int i = 2; i <= m; i++) {
+			for(int j = 2; j <= n; j++) {
+				map[i][j] = map[i - 1][j] + map[i][j - 1] + a[i - 1][j - 1] - map[i - 1][j - 1];
 			}
 		}
 	}
@@ -46,10 +42,10 @@ class NumMatrix {
 	public int sumRegion(int row1, int col1, int row2, int col2) {
 		row1++; col1++; row2++; col2++;
 		
-		int total = t[row2][col2];
-		int topVal = t[row1 - 1][col2];
-		int sideVal = t[row2][col1 - 1];
-		int diagVal = t[row1 - 1][col1 - 1];
+		int total = map[row2][col2];
+		int topVal = map[row1 - 1][col2];
+		int sideVal = map[row2][col1 - 1];
+		int diagVal = map[row1 - 1][col1 - 1];
 		
 		return total - topVal - sideVal + diagVal;
 	}

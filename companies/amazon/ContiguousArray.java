@@ -21,7 +21,7 @@ public class ContiguousArray {
 		int result = 0, sum = 0;
 		
 		for(int i = 0; i < a.length; i++) {
-			sum += a[i];
+			sum += a[i];     // sum += a[i] == 0 ? -1 : 1; // if changing the input array is not allowed.
 			if(map.containsKey(sum))
 				result = Math.max(result, i - map.get(sum));
 			else map.put(sum, i);

@@ -35,12 +35,10 @@ public class ProductOfTwoRleArrays {
             }
 
             if (result.isEmpty() || result.get(result.size() - 1).get(0) != prod) {
-//                result.add(List.of(prod, freq));
-                result.add(Arrays.asList(prod, freq));
+                result.add(List.of(prod, freq));
             } else {
                 List<Integer> list = result.remove(result.size() - 1);
-//                result.add(List.of(prod, freq + list.get(1)));
-                result.add(Arrays.asList(prod, freq + list.get(1)));
+                result.add(List.of(prod, freq + list.get(1)));
             }
         }
 

@@ -1,37 +1,38 @@
 package goal.algorithms.lists;
 
+import google.ListNode;
+
 public class ReverseList {
 
-    public static void main(String args[]) {
-        MyLinkedList list = new MyLinkedList();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-
-        Node current = reverseList(list);
-
-        while (current != null) {
-            System.out.println((Integer) current.getData());
-            current = current.getNext();
-        }
+    public static void main(String[] args) {
+        ListNode head = createList();
+        ListNode result = reverseList(head);
+        System.out.println(result);
 
     }
 
-    public static Node reverseList(MyLinkedList list) {
+    private static ListNode createList() {
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(2);
+        ListNode n3 = new ListNode(3);
+        ListNode n4 = new ListNode(4);
+        ListNode n5 = new ListNode(5);
 
-        Node head = list.getHead();
-        Node currentNode = head, previousNode = null;
+        n4.next = n5; n3.next = n4; n2.next = n3; n1.next = n2;
+        return n1;
+    }
 
-        while (currentNode != null) {
-            Node nextNode = currentNode.getNext();
-            currentNode.setNext(previousNode);
-            previousNode = currentNode;
-            currentNode = nextNode;
+    public static ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+
+        while (head != null) {
+            ListNode curr = head;
+            head = curr.next;
+            curr.next = prev;
+            prev = curr;
         }
 
-        return previousNode;
+        return prev;
     }
 
 }

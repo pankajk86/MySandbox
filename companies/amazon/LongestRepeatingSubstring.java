@@ -3,7 +3,7 @@ package amazon;
 public class LongestRepeatingSubstring {
 
 	public static void main(String[] args) {
-		String s = "abbaba";
+		String s = "ababb";
 		int result = longestRepeatingSubstring(s);
 		System.out.println(result);
 	}

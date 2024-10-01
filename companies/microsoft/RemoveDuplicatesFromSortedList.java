@@ -17,15 +17,14 @@ public class RemoveDuplicatesFromSortedList {
 		
 		ListNode dummy = new ListNode(0);
 		dummy.next = head;
-		ListNode prev = dummy, curr = head;
+		ListNode prev = dummy;
 		
-		while(curr != null) {
+		for (ListNode curr = head; curr != null; curr = curr.next) {
 			while(curr.next != null && curr.next.val == curr.val)
 				curr = curr.next;
 			
 			prev.next = curr;
 			prev = curr;
-			curr = curr.next;
 		}
 		
 		return dummy.next;

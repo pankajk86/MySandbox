@@ -15,6 +15,33 @@ public class CheckCompletenessOfBinaryTree {
 		root = createTree2();
 		result = isComplete(root);
 		System.out.println(result);
+
+		result = isCompleteII(root);
+		System.out.println(result);
+	}
+
+	/**
+	 * PREFERRED
+	 *
+	 * @param root
+	 * @return
+	 */
+	private static boolean isCompleteII(TreeNode root) {
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+
+		while (!q.isEmpty()) {
+			TreeNode curr = q.poll();
+			if (curr != null) {
+				q.add(curr.left);
+				q.add(curr.right);
+			} else {
+				while (!q.isEmpty()) {
+					if (q.poll() != null) return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	private static boolean isComplete(TreeNode root) {
@@ -30,8 +57,7 @@ public class CheckCompletenessOfBinaryTree {
 		}
 		
 		while(!q.isEmpty()) {
-			TreeNode curr = q.poll();
-			if(curr != null) return false;
+			if(q.poll() != null) return false;
 		}
 		
 		return true;

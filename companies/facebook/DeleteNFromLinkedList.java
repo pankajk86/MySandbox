@@ -9,29 +9,7 @@ public class DeleteNFromLinkedList {
 		System.out.println(head);
 		ListNode result = remove(3, head);
 		System.out.println(result);
-		
-		test1();
-		test2();
-	}
 
-	private static void test2() {
-		int result = recur(2);
-		System.out.println(result + " =====");
-	}
-
-	private static int recur(int n) {
-		if(n == 4) return 2;
-		else return 2 * recur(n + 1); // 2 *  2 * 2
-	}
-
-	private static void test1() {
-		
-		int p = 1, k = 0, n = 5;
-		while( k < n ) {
-			  p = 2 * p;
-			  k = k + 1;
-			}
-		
 	}
 
 	private static ListNode remove(int n, ListNode head) {
@@ -72,12 +50,11 @@ public class DeleteNFromLinkedList {
 		ListNode n3 = new ListNode(2);
 		ListNode n4 = new ListNode(3);
 		ListNode n5 = new ListNode(3);
-		
 		ListNode n6 = new ListNode(5);
 		ListNode n7 = new ListNode(3);
 		ListNode n8 = new ListNode(3);
+
 		n6.next = n7; n5.next = n6;
-		
 		n4.next = n5; n3.next = n4; n2.next = n3; n1.next = n2;
 		n8.next = n1;
 		return n8;

@@ -67,12 +67,12 @@ public class DesignRateLimiter {
 
 }
 
-
+// token bucket rate-limiter
 class RateLimiter {
-	private int REQUEST_LIMIT = 2;
-	private long TIME_LIMIT = 1000L; // in 1 second
+	private final int REQUEST_LIMIT = 2;
+	private final long TIME_LIMIT = 1000L; // in 1 second
 	
-	private Queue<Long> q = new LinkedList<>();
+	private final Queue<Long> q = new LinkedList<>();
 
 	public boolean hit(long timestamp) {
 		while(!q.isEmpty() && timestamp - q.peek() >= TIME_LIMIT)
@@ -86,10 +86,10 @@ class RateLimiter {
 }
 
 class RateLimiter2 {
-	private int REQUEST_LIMIT = 2;
-	private long TIME_LIMIT = 1000L; // in 1 second
+	private final int REQUEST_LIMIT = 2;
+	private final long TIME_LIMIT = 1000L; // in 1 second
 	
-	private Map<String, Queue<Long>> map = new HashMap<>();
+	private final Map<String, Queue<Long>> map = new HashMap<>();
 
 	private boolean hit(Queue<Long> q, long timestamp) {
 		while(!q.isEmpty() && timestamp - q.peek() >= TIME_LIMIT)

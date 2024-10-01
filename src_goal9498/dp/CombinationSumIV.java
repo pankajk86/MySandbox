@@ -9,7 +9,7 @@ public class CombinationSumIV {
 		int target = 4;
 
 		long start = System.currentTimeMillis();
-		int result = conbinationSumRecurr(a, target);
+		int result = combinationSumRecur(a, target);
 		System.out.println(result);
 		System.out.println(System.currentTimeMillis() - start);
 		
@@ -43,24 +43,18 @@ public class CombinationSumIV {
 		return ret;
 	}
 
-	private static int conbinationSumRecurr(int[] a, int target) {
-
-		int result = helper(a, 0, 0, target);
-		return result;
+	private static int combinationSumRecur(int[] a, int target) {
+        return helper(a, 0, 0, target);
 	}
 
 	private static int helper(int[] a, int count, int sum, int target) {
- 
-		if (sum == target) {
-			return count + 1;
-		} else if (sum > target) {
-			return 0;
-		} else {
-			int temp = 0;
-			for (int i = 0; i < a.length; i++) {
-				temp += helper(a, count, sum + a[i], target);
-			}
-			return temp;
+		if (sum == target) return count + 1;
+		if (sum > target) return 0;
+
+		int temp = 0;
+		for (int i : a) {
+			temp += helper(a, count, sum + i, target);
 		}
+		return temp;
 	}
 }
