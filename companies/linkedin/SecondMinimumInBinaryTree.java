@@ -6,6 +6,9 @@ import trees.TreeNode;
 
 public class SecondMinimumInBinaryTree {
 
+	private static int min;
+	private static long result;
+
 	public static void main(String[] args) {
 		TreeNode root = createTree();
 		
@@ -14,31 +17,23 @@ public class SecondMinimumInBinaryTree {
 	}
 
 	private static int secondMinimum(TreeNode root) {
-		if(root == null) return -1;
-		
-		int min = Integer.MAX_VALUE, secMin = min;
-		Stack<TreeNode> stack = new Stack<>();
-		TreeNode curr = root;
-		
-		while(!stack.isEmpty() || curr != null) {
-			if(curr != null) {
-				stack.push(curr);
-				curr = curr.left;
+		min = root.val;
+		result = Long.MAX_VALUE;
+
+		dfs(root);
+
+		return result < Long.MAX_VALUE ? (int) result : -1;
+	}
+
+	private static void dfs(TreeNode node) {
+		if (node != null) {
+			if (min < node.val && node.val < result) {
+				result = node.val;
 			} else {
-				TreeNode node = stack.pop();
-				
-				if(node.val < min) {
-					secMin = min;
-					min = node.val;
-				} else if(node.val > min && node.val < secMin) {
-					secMin = node.val;
-				}
-				
-				curr = node.right;
+				dfs (node.left);
+				dfs (node.right);
 			}
 		}
-		
-		return secMin == Integer.MAX_VALUE ? -1 : secMin;
 	}
 
 	private static TreeNode createTree() {

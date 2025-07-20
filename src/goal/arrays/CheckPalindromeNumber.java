@@ -11,21 +11,19 @@ public class CheckPalindromeNumber {
         System.out.println(result);
     }
 
-    private static boolean checkPalindrome(int n) {
-        int num = n;
-        int reverse = 0;
+    private static boolean checkPalindrome(int x) {
+        if (x < 0) return false;
+        if (x == 0) return true;
 
-        while (n > 0) {
-            int dig = n % 10;
-            reverse = reverse * 10 + dig;
-            n = n / 10;
+        int reverse = 0, original = x;
+
+        while (x > 0) {
+            int curr = x % 10;
+            reverse = reverse * 10 + curr;
+            x /= 10;
         }
 
-        if (reverse == num) {
-            return true;
-        }
-
-        return false;
+        return reverse == original;
     }
 
     public static boolean isPalindrome(int x) {

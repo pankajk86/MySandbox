@@ -21,8 +21,44 @@ public class MovingAverageOfDataStreams {
 		System.out.println(mq.next(10));
 		System.out.println(mq.next(3));
 		System.out.println(mq.next(5));
+
+		System.out.println("=========================");
+
+		MovingAverageWithArray ma = new MovingAverageWithArray(3);
+		System.out.println(ma.next(1));
+		System.out.println(ma.next(10));
+		System.out.println(ma.next(3));
+		System.out.println(ma.next(5));
 	}
 
+}
+
+class MovingAverageWithArray {
+
+	int[] arr;
+	int n, index = 0, total = 0;
+	boolean reached = false;
+
+	public MovingAverageWithArray(int size) {
+		this.n = size;
+		this.arr = new int[n];
+	}
+
+	public double next(int val) {
+		if (reached) {
+			total -= arr[index];
+		}
+
+		total += val;
+		arr[index++] = val;
+
+		if (index == n) {
+			index = 0;
+			reached = true;
+		}
+
+		return reached ? total / (double) n : total / (double) index;
+	}
 }
 
 class MovingAverageWithQueue {

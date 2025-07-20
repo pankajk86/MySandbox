@@ -1,19 +1,50 @@
 package google;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+
 public class DiagonalTraverse {
 
 	public static void main(String[] args) {
-//		int[][] a = {
-//				{ 1, 2, 3, 4 },
-//				{ 5, 6, 7, 8 },
-//				{ 9, 10, 11, 12 }
-//			};
 		int[][] a = {
-				{ 3 },
-				{ 2 }
+				{ 1, 2, 3, 4 },
+				{ 5, 6, 7, 8 },
+				{ 9, 10, 11, 12 }
 			};
+
 		int[] result = diagonalTraverse(a);
 		for(int i: result) System.out.print( i + " ");
+
+		System.out.println();
+
+		result = diagonalTraverseIntuitiveExtraMemory(a);
+		for(int i: result) System.out.print( i + " ");
+	}
+
+	private static int[] diagonalTraverseIntuitiveExtraMemory(int[][] a) {
+		Map<Integer, Deque<Integer>> map = new HashMap<>();
+		int rows = a.length, cols = a[0].length;
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				int index = i + j;
+				Deque<Integer> dq = map.getOrDefault(index, new ArrayDeque<>());
+				if (index % 2 == 0) dq.addFirst(a[i][j]);
+				else dq.addLast(a[i][j]);
+				map.put(index, dq);
+			}
+		}
+
+		int[] result = new int[rows * cols];
+		int i = 0;
+
+		for (Deque<Integer> dq : map.values()) {
+			while (!dq.isEmpty()) result[i++] = dq.removeFirst();
+		}
+
+		return result;
 	}
 
 	private static int[] diagonalTraverse(int[][] a) {

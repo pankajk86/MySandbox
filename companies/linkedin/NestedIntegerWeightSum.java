@@ -33,7 +33,7 @@ public class NestedIntegerWeightSum {
 
 
 
-	private static List<NestedInteger> createNestedList() {
+	static List<NestedInteger> createNestedList() {
 		//TODO
 		return null;
 	}

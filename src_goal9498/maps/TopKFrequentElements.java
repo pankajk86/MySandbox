@@ -25,10 +25,11 @@ public class TopKFrequentElements {
 	}
 
 	private static int[] topKFrequent(int[] a, int k) {
+		int n = a.length;
 		Map<Integer, Integer> map = new HashMap<>();
 		for (int i : a) map.put(i, map.getOrDefault(i, 0) + 1);
 
-		List<Integer>[] buckets = new ArrayList[a.length + 1];
+		List<Integer>[] buckets = new ArrayList[n + 1];
 		for (Map.Entry<Integer, Integer> e : map.entrySet()) {
 			int elem = e.getKey(), freq = e.getValue();
 			if (buckets[freq] == null) buckets[freq] = new ArrayList<>();
@@ -38,10 +39,10 @@ public class TopKFrequentElements {
 		int[] result = new int[k];
 		int index = 0;
 
-		for (int i = a.length; i >= 0; i--) {
-			if (buckets[i] != null) {
-				for (int j : buckets[i]) {
-					result[index++] = j;
+		for (int freq = n; freq >= 0; freq--) {
+			if (buckets[freq] != null) {
+				for (int val : buckets[freq]) {
+					result[index++] = val;
 					if (index == k) return result;
 				}
 			}

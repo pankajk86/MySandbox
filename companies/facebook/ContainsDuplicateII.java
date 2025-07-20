@@ -29,13 +29,10 @@ public class ContainsDuplicateII {
 
     private static boolean containsDuplicate2(int[] a, int k) {
         Set<Integer> set = new HashSet<>();
-        for (int i = 0, j = 0; j < a.length; ) {
-            if (Math.abs(i - j) > k) {
-                set.remove(a[i++]);
-            } else {
-                if (set.contains(a[j])) return true;
-                set.add(a[j++]);
-            }
+        for (int i = 0, j = 0; j < a.length; j++) {
+            if (j - i > k) set.remove(a[i++]);
+            if (set.contains(a[j])) return true;
+            set.add(a[j]);
         }
         return false;
     }

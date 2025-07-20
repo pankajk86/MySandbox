@@ -34,7 +34,7 @@ public class GraphValidTree {
 		for(int i = 0; i < n; i++)
 			rep.add(dset.find(i));
 		
-		return rep.size() == 1 ? true : false;
+		return rep.size() == 1;
 	}
 	
 	private static boolean isGraphValidTreeBetter(int n, int[][] e) {

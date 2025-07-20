@@ -29,7 +29,9 @@ public class KthSmallestInSortedMatrix {
 	private static int getLessOrEqual(int[][] a, int mid) {
 		int count = 0, col = a[0].length - 1;
 		for (int[] row : a) {
-			while (col >= 0 && row[col] > mid) col--;
+			while (col >= 0 && row[col] > mid) {
+				col--;
+			}
 			count += col + 1;
 		}
 		return count;
